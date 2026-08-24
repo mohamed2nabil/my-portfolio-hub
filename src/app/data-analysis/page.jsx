@@ -52,11 +52,11 @@ export default function DataAnalysisPage() {
               
               <div className="flex flex-col md:flex-row items-center gap-12">
                   <div className="md:w-1/3 flex justify-center">
-                      <div className="relative w-64 h-80">
-                          <div className="absolute inset-0 rounded-tl-[4rem] rounded-br-[4rem] rounded-tr-md rounded-bl-md bg-gradient-to-br from-cyan-400 to-blue-500 blur-xl opacity-20"></div>
+                      <div className="relative w-64 h-64">
+                          <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-cyan-400 to-blue-500 blur-xl opacity-20"></div>
                           <img src="/images/mohamed-nabil-main.jpeg"
                                alt="About"
-                               className="relative w-full h-full object-cover object-[center_top] rounded-tl-[4rem] rounded-br-[4rem] rounded-tr-md rounded-bl-md border border-cyan-500/30 shadow-lg" />
+                               className="relative w-full h-full object-cover rounded-2xl border border-hairline shadow-lg" />
                       </div>
                   </div>
                   

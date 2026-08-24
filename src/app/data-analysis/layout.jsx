@@ -1,0 +1,1 @@
+export const metadata = { title: 'Mohamed Nabil | DATA ANALYSIS' }; export default function Layout({children}) { return <>{children}</>; }

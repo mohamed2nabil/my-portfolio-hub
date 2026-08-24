@@ -2,6 +2,7 @@
 
 import { useRef, useState, useEffect } from "react";
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
+import Interactive3DScene from "../components/Interactive3DScene";
 
 export default function LandingPage() {
   const containerRef = useRef(null);
@@ -32,18 +33,13 @@ export default function LandingPage() {
       {/* HERO SECTION */}
       <section className="min-h-screen flex flex-col lg:flex-row pt-[100px] pb-20 relative overflow-hidden">
         
-        {/* ORIGINAL 3D SCENE ASSET */}
-        <div className="absolute inset-0 lg:relative lg:w-1/2 h-full min-h-[60vh] flex items-center justify-center opacity-30 lg:opacity-100 z-0 pointer-events-none lg:order-2">
+        {/* REAL 3D INTERACTIVE EXPERIENCE */}
+        <div className="absolute inset-0 lg:relative lg:w-1/2 h-full min-h-[60vh] flex items-center justify-center z-0 lg:order-2">
           <motion.div 
-            style={{ y: sceneY, rotate: sceneRotate }}
+            style={{ opacity: useTransform(smoothProgress, [0, 0.5], [1, 0]) }}
             className="w-full h-full flex items-center justify-center"
           >
-            <object 
-              data="/images/3d-space-center.svg" 
-              type="image/svg+xml"
-              className="w-[120%] lg:w-[150%] max-w-none h-auto object-contain mix-blend-luminosity opacity-80"
-              aria-label="3D Space Center Landing Page Scene"
-            />
+            <Interactive3DScene />
           </motion.div>
         </div>
 

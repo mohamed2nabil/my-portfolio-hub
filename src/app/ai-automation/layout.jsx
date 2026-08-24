@@ -1,0 +1,1 @@
+export const metadata = { title: 'Mohamed Nabil | AI AUTOMATION' }; export default function Layout({children}) { return <>{children}</>; }
