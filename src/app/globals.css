@@ -1,0 +1,56 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ground: #EFE9DD;
+  --color-secondary-ground: #E5DED0;
+  --color-ink: #141C2B;
+  --color-secondary-ink: #4A5364;
+  --color-muted: #767E8C;
+  --color-ink-blue: #2C4A8F;
+  --color-hairline: rgba(20, 28, 43, 0.16);
+
+  --font-serif: "Newsreader", serif;
+  --font-mono: "Courier Prime", monospace;
+  --font-sans: "Inter", sans-serif;
+}
+
+:root {
+  --background: var(--color-ground);
+  --foreground: var(--color-ink);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #09090b; /* Custom space dark */
+    --foreground: #fafafa;
+    --color-ground: #0a0e17; 
+    --color-secondary-ground: #141c2b;
+    --color-ink: #EFE9DD;
+    --color-secondary-ink: #A0AABF;
+    --color-muted: #4A5364;
+    --color-ink-blue: #4B7BFF;
+    --color-hairline: rgba(239, 233, 221, 0.16);
+  }
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: var(--font-mono);
+}
+
+.font-serif { font-family: var(--font-serif); }
+.font-mono { font-family: var(--font-mono); }
+
+/* SVG Animation drawing effect */
+.draw-path {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: draw 2s ease forwards;
+}
+
+@keyframes draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
