@@ -1,104 +1,109 @@
-"use client";
-
-import React from "react";
-import Link from "next/link";
+import Link from 'next/link';
+import { Bot, Workflow, Zap, Database, GitBranch, ArrowRight } from 'lucide-react';
+import { aiProjects } from '../../data/ai-projects';
 
 export default function AIAutomationPage() {
   return (
-    <div className="w-full bg-[#1e1e1e] text-white">
-      {/* 1. ORIGINAL TEMPLATE HERO (PARALLAX bg-dark.png) */}
-      <section className="min-h-[700px] flex items-center justify-start px-[5%] md:px-[15%] w-full bg-[url('/templates/ai-automation/media/bg-dark.f420c6b8458af72de935.png')] bg-fixed bg-no-repeat bg-cover bg-center pt-[58px]">
-        <div className="z-10 text-left text-white w-[90%] md:w-full">
-          <h1 className="text-5xl md:text-[5em] font-bold m-0 leading-tight">AI Automation</h1>
-          <p className="text-xl md:text-[1.5em] m-0 text-gray-300 mt-2">Intelligent Workflows & Agents</p>
-          <p className="text-sm md:text-base text-gray-400 max-w-2xl mt-6">
+    <div className="min-h-screen bg-ground text-ink font-mono pt-[58px]">
+      
+      {/* HERO SECTION */}
+      <section className="pt-24 pb-16 px-6 relative overflow-hidden">
+        <div className="absolute inset-0 z-0 bg-cover bg-center opacity-10" style={{ backgroundImage: "url('/images/ai_automation/background_hero.jpeg')" }}></div>
+        <div className="container mx-auto relative z-10 max-w-5xl text-center">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-ground border border-hairline rounded-full text-xs font-bold tracking-widest uppercase mb-8 shadow-sm text-ink-blue">
+            <Zap size={14} className="text-ink-blue animate-pulse" /> Intelligent Automation
+          </div>
+          <h1 className="font-serif text-5xl md:text-7xl font-bold mb-6 text-ink tracking-tight">
+            AI <span className="italic text-ink-blue">Automation</span>
+          </h1>
+          <p className="text-secondary-ink text-sm md:text-base mb-12 max-w-2xl mx-auto leading-relaxed">
             I don&apos;t just build chatbots. I design AI-powered systems that integrate with your business workflows, connect to your data, and automate repetitive tasks reliably.
           </p>
+          <div className="flex justify-center gap-4">
+            <a href="#workflows" className="px-8 py-4 bg-ink text-ground font-bold uppercase tracking-widest text-xs hover:bg-ink-blue transition-colors shadow-sm rounded-full flex items-center gap-2">
+              Explore Workflows <ArrowRight size={14} />
+            </a>
+          </div>
         </div>
       </section>
 
-      {/* 2. ORIGINAL TEMPLATE TIMELINE (Career History / Architecture) */}
-      <section className="py-20 px-[5%] md:px-[15%] bg-[#121212]">
-        <h1 className="text-3xl font-bold text-white mb-10">Automation Architecture</h1>
-        <div className="flex flex-col border-l-4 border-gray-600 pl-6 gap-8 ml-4">
+      {/* WORKFLOW ARCHITECTURE */}
+      <section className="py-20 bg-secondary-ground/50 border-y border-hairline">
+        <div className="container mx-auto px-6 max-w-4xl">
+          <h2 className="font-serif text-3xl font-bold text-center mb-16 text-ink">Automation Architecture</h2>
           
-          <div className="relative">
-            <div className="absolute -left-[43px] bg-[#5000ca] text-white rounded-full p-1.5 w-8 h-8 flex items-center justify-center font-bold">1</div>
-            <div className="bg-white text-[#272822] p-6 rounded-lg border border-[#ddd]">
-              <h3 className="m-0 text-xl font-bold">Trigger / Input</h3>
-              <h4 className="my-2 text-[#666] text-sm">Webhooks, APIs, Forms</h4>
-              <p className="m-0 text-sm font-mono text-gray-600">The workflow initiates automatically from incoming data or schedules.</p>
+          <div className="flex flex-col md:flex-row items-center justify-center gap-4">
+            {/* Node 1 */}
+            <div className="w-48 p-6 bg-ground border border-hairline rounded-xl text-center shadow-sm relative group hover:border-ink-blue transition-colors">
+              <Database size={32} className="mx-auto mb-4 text-ink-blue group-hover:scale-110 transition-transform" />
+              <h3 className="font-bold text-sm mb-1">Trigger / Input</h3>
+              <p className="text-[10px] text-secondary-ink uppercase tracking-widest">Webhooks, APIs</p>
+            </div>
+            
+            <div className="text-ink-blue hidden md:block animate-pulse"><ArrowRight /></div>
+            <div className="text-ink-blue md:hidden rotate-90 animate-pulse"><ArrowRight /></div>
+            
+            {/* Node 2 */}
+            <div className="w-48 p-6 bg-ground border-2 border-ink-blue rounded-xl text-center shadow-md relative group">
+              <Bot size={32} className="mx-auto mb-4 text-ink-blue group-hover:scale-110 transition-transform" />
+              <h3 className="font-bold text-sm mb-1">AI Agent</h3>
+              <p className="text-[10px] text-secondary-ink uppercase tracking-widest">LLM Processing</p>
+            </div>
+            
+            <div className="text-ink-blue hidden md:block animate-pulse"><ArrowRight /></div>
+            <div className="text-ink-blue md:hidden rotate-90 animate-pulse"><ArrowRight /></div>
+            
+            {/* Node 3 */}
+            <div className="w-48 p-6 bg-ground border border-hairline rounded-xl text-center shadow-sm relative group hover:border-ink-blue transition-colors">
+              <GitBranch size={32} className="mx-auto mb-4 text-ink-blue group-hover:scale-110 transition-transform" />
+              <h3 className="font-bold text-sm mb-1">Action / Output</h3>
+              <p className="text-[10px] text-secondary-ink uppercase tracking-widest">CRM, Email, DB</p>
             </div>
           </div>
-
-          <div className="relative">
-            <div className="absolute -left-[43px] bg-[#5000ca] text-white rounded-full p-1.5 w-8 h-8 flex items-center justify-center font-bold">2</div>
-            <div className="bg-white text-[#272822] p-6 rounded-lg border border-[#ddd]">
-              <h3 className="m-0 text-xl font-bold">AI Agent / LLM Processing</h3>
-              <h4 className="my-2 text-[#666] text-sm">OpenAI, LangChain, Custom Prompts</h4>
-              <p className="m-0 text-sm font-mono text-gray-600">AI analyzes intent, extracts information, or generates necessary content.</p>
-            </div>
-          </div>
-
-          <div className="relative">
-            <div className="absolute -left-[43px] bg-[#5000ca] text-white rounded-full p-1.5 w-8 h-8 flex items-center justify-center font-bold">3</div>
-            <div className="bg-white text-[#272822] p-6 rounded-lg border border-[#ddd]">
-              <h3 className="m-0 text-xl font-bold">Action / Output</h3>
-              <h4 className="my-2 text-[#666] text-sm">CRM, Email, Database</h4>
-              <p className="m-0 text-sm font-mono text-gray-600">The processed data is formatted and pushed securely to the final destination.</p>
-            </div>
-          </div>
-
         </div>
       </section>
 
-      {/* 3. ORIGINAL TEMPLATE PROJECTS GRID */}
-      <section className="flex flex-col py-20 px-[5%] md:px-[10%] text-left bg-black text-white">
-        <h1 className="text-4xl font-bold mb-12">Deployed Solutions</h1>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-            
-            <div className="project">
-                <div className="overflow-hidden rounded-[5px] mx-auto w-full mb-4">
-                  <img src="/templates/ai-automation/media/mock10.2d05b02ba569a430a255.png" className="w-full transition-transform duration-200 hover:scale-105" alt="B2B Growth AI Bot" />
+      {/* CORE CAPABILITIES */}
+      <section id="workflows" className="py-24 bg-ground">
+        <div className="container mx-auto px-6 max-w-6xl">
+          <div className="mb-16 text-center">
+            <h2 className="font-serif text-3xl font-bold text-ink mb-4">Deployed Solutions</h2>
+            <p className="text-sm text-secondary-ink max-w-2xl mx-auto">Replacing manual effort with reliable, 24/7 intelligent systems.</p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {aiProjects.map((project) => (
+              <Link href={`/ai-automation/${project.id}`} key={project.id} className="p-8 border border-hairline bg-secondary-ground hover:border-ink-blue transition-all duration-300 group rounded-2xl shadow-sm block cursor-pointer flex flex-col">
+                <div className="flex items-center gap-4 mb-6 border-b border-hairline pb-6">
+                  <div className="w-12 h-12 rounded-full bg-ink flex items-center justify-center text-ground shrink-0">
+                    <Bot size={20} />
+                  </div>
+                  <div>
+                    <h3 className="font-serif text-xl font-bold text-ink group-hover:text-ink-blue transition-colors">{project.title}</h3>
+                    <span className="text-[10px] uppercase tracking-widest text-ink-blue font-bold">{project.category}</span>
+                  </div>
                 </div>
-                <h2 className="text-2xl font-bold hover:underline cursor-pointer mb-2">B2B Growth AI Bot</h2>
-                <p className="text-gray-400 text-sm leading-relaxed">
-                  Replaced traditional Contact Us forms with a conversational agent that qualifies leads, collects requirements contextually, and pushes data to the CRM automatically using VoiceFlow, Zapier, and Make.
+                <p className="text-sm text-secondary-ink mb-6 leading-relaxed flex-grow">
+                  {project.shortDesc}
                 </p>
-            </div>
-
-            <div className="project">
-                <div className="overflow-hidden rounded-[5px] mx-auto w-full mb-4">
-                  <img src="/templates/ai-automation/media/mock09.e18677ccfc932e52d754.png" className="w-full transition-transform duration-200 hover:scale-105" alt="Instagram DM Automation" />
+                <div className="flex items-center justify-between mt-auto pt-4 border-t border-hairline border-opacity-50">
+                  <span className="text-xs font-bold uppercase tracking-widest text-ink flex items-center gap-2 group-hover:text-ink-blue">View Project <ArrowRight size={14} className="transform group-hover:translate-x-1 transition-transform" /></span>
                 </div>
-                <h2 className="text-2xl font-bold hover:underline cursor-pointer mb-2">Instagram DM Automation</h2>
-                <p className="text-gray-400 text-sm leading-relaxed">
-                  Connected ManyChat to n8n to handle incoming DMs. The flow extracts intent, answers FAQs via OpenAI, and books calendar appointments directly from Instagram.
-                </p>
-            </div>
-
-            <div className="project">
-                <div className="overflow-hidden rounded-[5px] mx-auto w-full mb-4">
-                  <img src="/templates/ai-automation/media/mock08.13f46873fdbd382f4b76.png" className="w-full transition-transform duration-200 hover:scale-105" alt="Social Content Production" />
-                </div>
-                <h2 className="text-2xl font-bold hover:underline cursor-pointer mb-2">Social Content Production</h2>
-                <p className="text-gray-400 text-sm leading-relaxed">
-                  Automated social media asset creation. The workflow reads Google Sheets, generates text/images, and schedules them via API without human intervention.
-                </p>
-            </div>
-
-            <div className="project">
-                <div className="overflow-hidden rounded-[5px] mx-auto w-full mb-4">
-                  <img src="/templates/ai-automation/media/mock06.ea816617e0d0fa0f63ca.png" className="w-full transition-transform duration-200 hover:scale-105" alt="News-to-Content Pipeline" />
-                </div>
-                <h2 className="text-2xl font-bold hover:underline cursor-pointer mb-2">News-to-Content Pipeline</h2>
-                <p className="text-gray-400 text-sm leading-relaxed">
-                  Scrapes RSS feeds using n8n, passes raw news to an LLM to rewrite it in a specific brand tone, and publishes directly to a WordPress backend.
-                </p>
-            </div>
-            
+              </Link>
+            ))}
+          </div>
+          
+          {/* CTA specific to AI Automation */}
+          <div className="mt-20 p-8 text-center bg-secondary-ground border border-hairline rounded-2xl">
+            <h3 className="text-2xl font-bold font-serif text-ink mb-4">Have a process worth automating?</h3>
+            <p className="text-sm text-secondary-ink mb-8 max-w-lg mx-auto">Stop doing manual data entry. Let&apos;s build an intelligent agent that works while you sleep.</p>
+            <Link href="/#contact" className="inline-block px-8 py-4 bg-ink-blue text-ground font-bold uppercase tracking-widest text-xs hover:bg-ink transition-colors rounded-full shadow-sm">
+                Discuss Your Workflow
+            </Link>
+          </div>
         </div>
       </section>
+
     </div>
   );
 }

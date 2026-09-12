@@ -1,6 +1,7 @@
 "use client";
 import React from 'react';
 import Link from 'next/link';
+import { dataAnalysisProjects } from '../../data/data-analysis-projects';
 
 export default function DataAnalysisPage() {
   return (
@@ -33,7 +34,7 @@ export default function DataAnalysisPage() {
               <div className="md:w-1/2 flex justify-center">
                   <div className="relative w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96">
                       <div className="absolute inset-0 rounded-full bg-gradient-to-br from-cyan-400 to-blue-500 blur-2xl opacity-20 animate-pulse"></div>
-                      <img src="/images/mohamed-nabil-main.jpeg"
+                      <img src="/templates/data-analysis/my%20photo.jpeg"
                            alt="Profile"
                            className="relative w-full h-full object-cover rounded-full border-4 border-hairline shadow-2xl" 
                            style={{ animation: 'float 6s ease-in-out infinite' }} />
@@ -54,7 +55,7 @@ export default function DataAnalysisPage() {
                   <div className="md:w-1/3 flex justify-center">
                       <div className="relative w-64 h-64">
                           <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-cyan-400 to-blue-500 blur-xl opacity-20"></div>
-                          <img src="/images/mohamed-nabil-main.jpeg"
+                          <img src="/templates/data-analysis/my%20photo.jpeg"
                                alt="About"
                                className="relative w-full h-full object-cover rounded-2xl border border-hairline shadow-lg" />
                       </div>
@@ -173,119 +174,37 @@ export default function DataAnalysisPage() {
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {/* UK Train Analytics */}
-                <div className="bg-ground border border-hairline overflow-hidden group hover:shadow-xl transition-all duration-300 flex flex-col">
-                    <div className="h-48 w-full overflow-hidden relative bg-ink/5">
-                        <div className="absolute inset-0 bg-gradient-to-t from-ground to-transparent z-10"></div>
-                        <i className="fas fa-train absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-6xl text-hairline group-hover:scale-110 transition-transform duration-500"></i>
-                    </div>
-                    <div className="p-6 flex-1 flex flex-col relative z-20 -mt-10">
-                        <h3 className="text-xl font-bold mb-2 font-serif">UK Train Analytics Dashboard</h3>
-                        <p className="text-secondary-ink text-sm mb-4 leading-relaxed flex-1">A complete workflow from raw operational data to business interpretation. Analyzed journey reliability, pricing, and revenue across UK train stations.</p>
-                        <div className="flex flex-wrap gap-2 mb-6">
-                            <span className="px-2 py-1 border border-hairline bg-secondary-ground text-[10px] font-mono uppercase">Power BI</span>
-                            <span className="px-2 py-1 border border-hairline bg-secondary-ground text-[10px] font-mono uppercase">DAX</span>
+                {dataAnalysisProjects.map((project) => (
+                    <div key={project.id} className="bg-ground border border-hairline overflow-hidden group hover:shadow-xl transition-all duration-300 flex flex-col">
+                        <Link href={`/data-analysis/${project.id}`} className="block flex-1 flex flex-col">
+                            <div className="h-60 w-full overflow-hidden relative border-b border-hairline bg-ground">
+                                <img src={project.poster} alt={project.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                            </div>
+                            <div className="p-6 flex-1 flex flex-col">
+                                <h3 className="text-xl font-bold mb-2 font-serif group-hover:text-ink-blue transition-colors">{project.title}</h3>
+                                <p className="text-secondary-ink text-sm mb-4 leading-relaxed flex-1 line-clamp-3">{project.shortDesc}</p>
+                                <div className="flex flex-wrap gap-2 mb-2">
+                                    <span className="px-2 py-1 border border-hairline bg-secondary-ground text-[10px] font-mono uppercase text-ink-blue">{project.category}</span>
+                                </div>
+                            </div>
+                        </Link>
+                        <div className="border-t border-hairline px-6 py-4 flex items-center justify-between text-xs font-mono bg-secondary-ground/20">
+                            <Link href={`/data-analysis/${project.id}`} className="text-ink-blue uppercase tracking-widest flex items-center gap-1 font-bold hover:text-ink transition-colors">
+                                View Details <i className="fas fa-arrow-right text-[10px]"></i>
+                            </Link>
+                            {project.github && (
+                                <a
+                                    href={project.github}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="inline-flex items-center gap-1.5 text-secondary-ink hover:text-ink uppercase tracking-widest font-bold transition-colors"
+                                >
+                                    <i className="fab fa-github text-sm"></i> GitHub
+                                </a>
+                            )}
                         </div>
-                        <a href="https://github.com/mohamed2nabil/UK-Train-Analytics-Dashboard" className="text-ink-blue font-mono text-xs uppercase tracking-widest hover:text-ink transition-colors border-t border-hairline pt-4">
-                            <i className="fab fa-github mr-2"></i> View Project
-                        </a>
                     </div>
-                </div>
-
-                {/* Retail Sales Analysis */}
-                <div className="bg-ground border border-hairline overflow-hidden group hover:shadow-xl transition-all duration-300 flex flex-col">
-                    <div className="h-48 w-full overflow-hidden relative bg-ink/5">
-                        <div className="absolute inset-0 bg-gradient-to-t from-ground to-transparent z-10"></div>
-                        <i className="fas fa-shopping-cart absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-6xl text-hairline group-hover:scale-110 transition-transform duration-500"></i>
-                    </div>
-                    <div className="p-6 flex-1 flex flex-col relative z-20 -mt-10">
-                        <h3 className="text-xl font-bold mb-2 font-serif">Retail Sales Data Analysis</h3>
-                        <p className="text-secondary-ink text-sm mb-4 leading-relaxed flex-1">Extensive analytical querying using SQL to understand retail sales behavior, customer segmentation, seasonality, and high-value transactions.</p>
-                        <div className="flex flex-wrap gap-2 mb-6">
-                            <span className="px-2 py-1 border border-hairline bg-secondary-ground text-[10px] font-mono uppercase">PostgreSQL</span>
-                            <span className="px-2 py-1 border border-hairline bg-secondary-ground text-[10px] font-mono uppercase">CTEs</span>
-                        </div>
-                        <a href="https://github.com/mohamed2nabil/sql_analysis" className="text-ink-blue font-mono text-xs uppercase tracking-widest hover:text-ink transition-colors border-t border-hairline pt-4">
-                            <i className="fab fa-github mr-2"></i> View Project
-                        </a>
-                    </div>
-                </div>
-
-                {/* Employee Survey Analysis */}
-                <div className="bg-ground border border-hairline overflow-hidden group hover:shadow-xl transition-all duration-300 flex flex-col">
-                    <div className="h-48 w-full overflow-hidden relative bg-ink/5">
-                        <div className="absolute inset-0 bg-gradient-to-t from-ground to-transparent z-10"></div>
-                        <i className="fas fa-users absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-6xl text-hairline group-hover:scale-110 transition-transform duration-500"></i>
-                    </div>
-                    <div className="p-6 flex-1 flex flex-col relative z-20 -mt-10">
-                        <h3 className="text-xl font-bold mb-2 font-serif">Employee Survey Analysis</h3>
-                        <p className="text-secondary-ink text-sm mb-4 leading-relaxed flex-1">Translated 15K+ survey responses into organizational KPIs and management-facing insights comparing departments and seniority via Power BI.</p>
-                        <div className="flex flex-wrap gap-2 mb-6">
-                            <span className="px-2 py-1 border border-hairline bg-secondary-ground text-[10px] font-mono uppercase">HR Analytics</span>
-                            <span className="px-2 py-1 border border-hairline bg-secondary-ground text-[10px] font-mono uppercase">Likert Scale</span>
-                        </div>
-                        <a href="https://github.com/mohamed2nabil/Employee-Survey-Analysis-Dashboard" className="text-ink-blue font-mono text-xs uppercase tracking-widest hover:text-ink transition-colors border-t border-hairline pt-4">
-                            <i className="fab fa-github mr-2"></i> View Project
-                        </a>
-                    </div>
-                </div>
-
-                {/* Saudi Banking Analysis */}
-                <div className="bg-ground border border-hairline overflow-hidden group hover:shadow-xl transition-all duration-300 flex flex-col">
-                    <div className="h-48 w-full overflow-hidden relative bg-ink/5">
-                        <div className="absolute inset-0 bg-gradient-to-t from-ground to-transparent z-10"></div>
-                        <i className="fas fa-university absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-6xl text-hairline group-hover:scale-110 transition-transform duration-500"></i>
-                    </div>
-                    <div className="p-6 flex-1 flex flex-col relative z-20 -mt-10">
-                        <h3 className="text-xl font-bold mb-2 font-serif">Saudi Banking Sector Analysis</h3>
-                        <p className="text-secondary-ink text-sm mb-4 leading-relaxed flex-1">Comprehensive analysis of banking complaints, service quality, and regional differences across Saudi Arabia. Created Arabic RTL dashboards.</p>
-                        <div className="flex flex-wrap gap-2 mb-6">
-                            <span className="px-2 py-1 border border-hairline bg-secondary-ground text-[10px] font-mono uppercase">Power Query</span>
-                            <span className="px-2 py-1 border border-hairline bg-secondary-ground text-[10px] font-mono uppercase">RTL</span>
-                        </div>
-                        <a href="https://github.com/mohamed2nabil/problem-analysis-in-suide-arabe-with-power-bi" className="text-ink-blue font-mono text-xs uppercase tracking-widest hover:text-ink transition-colors border-t border-hairline pt-4">
-                            <i className="fab fa-github mr-2"></i> View Project
-                        </a>
-                    </div>
-                </div>
-
-                {/* FDI Forecasting */}
-                <div className="bg-ground border border-hairline overflow-hidden group hover:shadow-xl transition-all duration-300 flex flex-col">
-                    <div className="h-48 w-full overflow-hidden relative bg-ink/5">
-                        <div className="absolute inset-0 bg-gradient-to-t from-ground to-transparent z-10"></div>
-                        <i className="fas fa-chart-area absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-6xl text-hairline group-hover:scale-110 transition-transform duration-500"></i>
-                    </div>
-                    <div className="p-6 flex-1 flex flex-col relative z-20 -mt-10">
-                        <h3 className="text-xl font-bold mb-2 font-serif">FDI Forecasting in Egypt</h3>
-                        <p className="text-secondary-ink text-sm mb-4 leading-relaxed flex-1">Academic time-series forecasting of Net Foreign Direct Investment using statistical modeling (ARIMA / Box-Jenkins) via Python.</p>
-                        <div className="flex flex-wrap gap-2 mb-6">
-                            <span className="px-2 py-1 border border-hairline bg-secondary-ground text-[10px] font-mono uppercase">Python</span>
-                            <span className="px-2 py-1 border border-hairline bg-secondary-ground text-[10px] font-mono uppercase">ARIMA</span>
-                        </div>
-                        <a href="https://github.com/mohamed2nabil/Forecasting-Net-Foreign-Direct-Investment-FDI-in-Egypt-1999-2026-" className="text-ink-blue font-mono text-xs uppercase tracking-widest hover:text-ink transition-colors border-t border-hairline pt-4">
-                            <i className="fab fa-github mr-2"></i> View Project
-                        </a>
-                    </div>
-                </div>
-
-                {/* Cycling Performance */}
-                <div className="bg-ground border border-hairline overflow-hidden group hover:shadow-xl transition-all duration-300 flex flex-col">
-                    <div className="h-48 w-full overflow-hidden relative bg-ink/5">
-                        <div className="absolute inset-0 bg-gradient-to-t from-ground to-transparent z-10"></div>
-                        <i className="fas fa-bicycle absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-6xl text-hairline group-hover:scale-110 transition-transform duration-500"></i>
-                    </div>
-                    <div className="p-6 flex-1 flex flex-col relative z-20 -mt-10">
-                        <h3 className="text-xl font-bold mb-2 font-serif">Cycling Performance Analysis</h3>
-                        <p className="text-secondary-ink text-sm mb-4 leading-relaxed flex-1">Statistical investigation using One-Way/Two-Way ANOVA and Tukey HSD to study rider specialization versus stage topography.</p>
-                        <div className="flex flex-wrap gap-2 mb-6">
-                            <span className="px-2 py-1 border border-hairline bg-secondary-ground text-[10px] font-mono uppercase">Statistics</span>
-                            <span className="px-2 py-1 border border-hairline bg-secondary-ground text-[10px] font-mono uppercase">ANOVA</span>
-                        </div>
-                        <a href="https://github.com/mohamed2nabil/Cycling-Performance-Analysis" className="text-ink-blue font-mono text-xs uppercase tracking-widest hover:text-ink transition-colors border-t border-hairline pt-4">
-                            <i className="fab fa-github mr-2"></i> View Project
-                        </a>
-                    </div>
-                </div>
+                ))}
             </div>
         </div>
       </section>

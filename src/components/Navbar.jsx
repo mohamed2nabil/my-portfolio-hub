@@ -17,9 +17,8 @@ export default function Navbar() {
   return (
     <nav className="fixed top-0 left-0 right-0 h-[58px] bg-ground/80 backdrop-blur-[12px] border-b border-hairline z-50 flex items-center px-6">
       <div className="flex-1 flex items-center">
-        <Link href="/" className="flex flex-col text-ink group relative z-50">
-          <span className="font-serif text-xl tracking-tight leading-none group-hover:italic transition-all">Mohamed Nabil</span>
-          <span className="font-mono text-[10px] uppercase tracking-widest text-ink-blue mt-1">IT Engineer</span>
+        <Link href="/" className="font-serif text-[19px] text-ink font-semibold tracking-tight">
+          M.Nabil<span className="text-ink-blue">.</span>
         </Link>
       </div>
 

@@ -2,7 +2,6 @@
 
 import { useRef, useState, useEffect } from "react";
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
-import Interactive3DScene from "../components/Interactive3DScene";
 
 export default function LandingPage() {
   const containerRef = useRef(null);
@@ -18,34 +17,51 @@ export default function LandingPage() {
     restDelta: 0.001
   });
 
+  // Traveling product transformations
+  const productX = useTransform(smoothProgress, [0, 0.2, 0.5, 0.8, 1], ["50vw", "75vw", "25vw", "50vw", "50vw"]);
+  const productY = useTransform(smoothProgress, [0, 0.2, 0.5, 0.8, 1], ["30vh", "50vh", "70vh", "85vh", "90vh"]);
+  const productRotate = useTransform(smoothProgress, [0, 1], [0, 360]);
+  const productScale = useTransform(smoothProgress, [0, 0.5, 1], [1, 1.5, 0.8]);
+  const productOpacity = useTransform(smoothProgress, [0, 0.8, 0.9, 1], [1, 1, 0, 0]);
+
   // Spread wordmark in Hero
   const wordmarkSpacing = useTransform(smoothProgress, [0, 0.1], ["-0.02em", "0.5em"]);
   const wordmarkY = useTransform(smoothProgress, [0, 0.1], ["0px", "50px"]);
   const wordmarkOpacity = useTransform(smoothProgress, [0, 0.1], [1, 0]);
 
-  // Parallax for 3D Scene
-  const sceneY = useTransform(smoothProgress, [0, 1], ["0%", "30%"]);
-  const sceneRotate = useTransform(smoothProgress, [0, 1], [0, 10]);
-
   return (
     <div ref={containerRef} className="relative bg-ground text-ink min-h-[500vh]">
       
-      {/* HERO SECTION */}
-      <section className="min-h-screen flex flex-col lg:flex-row pt-[100px] pb-20 relative overflow-hidden">
-        
-        {/* REAL 3D INTERACTIVE EXPERIENCE */}
-        <div className="absolute inset-0 lg:relative lg:w-1/2 h-full min-h-[60vh] flex items-center justify-center z-0 lg:order-2">
-          <motion.div 
-            style={{ opacity: useTransform(smoothProgress, [0, 0.5], [1, 0]) }}
-            className="w-full h-full flex items-center justify-center"
-          >
-            <Interactive3DScene />
-          </motion.div>
-        </div>
+      {/* 1. TRAVELING PROFILE */}
+      <motion.div
+        style={{
+          position: "fixed",
+          left: 0,
+          top: 0,
+          x: productX,
+          y: productY,
+          rotate: productRotate,
+          scale: productScale,
+          opacity: productOpacity,
+          translateX: "-50%",
+          translateY: "-50%",
+          zIndex: 10,
+          pointerEvents: "none"
+        }}
+        className="w-32 h-32 md:w-48 md:h-48"
+      >
+        <img 
+          src="/templates/data-analysis/my%20photo.jpeg" 
+          alt="Mohamed Nabil Profile"
+          className="w-full h-full drop-shadow-2xl rounded-full object-cover border-[3px] border-ink" 
+        />
+      </motion.div>
 
-        <div className="flex-1 flex flex-col justify-center px-6 md:px-12 w-full lg:w-1/2 max-w-6xl relative z-10 lg:order-1">
+      {/* 2. HERO SECTION */}
+      <section className="min-h-screen flex flex-col pt-[100px] pb-20 relative">
+        <div className="flex-1 flex flex-col justify-center px-6 md:px-12 w-full lg:w-[70vw] max-w-6xl">
           <div className="flex items-center gap-4 mb-4">
-            <img src="/images/mohamed-nabil-main.jpeg" alt="Mohamed Nabil" className="w-12 h-12 rounded-full border border-hairline object-cover" />
+            <img src="/templates/data-analysis/my%20photo.jpeg" alt="Mohamed Nabil" className="w-12 h-12 rounded-full border border-hairline object-cover" />
             <p className="font-mono text-sm uppercase tracking-widest text-muted">Mohamed Nabil</p>
           </div>
           <h1 className="font-serif text-4xl md:text-[clamp(32px,4.6vw,68px)] leading-tight tracking-tight mb-6">

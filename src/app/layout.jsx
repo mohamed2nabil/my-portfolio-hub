@@ -2,8 +2,8 @@ import './globals.css';
 import Navbar from '@/components/Navbar';
 
 export const metadata = {
-  title: 'Mohamed Nabil | IT Engineer',
-  description: 'Portfolio hub for Mohamed Nabil, IT Engineer specializing in Data, Web Development, and Automation.',
+  title: 'Mohamed Nabil | Data Analyst',
+  description: 'Portfolio hub for Mohamed Nabil, Data Analyst and AI Automation specialist.',
 };
 
 export default function RootLayout({ children }) {
