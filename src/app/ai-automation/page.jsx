@@ -71,23 +71,53 @@ export default function AIAutomationPage() {
             <p className="text-sm text-secondary-ink max-w-2xl mx-auto">Replacing manual effort with reliable, 24/7 intelligent systems.</p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {aiProjects.map((project) => (
-              <Link href={`/ai-automation/${project.id}`} key={project.id} className="p-8 border border-hairline bg-secondary-ground hover:border-ink-blue transition-all duration-300 group rounded-2xl shadow-sm block cursor-pointer flex flex-col">
-                <div className="flex items-center gap-4 mb-6 border-b border-hairline pb-6">
-                  <div className="w-12 h-12 rounded-full bg-ink flex items-center justify-center text-ground shrink-0">
-                    <Bot size={20} />
-                  </div>
-                  <div>
-                    <h3 className="font-serif text-xl font-bold text-ink group-hover:text-ink-blue transition-colors">{project.title}</h3>
-                    <span className="text-[10px] uppercase tracking-widest text-ink-blue font-bold">{project.category}</span>
-                  </div>
+          <div className="flex flex-col gap-8 relative max-w-4xl mx-auto pb-32">
+            {aiProjects.map((project, index) => (
+              <Link 
+                href={`/ai-automation/${project.id}`} 
+                key={project.id} 
+                className="sticky border border-hairline/20 rounded-2xl shadow-2xl flex flex-col md:flex-row overflow-hidden h-auto md:h-[380px]"
+                style={{ top: `calc(100px + ${index * 24}px)` }}
+              >
+                {/* Image Side */}
+                <div className="w-full md:w-1/2 relative bg-black">
+                  <img src={project.poster} alt={project.title} className="absolute inset-0 w-full h-full object-cover opacity-90 transition-transform duration-700 group-hover:scale-105" />
                 </div>
-                <p className="text-sm text-secondary-ink mb-6 leading-relaxed flex-grow">
-                  {project.shortDesc}
-                </p>
-                <div className="flex items-center justify-between mt-auto pt-4 border-t border-hairline border-opacity-50">
-                  <span className="text-xs font-bold uppercase tracking-widest text-ink flex items-center gap-2 group-hover:text-ink-blue">View Project <ArrowRight size={14} className="transform group-hover:translate-x-1 transition-transform" /></span>
+                
+                {/* Content Side */}
+                <div className="w-full md:w-1/2 p-8 flex flex-col bg-gradient-to-br from-slate-900 to-black text-white relative overflow-hidden">
+                  {/* Decorative subtle glow based on index to mimic the image gradients */}
+                  <div className={`absolute -top-24 -right-24 w-64 h-64 rounded-full blur-3xl opacity-20 ${index % 2 === 0 ? 'bg-blue-500' : 'bg-emerald-500'}`}></div>
+
+                  <div className="flex items-center gap-3 mb-4 relative z-10">
+                    <span className="text-[9px] px-3 py-1 border border-white/20 rounded-full uppercase tracking-widest font-bold bg-white/5">
+                      {project.category}
+                    </span>
+                    <span className="text-[10px] text-white/50 font-mono tracking-widest">
+                      0{index + 1} / 0{aiProjects.length}
+                    </span>
+                  </div>
+                  
+                  <h3 className="font-serif text-2xl font-bold group-hover:text-blue-400 transition-colors mb-4 leading-tight relative z-10">
+                    {project.title}
+                  </h3>
+                  
+                  <div className="text-xs text-gray-300 mb-6 leading-relaxed flex-grow space-y-3 relative z-10">
+                    <p><strong className="text-white">Business Case:</strong> {project.problem}</p>
+                    <p><strong className="text-white">Workflow Result:</strong> {project.solution}</p>
+                  </div>
+                  
+                  <div className="flex flex-wrap gap-3 mb-6 relative z-10">
+                    {project.techStack?.slice(0,3).map(tech => (
+                      <span key={tech} className="text-[9px] text-gray-400 uppercase tracking-widest">{tech}</span>
+                    ))}
+                  </div>
+
+                  <div className="mt-auto pt-5 border-t border-white/10 flex items-center justify-between relative z-10">
+                    <span className="text-xs font-bold uppercase tracking-widest flex items-center gap-2 group-hover:text-blue-400 transition-colors">
+                      View Project <ArrowRight size={14} className="transform group-hover:translate-x-1 transition-transform" />
+                    </span>
+                  </div>
                 </div>
               </Link>
             ))}
