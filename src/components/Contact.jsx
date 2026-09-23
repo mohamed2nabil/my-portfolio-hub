@@ -1,6 +1,33 @@
-import React from 'react';
+"use client";
+
+import React, { useRef, useState } from 'react';
+import emailjs from '@emailjs/browser';
 
 export default function Contact() {
+  const formRef = useRef();
+  const [status, setStatus] = useState('');
+
+  const sendEmail = (e) => {
+    e.preventDefault();
+    if (status === 'sending') return;
+    setStatus('sending');
+
+    // ponytail: NEXT_PUBLIC_* vars work transparently across local/Vercel
+    emailjs.sendForm(
+      process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID,
+      process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID,
+      formRef.current,
+      process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY
+    )
+      .then(() => {
+        setStatus('success');
+        formRef.current.reset();
+      }, (error) => {
+        setStatus('error');
+        console.error(error);
+      });
+  };
+
   return (
     <section id="contact" className="py-20 bg-ground text-ink border-t border-hairline">
       <div className="container mx-auto px-6 max-w-4xl">
@@ -66,24 +93,30 @@ export default function Contact() {
           {/* Contact Form */}
           <div>
             <h3 className="text-2xl font-serif mb-6">Send Me a Message</h3>
-            <form className="space-y-4 font-mono text-sm">
+            <form ref={formRef} onSubmit={sendEmail} className="space-y-4 font-mono text-sm">
               <div className="grid grid-cols-1 gap-4">
                 <div>
                   <label htmlFor="name" className="block mb-2 text-muted text-xs uppercase tracking-widest">Your Name</label>
-                  <input type="text" id="name" className="w-full px-4 py-3 bg-secondary-ground border border-hairline focus:border-ink-blue focus:outline-none" required />
+                  <input type="text" id="name" name="name" className="w-full px-4 py-3 bg-secondary-ground border border-hairline focus:border-ink-blue focus:outline-none" required />
                 </div>
                 <div>
                   <label htmlFor="email" className="block mb-2 text-muted text-xs uppercase tracking-widest">Your Email</label>
-                  <input type="email" id="email" className="w-full px-4 py-3 bg-secondary-ground border border-hairline focus:border-ink-blue focus:outline-none" required />
+                  <input type="email" id="email" name="email" className="w-full px-4 py-3 bg-secondary-ground border border-hairline focus:border-ink-blue focus:outline-none" required />
                 </div>
               </div>
               <div>
-                <label htmlFor="message" className="block mb-2 text-muted text-xs uppercase tracking-widest">Message</label>
-                <textarea id="message" rows="4" className="w-full px-4 py-3 bg-secondary-ground border border-hairline focus:border-ink-blue focus:outline-none" required></textarea>
+                <label htmlFor="title" className="block mb-2 text-muted text-xs uppercase tracking-widest">Subject</label>
+                <input type="text" id="title" name="title" className="w-full px-4 py-3 bg-secondary-ground border border-hairline focus:border-ink-blue focus:outline-none" required />
               </div>
-              <button type="submit" className="w-full px-8 py-4 bg-ink text-ground font-mono text-xs uppercase tracking-widest hover:bg-ink-blue transition-colors">
-                Send Message
+              <div>
+                <label htmlFor="message" className="block mb-2 text-muted text-xs uppercase tracking-widest">Message</label>
+                <textarea id="message" name="message" rows="4" className="w-full px-4 py-3 bg-secondary-ground border border-hairline focus:border-ink-blue focus:outline-none" required></textarea>
+              </div>
+              <button type="submit" disabled={status === 'sending'} className="w-full px-8 py-4 bg-ink text-ground font-mono text-xs uppercase tracking-widest hover:bg-ink-blue transition-colors disabled:opacity-50">
+                {status === 'sending' ? 'Sending...' : 'Send Message'}
               </button>
+              {status === 'success' && <p className="text-green-500 text-xs text-center mt-2">Message sent successfully!</p>}
+              {status === 'error' && <p className="text-red-500 text-xs text-center mt-2">Failed to send. Please try again.</p>}
             </form>
           </div>
         </div>

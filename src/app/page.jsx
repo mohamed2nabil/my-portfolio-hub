@@ -6,6 +6,7 @@ import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 
 export default function LandingPage() {
   const containerRef = useRef(null);
+  const [status, setStatus] = useState('idle');
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"],
@@ -52,7 +53,7 @@ export default function LandingPage() {
         className="hidden md:block w-32 h-32 md:w-48 md:h-48"
       >
         <img 
-          src="/templates/data-analysis/my%20photo.jpeg" 
+          src="/images/mohamed-nabil-main.jpeg" 
           alt="Mohamed Nabil Profile"
           className="w-full h-full drop-shadow-2xl rounded-full object-cover border-[3px] border-ink" 
         />
@@ -62,7 +63,7 @@ export default function LandingPage() {
       <section className="min-h-[80vh] flex flex-col pt-[100px] pb-20 relative">
         <div className="flex-1 flex flex-col justify-center px-6 md:px-12 w-full lg:w-[70vw] max-w-6xl">
           <div className="flex items-center gap-4 mb-4">
-            <img src="/templates/data-analysis/my%20photo.jpeg" alt="Mohamed Nabil" className="w-12 h-12 rounded-full border border-hairline object-cover md:hidden" />
+            <img src="/images/mohamed-nabil-main.jpeg" alt="Mohamed Nabil" className="w-12 h-12 rounded-full border border-hairline object-cover md:hidden" />
             <div>
               <p className="font-mono text-sm uppercase tracking-widest text-muted">Mohamed Nabil</p>
               <p className="font-mono text-[11px] text-ink-blue tracking-wide">Systems, Data &amp; Automation Engineer</p>
@@ -243,28 +244,51 @@ export default function LandingPage() {
             
             <div>
               <h3 className="font-serif text-2xl mb-6">Send Me a Message</h3>
-              <form className="space-y-6 font-mono text-sm">
+              <form onSubmit={async (e) => {
+                e.preventDefault();
+                if (status === 'sending') return;
+                setStatus('sending');
+                
+                try {
+                  const emailjs = (await import('@emailjs/browser')).default;
+                  await emailjs.sendForm(
+                    process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID,
+                    process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID,
+                    e.target,
+                    process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY
+                  );
+                  setStatus('success');
+                  e.target.reset();
+                  setTimeout(() => setStatus('idle'), 4000);
+                } catch (error) {
+                  setStatus('error');
+                  console.error('EmailJS Error:', error);
+                }
+              }} className="space-y-6 font-mono text-sm">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
                     <label htmlFor="name" className="block mb-2 font-bold uppercase tracking-widest">Your Name</label>
-                    <input type="text" id="name" className="w-full px-4 py-3 bg-ground border border-hairline focus:border-ink-blue focus:outline-none transition-colors" required />
+                    <input type="text" id="name" name="name" className="w-full px-4 py-3 bg-ground border border-hairline focus:border-ink-blue focus:outline-none transition-colors" required />
                   </div>
                   <div>
                     <label htmlFor="email" className="block mb-2 font-bold uppercase tracking-widest">Your Email</label>
-                    <input type="email" id="email" className="w-full px-4 py-3 bg-ground border border-hairline focus:border-ink-blue focus:outline-none transition-colors" required />
+                    <input type="email" id="email" name="email" className="w-full px-4 py-3 bg-ground border border-hairline focus:border-ink-blue focus:outline-none transition-colors" required />
                   </div>
                 </div>
                 <div>
-                  <label htmlFor="subject" className="block mb-2 font-bold uppercase tracking-widest">Subject</label>
-                  <input type="text" id="subject" className="w-full px-4 py-3 bg-ground border border-hairline focus:border-ink-blue focus:outline-none transition-colors" required />
+                  <label htmlFor="title" className="block mb-2 font-bold uppercase tracking-widest">Subject</label>
+                  <input type="text" id="title" name="title" className="w-full px-4 py-3 bg-ground border border-hairline focus:border-ink-blue focus:outline-none transition-colors" required />
                 </div>
                 <div>
                   <label htmlFor="message" className="block mb-2 font-bold uppercase tracking-widest">Message</label>
-                  <textarea id="message" rows="5" className="w-full px-4 py-3 bg-ground border border-hairline focus:border-ink-blue focus:outline-none transition-colors" required></textarea>
+                  <textarea id="message" name="message" rows="5" className="w-full px-4 py-3 bg-ground border border-hairline focus:border-ink-blue focus:outline-none transition-colors" required></textarea>
                 </div>
-                <button type="button" className="px-8 py-4 bg-ink text-ground uppercase tracking-widest w-full hover:bg-ink-blue transition-colors">
-                  Send Message
+                <button type="submit" disabled={status === 'sending'} className={`px-8 py-4 uppercase tracking-widest w-full transition-colors disabled:opacity-50 ${status === 'success' ? 'bg-green-600 text-white' : status === 'error' ? 'bg-red-600 text-white' : 'bg-ink text-ground hover:bg-ink-blue'}`}>
+                  {status === 'sending' ? 'SENDING...' : status === 'success' ? '✓ MESSAGE SENT' : status === 'error' ? 'ERROR - TRY AGAIN' : 'SEND MESSAGE'}
                 </button>
+                {status === 'error' && (
+                  <p className="text-red-500 mt-2 text-xs text-center font-bold">Something went wrong. Please try again or check console.</p>
+                )}
               </form>
             </div>
           </div>

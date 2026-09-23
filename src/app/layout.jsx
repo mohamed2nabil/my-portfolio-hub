@@ -4,6 +4,9 @@ import Navbar from '@/components/Navbar';
 export const metadata = {
   title: 'Mohamed Nabil | Data Analyst',
   description: 'Portfolio hub for Mohamed Nabil, Data Analyst and AI Automation specialist.',
+  icons: {
+    icon: '/fav.png',
+  },
 };
 
 export default function RootLayout({ children }) {

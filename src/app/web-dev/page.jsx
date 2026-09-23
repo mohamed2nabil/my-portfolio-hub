@@ -31,8 +31,12 @@ export default function WebDevPage() {
             <div className="md:w-2/5 mt-16 md:mt-0 flex justify-center">
                 <div className="relative group">
                     <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500 to-teal-500 opacity-30 blur-lg group-hover:opacity-60 transition duration-1000 group-hover:duration-200"></div>
-                    <div className="relative bg-secondary-ground border-2 border-emerald-500 p-8 flex items-center justify-center shadow-xl">
-                        <svg className="w-32 h-32 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                    <div className="relative bg-secondary-ground border-2 border-emerald-500 w-48 h-48 md:w-56 md:h-56 overflow-hidden shadow-xl flex items-center justify-center">
+                        <img 
+                            src="/images/mohamed-nabil-main.jpeg" 
+                            alt="Mohamed Nabil" 
+                            className="w-full h-full object-cover object-[center_top] transition-all duration-700 hover:scale-105" 
+                        />
                     </div>
                 </div>
             </div>
