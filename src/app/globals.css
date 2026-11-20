@@ -19,3 +19,58 @@
 #contact input:not([type="hidden"]), #contact textarea, #contact button[type="submit"] { border-radius: .95rem; }
 #contact input:focus-visible, #contact textarea:focus-visible { outline: 2px solid var(--color-ink-blue); outline-offset: 2px; }
 :where(a, button):focus-visible { outline: 2px solid var(--color-ink-blue); outline-offset: 3px; }
+
+
+/* Intentional motion: shown only during real EmailJS transmission. */
+.speed-sending-panel {
+  position: absolute; inset: 0; z-index: 10; display: flex;
+  flex-direction: column; align-items: center; justify-content: center;
+  min-height: 22rem; padding: 2rem; border-radius: 1.1rem;
+  background: rgba(248,247,244,.98); text-align: center;
+  border: 1px solid var(--color-hairline);
+}
+.speed-stage { position: relative; width: min(100%, 320px); height: 108px; overflow: hidden; }
+.speed-figure {
+  position: absolute; top: 51px; left: calc(50% - 40px);
+  width: 92px; height: 25px; animation: speed-jitter .35s linear infinite;
+}
+.speed-body {
+  position: absolute; left: 0; top: 10px; width: 0; height: 0;
+  border-top: 7px solid transparent; border-bottom: 7px solid transparent;
+  border-right: 80px solid var(--color-ink);
+}
+.speed-body::after {
+  content: ""; position: absolute; left: 46px; top: -13px; width: 23px; height: 15px;
+  background: var(--color-ink); border-radius: 12px 12px 3px 3px; transform: rotate(-24deg);
+}
+.speed-head {
+  position: absolute; right: 0; top: 0; width: 19px; height: 19px;
+  background: var(--color-ink); border-radius: 55% 55% 45% 45%; transform: rotate(-20deg);
+}
+.speed-tail { position:absolute; right: 70px; top: 5px; }
+.speed-tail i {
+  position:absolute; width: 29px; height: 1px; left: 0;
+  background: var(--color-ink); animation: speed-tail .6s linear infinite;
+}
+.speed-tail i:nth-child(2) { top:4px; animation-delay: -.15s; }
+.speed-tail i:nth-child(3) { top:8px; animation-delay: -.3s; }
+.speed-tail i:nth-child(4) { top:12px; animation-delay: -.45s; }
+.speed-fazers i {
+  position: absolute; left: 110%; width: 26%; height: 1px; background: var(--color-ink-blue);
+  opacity: .25; animation: speed-lines 1s linear infinite;
+}
+.speed-fazers i:nth-child(1) { top:19%; animation-delay:-.1s; }
+.speed-fazers i:nth-child(2) { top:39%; animation-delay:-.45s; }
+.speed-fazers i:nth-child(3) { top:65%; animation-delay:-.75s; }
+.speed-fazers i:nth-child(4) { top:83%; animation-delay:-.25s; }
+@keyframes speed-jitter {
+  0%, 100% { transform: translate(1px,0) rotate(0deg); }
+  25% { transform: translate(-1px,-2px) rotate(-1deg); }
+  50% { transform: translate(0,1px) rotate(1deg); }
+  75% { transform: translate(2px,-1px) rotate(0deg); }
+}
+@keyframes speed-tail { from { transform: translateX(0); opacity: .7; } to { transform: translateX(-76px); opacity: 0; } }
+@keyframes speed-lines { from { transform: translateX(0); opacity: .22; } to { transform: translateX(-440%); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  .speed-figure, .speed-tail i, .speed-fazers i, .type-cursor { animation: none !important; }
+}
