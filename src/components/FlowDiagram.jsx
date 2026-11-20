@@ -1,9 +1,11 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
+import { useSiteMotion } from "@/components/MotionPreferences";
 
 export default function FlowDiagram({ steps, accent = "#3158a8", label = "Workflow" }) {
-  const reduceMotion = useReducedMotion();
+  const { enabled } = useSiteMotion();
+  const reduceMotion = !enabled;
   return <div className="flow-diagram" aria-label={label}>
     {steps.map((step, index) => <div className="flow-step-wrap" key={step.title}>
       <motion.div
