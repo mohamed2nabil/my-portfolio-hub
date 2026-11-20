@@ -1,0 +1,4 @@
+import { NextResponse } from 'next/server';
+import { getAdminRequestContext } from '@/lib/admin-api';
+export async function PATCH(request, { params }) { const context = await getAdminRequestContext(); if (context.error) return context.error; const { id } = await params; const body = await request.json(); const allowed = { is_read: body.is_read, archived_at: body.archived_at }; const { error } = await context.supabase.from('contact_messages').update(allowed).eq('id', id); return error ? NextResponse.json({ error: error.message }, { status: 400 }) : NextResponse.json({ ok: true }); }
+export async function DELETE(_request, { params }) { const context = await getAdminRequestContext(); if (context.error) return context.error; const { id } = await params; const { error } = await context.supabase.from('contact_messages').delete().eq('id', id); return error ? NextResponse.json({ error: error.message }, { status: 400 }) : new NextResponse(null, { status: 204 }); }

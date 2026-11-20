@@ -1,9 +1,11 @@
-"use client";
 import React from 'react';
 import Link from 'next/link';
 import { dataAnalysisProjects } from '../../data/data-analysis-projects';
+import { getPublishedProjects } from '@/lib/projects';
+export const dynamic = 'force-dynamic';
 
-export default function DataAnalysisPage() {
+export default async function DataAnalysisPage() {
+  const projects = await getPublishedProjects('data-analysis', dataAnalysisProjects);
   return (
     <div className="bg-ground text-ink min-h-screen font-sans pt-[58px]">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
@@ -174,7 +176,7 @@ export default function DataAnalysisPage() {
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {dataAnalysisProjects.map((project) => (
+                {projects.map((project) => (
                     <div key={project.id} className="bg-ground border border-hairline overflow-hidden group hover:shadow-xl transition-all duration-300 flex flex-col">
                         <Link href={`/data-analysis/${project.id}`} className="block flex-1 flex flex-col">
                             <div className="h-60 w-full overflow-hidden relative border-b border-hairline bg-ground">

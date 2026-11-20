@@ -3,6 +3,8 @@ import Link from "next/link";
 import { ArrowLeft, CheckCircle2, TrendingUp, Globe, AlertCircle, ExternalLink } from "lucide-react";
 import { webDevProjects } from "../../../data/web-dev-projects";
 import ProjectHeroCarousel from "../../../components/ProjectHeroCarousel";
+import { getPublishedProject } from '@/lib/projects';
+export const dynamic = 'force-dynamic';
 
 export function generateStaticParams() {
   return webDevProjects.map((p) => ({
@@ -12,7 +14,7 @@ export function generateStaticParams() {
 
 export default async function WebDevProjectPage({ params }) {
   const { id } = await params;
-  const project = webDevProjects.find((p) => p.id === id);
+  const project = await getPublishedProject(id, webDevProjects);
 
   if (!project) {
     notFound();

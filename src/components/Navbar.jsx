@@ -20,6 +20,7 @@ export default function Navbar() {
     window.addEventListener("keydown", closeOnEscape);
     return () => window.removeEventListener("keydown", closeOnEscape);
   }, []);
+  if (pathname.startsWith('/admin')) return null;
   return <header className="fixed inset-x-0 top-0 z-50 border-b border-hairline bg-ground/90 backdrop-blur-xl">
     <nav aria-label="Primary navigation" className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 sm:px-8">
       <Link href="/" className="font-serif text-xl font-semibold tracking-tight text-ink">Mohamed<span className="text-ink-blue">.</span></Link>

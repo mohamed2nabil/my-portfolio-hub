@@ -1,8 +1,11 @@
 import React from 'react';
 import Link from 'next/link';
 import { webDevProjects } from '../../data/web-dev-projects';
+import { getPublishedProjects } from '@/lib/projects';
+export const dynamic = 'force-dynamic';
 
-export default function WebDevPage() {
+export default async function WebDevPage() {
+  const projects = await getPublishedProjects('web-dev', webDevProjects);
   return (
     <div className="min-h-screen bg-ground text-ink font-mono selection:bg-emerald-500 selection:text-ground pt-[58px]">
       
@@ -81,7 +84,7 @@ export default function WebDevPage() {
             </div>
             
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
-                {webDevProjects.map((project) => (
+                {projects.map((project) => (
                     <div key={project.id} className="border border-hairline bg-secondary-ground overflow-hidden group hover:border-emerald-500 transition-all duration-500 hover:-translate-y-2 shadow-md flex flex-col">
                         <Link href={`/web-dev/${project.id}`} className="block flex-1 flex flex-col">
                             <div className="h-60 border-b border-hairline flex items-center justify-center relative overflow-hidden bg-ground">

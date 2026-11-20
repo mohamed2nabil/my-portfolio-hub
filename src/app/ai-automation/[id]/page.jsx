@@ -3,6 +3,8 @@ import Link from "next/link";
 import { ArrowLeft, CheckCircle2, TrendingUp, Cpu, AlertCircle } from "lucide-react";
 import { aiProjects } from "../../../data/ai-projects";
 import ProjectHeroCarousel from "../../../components/ProjectHeroCarousel";
+import { getPublishedProject } from '@/lib/projects';
+export const dynamic = 'force-dynamic';
 
 export function generateStaticParams() {
   return aiProjects.map((p) => ({
@@ -12,7 +14,7 @@ export function generateStaticParams() {
 
 export default async function AIProjectPage({ params }) {
   const { id } = await params;
-  const project = aiProjects.find((p) => p.id === id);
+  const project = await getPublishedProject(id, aiProjects);
 
   if (!project) {
     notFound();

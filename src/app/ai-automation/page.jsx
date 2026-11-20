@@ -2,8 +2,11 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Bot, Workflow, Zap, Database, GitBranch, ArrowRight } from 'lucide-react';
 import { aiProjects } from '../../data/ai-projects';
+import { getPublishedProjects } from '@/lib/projects';
+export const dynamic = 'force-dynamic';
 
-export default function AIAutomationPage() {
+export default async function AIAutomationPage() {
+  const projects = await getPublishedProjects('ai-automation', aiProjects);
   return (
     <div className="min-h-screen bg-ground text-ink font-mono pt-[58px]">
       
@@ -73,7 +76,7 @@ export default function AIAutomationPage() {
           </div>
           
           <div className="flex flex-col gap-8 relative max-w-4xl mx-auto pb-12">
-            {aiProjects.map((project, index) => (
+            {projects.map((project, index) => (
               <Link 
                 href={`/ai-automation/${project.id}`} 
                 key={project.id} 
@@ -95,7 +98,7 @@ export default function AIAutomationPage() {
                       {project.category}
                     </span>
                     <span className="text-[10px] text-white/50 font-mono tracking-widest">
-                      0{index + 1} / 0{aiProjects.length}
+                      0{index + 1} / 0{projects.length}
                     </span>
                   </div>
                   

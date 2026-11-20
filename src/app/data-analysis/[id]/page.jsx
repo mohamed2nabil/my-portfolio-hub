@@ -3,6 +3,8 @@ import Link from "next/link";
 import { ArrowLeft, CheckCircle2, TrendingUp, BarChart3, AlertCircle } from "lucide-react";
 import { dataAnalysisProjects } from "../../../data/data-analysis-projects";
 import ProjectHeroCarousel from "../../../components/ProjectHeroCarousel";
+import { getPublishedProject } from '@/lib/projects';
+export const dynamic = 'force-dynamic';
 
 export function generateStaticParams() {
   return dataAnalysisProjects.map((p) => ({
@@ -12,7 +14,7 @@ export function generateStaticParams() {
 
 export default async function DataAnalysisProjectPage({ params }) {
   const { id } = await params;
-  const project = dataAnalysisProjects.find((p) => p.id === id);
+  const project = await getPublishedProject(id, dataAnalysisProjects);
 
   if (!project) {
     notFound();
