@@ -4,7 +4,7 @@ import { ArrowLeft, CheckCircle2, TrendingUp, BarChart3, AlertCircle } from "luc
 import { dataAnalysisProjects } from "../../../data/data-analysis-projects";
 import ProjectHeroCarousel from "../../../components/ProjectHeroCarousel";
 import { getPublishedProject } from '@/lib/projects';
-export const dynamic = 'force-dynamic';
+export const revalidate = 60;
 
 export function generateStaticParams() {
   return dataAnalysisProjects.map((p) => ({
