@@ -4,7 +4,6 @@ import FlowDiagram from "@/components/FlowDiagram";
 import Typewriter from "@/components/Typewriter";
 import LetterReveal from "@/components/LetterReveal";
 import ResultCardSwap from "@/components/ResultCardSwap";
-import ScrollReveal from "@/components/ScrollReveal";
 import { aiProjects } from "@/data/ai-projects";
 import { getPublishedProjects } from "@/lib/projects";
 import { getProfile } from "@/lib/content";
