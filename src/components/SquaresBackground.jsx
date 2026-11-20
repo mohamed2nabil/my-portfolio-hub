@@ -109,5 +109,5 @@ export default function SquaresBackground({
     };
   }, [speed, direction, squareSize, borderColor, hoverFillColor, enabled]);
 
-  return <canvas aria-hidden="true" ref={canvasRef} className="pointer-events-none absolute inset-0 block h-full w-full" />;
+  return <canvas data-testid="squares-canvas" aria-hidden="true" ref={canvasRef} className="pointer-events-none absolute inset-0 block h-full w-full" />;
 }
