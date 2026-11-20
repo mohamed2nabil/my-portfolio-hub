@@ -7,6 +7,7 @@ export const projectSchema = z.object({
   title: z.string().trim().min(3).max(160),
   category: z.enum(['web-dev', 'data-analysis', 'data-engineer', 'ai-automation']),
   short_description: z.string().trim().min(10).max(500),
+  outcome: z.string().trim().max(220).nullable().optional(),
   description: z.string().max(10000).nullable().optional(),
   problem: z.string().max(5000).nullable().optional(),
   solution: z.string().max(5000).nullable().optional(),
