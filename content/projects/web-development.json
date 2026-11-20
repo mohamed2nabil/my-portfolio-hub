@@ -52,7 +52,8 @@
     "status": "published",
     "featured": true,
     "featured_order": 0,
-    "sort_order": 0
+    "sort_order": 0,
+    "outcome": "An export-ready catalogue with a direct route for overseas buyer enquiries."
   },
   {
     "id": "green-light",
@@ -107,7 +108,8 @@
     "status": "published",
     "featured": false,
     "featured_order": null,
-    "sort_order": 1
+    "sort_order": 1,
+    "outcome": "A searchable agribusiness presence with clearer routes to qualified enquiries."
   },
   {
     "id": "one-tire",
@@ -163,7 +165,8 @@
     "status": "published",
     "featured": false,
     "featured_order": null,
-    "sort_order": 2
+    "sort_order": 2,
+    "outcome": "Vehicle-based tyre selection and a mobile-first service booking flow."
   },
   {
     "id": "yessicart-academy",
@@ -219,7 +222,8 @@
     "status": "published",
     "featured": false,
     "featured_order": null,
-    "sort_order": 3
+    "sort_order": 3,
+    "outcome": "A coherent online home for workshops, art and customer enquiries."
   },
   {
     "id": "quipla",
@@ -275,6 +279,7 @@
     "status": "published",
     "featured": false,
     "featured_order": null,
-    "sort_order": 4
+    "sort_order": 4,
+    "outcome": "An interactive qibla-finding utility using device location and direction."
   }
 ]
