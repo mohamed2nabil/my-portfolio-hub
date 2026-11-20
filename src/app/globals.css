@@ -4,9 +4,14 @@
   --font-serif: "Newsreader", Georgia, serif; --font-mono: "IBM Plex Mono", ui-monospace, monospace; --font-sans: "Inter", Arial, sans-serif;
 }
 :root { --background: var(--color-ground); --foreground: var(--color-ink); }
-* { box-sizing: border-box; } html { scroll-behavior: smooth; } body { margin: 0; color: var(--foreground); background: var(--background); font-family: var(--font-sans); } button, input, textarea { font: inherit; }
+* { box-sizing: border-box; } html { scroll-behavior: smooth; scroll-padding-top: 5.5rem; } body { margin: 0; color: var(--foreground); background: var(--background); font-family: var(--font-sans); } button, input, textarea { font: inherit; }
 .font-serif { font-family: var(--font-serif); } .font-mono { font-family: var(--font-mono); }
 .button-primary { display: inline-flex; align-items: center; justify-content: center; gap: .5rem; border-radius: .9rem; background: var(--color-ink); color: var(--color-ground); font-family: var(--font-mono); font-weight: 700; letter-spacing: .06em; text-transform: uppercase; transition: transform .2s ease, background .2s ease; }
 .button-primary:hover { background: var(--color-ink-blue); transform: translateY(-1px); }
 .surface { border: 1px solid var(--color-hairline); border-radius: 1.25rem; background: rgba(255,255,255,.56); box-shadow: 0 10px 30px rgba(23,32,51,.06); }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: .01ms !important; } }
+
+/* Soft-touch details across the public contact flow */
+#contact input:not([type="hidden"]), #contact textarea, #contact button[type="submit"] { border-radius: .95rem; }
+#contact input:focus-visible, #contact textarea:focus-visible { outline: 2px solid var(--color-ink-blue); outline-offset: 2px; }
+:where(a, button):focus-visible { outline: 2px solid var(--color-ink-blue); outline-offset: 3px; }
