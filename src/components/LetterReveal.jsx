@@ -13,7 +13,7 @@ export default function LetterReveal({ text, className = "", interval = .05 }) {
   if (!enabled) return <span ref={ref} className={className}>{text}</span>;
 
   let characterIndex = 0;
-  return <span ref={ref} className={className} role="text" aria-label={text}>
+  return <span data-testid="letter-reveal" ref={ref} className={className} role="text" aria-label={text}>
     {text.split(" ").map((word, wi) => {
       return <span key={wi} className="inline-block whitespace-nowrap">
         {Array.from(word).map((character, ci) => {
