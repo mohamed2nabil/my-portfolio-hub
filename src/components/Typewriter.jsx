@@ -38,8 +38,8 @@ export default function Typewriter({ text, speed = 50, loop = true, className = 
   }, [text, speed, loop, enabled, inView]);
 
   const visible = enabled ? shown : text;
-  return <span ref={ref} className={`relative inline-block max-w-full align-top ${className}`} role="text" aria-label={text}>
+  return <span data-testid="typewriter" ref={ref} className={`relative inline-block max-w-full align-top ${className}`} role="text" aria-label={text}>
     <span aria-hidden="true" className="invisible">{text}</span>
-    <span aria-hidden="true" className="absolute inset-0">{visible}{enabled && <span className="type-cursor">▋</span>}</span>
+    <span data-testid="typed-output" aria-hidden="true" className="absolute inset-0">{visible}{enabled && <span className="type-cursor">▋</span>}</span>
   </span>;
 }
