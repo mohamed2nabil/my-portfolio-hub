@@ -6,6 +6,7 @@ import Link from "next/link";
 import { AnimatePresence, motion, useMotionValueEvent, useScroll } from "framer-motion";
 import { useSiteMotion } from "@/components/MotionPreferences";
 import { ArrowRight } from "lucide-react";
+import Typewriter from "@/components/Typewriter";
 
 // Projects change with the visitor's page scroll, not with a timer or dots.
 // A sticky viewport gives each featured project real reading time. Scrolling
@@ -76,7 +77,7 @@ function ProjectCard({ project, basePath }) {
         <Image src={project.poster} alt={project.title} fill sizes="(max-width:900px) 100vw, 760px" className="object-cover transition-transform duration-500 group-hover:scale-[1.035]" />
       </div>
       <div className="grid gap-2 p-4 sm:p-5">
-        <h3 className="font-serif text-xl font-medium sm:text-2xl">{project.title}</h3>
+        <h3 className="font-serif text-xl font-medium sm:text-2xl"><Typewriter text={project.title} speed={50} loop={false} /></h3>
         <p className="line-clamp-2 text-sm leading-6 text-secondary-ink">{project.outcome || project.shortDesc}</p>
         <span className="inline-flex items-center gap-2 text-sm font-semibold text-indigo-800">Explore solution <ArrowRight size={16} /></span>
       </div>
