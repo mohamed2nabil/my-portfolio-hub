@@ -14,7 +14,7 @@ export function generateStaticParams() {
 
 export default async function AIProjectPage({ params }) {
   const { id } = await params;
-  const project = await getPublishedProject(id, aiProjects);
+  const project = await getPublishedProject(id, aiProjects, 'ai-automation');
 
   if (!project) {
     notFound();
