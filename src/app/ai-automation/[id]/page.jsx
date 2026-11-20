@@ -4,7 +4,7 @@ import { ArrowLeft, CheckCircle2, TrendingUp, Cpu, AlertCircle } from "lucide-re
 import { aiProjects } from "../../../data/ai-projects";
 import ProjectHeroCarousel from "../../../components/ProjectHeroCarousel";
 import { getPublishedProject } from '@/lib/projects';
-export const dynamic = 'force-dynamic';
+export const revalidate = 60;
 
 export function generateStaticParams() {
   return aiProjects.map((p) => ({
