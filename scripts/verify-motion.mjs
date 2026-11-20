@@ -17,7 +17,7 @@ const goto = async (pathname) => {
 try {
   await goto('/ai-automation');
   await page.waitForFunction(() => document.querySelector('[data-testid="motion-toggle"]')?.getAttribute('aria-pressed') === 'false');
-  const section = page.locator('[aria-label="Scroll through featured automation projects"]');
+  const section = page.getByTestId('ai-showcase');
   await section.waitFor();
   assert.equal(await section.locator('h3').count(), 3, 'Reduced-motion default must keep all featured cards accessible');
   console.log('PASS: reduced-motion visitors see a static, accessible AI project list');
