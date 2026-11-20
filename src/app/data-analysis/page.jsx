@@ -3,18 +3,25 @@ import Link from "next/link";
 import { ArrowUpRight, Code2, Database, ChartNoAxesCombined } from "lucide-react";
 import FlowDiagram from "@/components/FlowDiagram";
 import { getPublishedProjects } from "@/lib/projects";
-import { getProfile } from "@/lib/content";
+import { getProfile, getSkills } from "@/lib/content";
 
 export const revalidate = 60;
 
-const toolkit = [
-  { title: "Python", role: "Analysis & modeling", Icon: Code2, items: ["pandas", "NumPy", "SciPy", "scikit-learn", "Matplotlib", "Seaborn"] },
-  { title: "BI & Excel", role: "Dashboards & decisions", Icon: ChartNoAxesCombined, items: ["Power BI", "DAX", "Power Query", "Microsoft Excel"] },
-  { title: "Data & SQL", role: "Querying & preparation", Icon: Database, items: ["SQL", "PostgreSQL", "MySQL"] },
+const toolkitSections = [
+  { title: "Python", role: "Analysis & modeling", Icon: Code2, categories: ["Python Libraries"], ids: [] },
+  { title: "BI & Excel", role: "Dashboards & decisions", Icon: ChartNoAxesCombined, categories: ["Business Intelligence"], ids: ["power-bi"] },
+  { title: "Data & SQL", role: "Querying & preparation", Icon: Database, categories: ["Analytics Databases", "Databases"], ids: [] },
 ];
 
 export default async function DataAnalysisPage() {
-  const [projects, profile] = await Promise.all([getPublishedProjects("data-analysis"), getProfile()]);
+  const [projects, profile, allSkills] = await Promise.all([getPublishedProjects("data-analysis"), getProfile(), getSkills()]);
+  const toolkit = toolkitSections.map((section) => ({
+    ...section,
+    items: allSkills
+      .filter((skill) => skill.visible !== false && (section.categories.includes(skill.category) || section.ids.includes(skill.id)))
+      .sort((a, b) => a.sort_order - b.sort_order)
+      .map((skill) => skill.name),
+  }));
   return <div className="page-shell">
     <section className="border-b border-blue-700/20">
       <div className="content-frame grid items-center gap-10 py-14 sm:py-20 lg:grid-cols-[1.15fr_.85fr]">
