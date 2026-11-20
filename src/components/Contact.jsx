@@ -2,6 +2,7 @@
 
 import React, { useRef, useState } from 'react';
 import emailjs from '@emailjs/browser';
+import SpeedLoader from '@/components/SpeedLoader';
 
 export default function Contact() {
   const [status, setStatus] = useState('');
@@ -88,7 +89,7 @@ export default function Contact() {
           {/* Contact Form */}
           <div>
             <h3 className="text-2xl font-serif mb-6">Send Me a Message</h3>
-            <form onSubmit={sendEmail} className="space-y-4 font-mono text-sm">
+            <form onSubmit={sendEmail} aria-busy={status === "sending"} className="relative space-y-4 font-mono text-sm">
               <input type="text" name="company_website" tabIndex="-1" autoComplete="off" className="hidden" aria-hidden="true" />
               <div className="grid grid-cols-1 gap-4">
                 <div>
@@ -111,6 +112,7 @@ export default function Contact() {
               <button type="submit" disabled={status === 'sending'} className="w-full px-8 py-4 bg-ink text-ground font-mono text-xs uppercase tracking-widest hover:bg-ink-blue transition-colors disabled:opacity-50">
                 {status === 'sending' ? 'Sending...' : 'Send Message'}
               </button>
+              {status === "sending" && <SpeedLoader />}
               {status === 'success' && <p className="text-green-700 text-xs text-center mt-2">Thanks — your message has been received.</p>}
               {status === 'rate-limited' && <p className="text-red-600 text-xs text-center mt-2">Please wait a minute before sending another message.</p>}
               {status === 'error' && <p className="text-red-600 text-xs text-center mt-2">We could not submit that message. Please email Mohamed directly.</p>}
