@@ -21,7 +21,7 @@ export default function ResultCardSwap({ projects = [], basePath = "/ai-automati
 
   useMotionValueEvent(scrollYProgress, "change", (progress) => {
     if (reduce || items.length < 2) return;
-    const next = Math.min(items.length - 1, Math.max(0, Math.round(progress * (items.length - 1))));
+    const next = Math.min(items.length - 1, Math.max(0, Math.floor(progress * items.length)));
     setIndex((previous) => previous === next ? previous : next);
   });
 
@@ -30,7 +30,7 @@ export default function ResultCardSwap({ projects = [], basePath = "/ai-automati
   // Do not hide featured projects behind a scroll animation for visitors who
   // explicitly prefer reduced motion. Each card stays a normal, readable link.
   if (reduce) {
-    return <div className="mx-auto grid max-w-4xl gap-5 md:grid-cols-2">
+    return <div ref={sectionRef} className="mx-auto grid max-w-4xl gap-5 md:grid-cols-2">
       {items.map((project) => <ProjectCard key={project.id} project={project} basePath={basePath} />)}
     </div>;
   }
