@@ -11,10 +11,11 @@ function config() {
 
 async function request(path, options = {}) {
   const { token } = config();
+  const { publicRead = false, ...fetchOptions } = options;
   const response = await fetch(`${apiBase}${path}`, {
-    ...options,
-    headers: { Accept: 'application/vnd.github+json', Authorization: `Bearer ${token}`, 'X-GitHub-Api-Version': '2022-11-28', ...options.headers },
-    cache: 'no-store',
+    ...fetchOptions,
+    headers: { Accept: 'application/vnd.github+json', Authorization: `Bearer ${token}`, 'X-GitHub-Api-Version': '2022-11-28', ...fetchOptions.headers },
+    ...(publicRead ? { next: { revalidate: 60 } } : { cache: 'no-store' }),
   });
   if (!response.ok) {
     const detail = await response.json().catch(() => ({}));
@@ -27,9 +28,9 @@ async function request(path, options = {}) {
 
 function repoPath(path) { const { owner, repo } = config(); return `/repos/${owner}/${repo}/contents/${path.split('/').map(encodeURIComponent).join('/')}`; }
 
-export async function getGitHubFile(path) {
+export async function getGitHubFile(path, { publicRead = false } = {}) {
   const { branch } = config();
-  const file = await request(`${repoPath(path)}?ref=${encodeURIComponent(branch)}`);
+  const file = await request(`${repoPath(path)}?ref=${encodeURIComponent(branch)}`, { publicRead });
   return { sha: file.sha, text: Buffer.from(file.content, 'base64').toString('utf8') };
 }
 
