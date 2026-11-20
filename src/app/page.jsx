@@ -2,7 +2,7 @@ import LandingClient from './LandingClient';
 import { getProfile, getSkills } from '@/lib/content';
 import { getPublishedProjects } from '@/lib/projects';
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 60;
 
 const domains = {
   'web-dev': 'Web Development',
@@ -28,6 +28,6 @@ export default async function LandingPage() {
   const grouped = new Map();
   skills.filter((skill) => skill.visible).sort((a, b) => a.sort_order - b.sort_order)
     .forEach((skill) => grouped.set(skill.category, [...(grouped.get(skill.category) || []), skill.name]));
-  const skillGroups = [...grouped.entries()].map(([title, names]) => [title, names.join(' · ')]);
+  const skillGroups = [...grouped.entries()].map(([title, names]) => [title, names.slice(0, 6).join(' · ') + (names.length > 6 ? ` · +${names.length - 6} more` : '')]);
   return <LandingClient featured={featured} profile={profile} skillGroups={skillGroups} />;
 }
