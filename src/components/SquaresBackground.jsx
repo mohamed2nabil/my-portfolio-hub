@@ -1,16 +1,19 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { useSiteMotion } from "@/components/MotionPreferences";
 
 // Moving squares for the Web hero only. CSS supplies a static grid before
 // hydration; this canvas adds motion when visible. No global RAF loop.
 export default function SquaresBackground({
   speed = .8,
+  direction = "diagonal",
   squareSize = 44,
   borderColor = "rgba(22, 135, 105, .22)",
   hoverFillColor = "rgba(22, 135, 105, .13)",
 }) {
   const canvasRef = useRef(null);
+  const { enabled } = useSiteMotion();
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -18,7 +21,6 @@ export default function SquaresBackground({
     const host = canvas?.closest("section");
     if (!canvas || !ctx || !host) return;
 
-    const preference = window.matchMedia("(prefers-reduced-motion: reduce)");
     let raf = 0;
     let visible = false;
     let last = 0;
@@ -31,9 +33,12 @@ export default function SquaresBackground({
       ctx.clearRect(0, 0, width, height);
       ctx.strokeStyle = borderColor;
       ctx.lineWidth = .8;
-      const shift = preference.matches ? 0 : offset % squareSize;
-      for (let x = -squareSize + shift; x < width + squareSize; x += squareSize) {
-        for (let y = -squareSize + shift * .5; y < height + squareSize; y += squareSize) {
+      const dx = direction === "left" ? -offset : (direction === "right" || direction === "diagonal") ? offset : 0;
+      const dy = direction === "up" ? -offset : (direction === "down" || direction === "diagonal") ? offset : 0;
+      const xShift = enabled ? ((dx % squareSize) + squareSize) % squareSize : 0;
+      const yShift = enabled ? ((dy % squareSize) + squareSize) % squareSize : 0;
+      for (let x = -squareSize + xShift; x < width + squareSize; x += squareSize) {
+        for (let y = -squareSize + yShift; y < height + squareSize; y += squareSize) {
           const hovering = pointer && pointer.x >= x && pointer.x < x + squareSize && pointer.y >= y && pointer.y < y + squareSize;
           if (hovering) {
             ctx.fillStyle = hoverFillColor;
@@ -54,7 +59,7 @@ export default function SquaresBackground({
       render();
     }
     function frame(now) {
-      if (!visible || preference.matches || document.hidden) {
+      if (!visible || !enabled || document.hidden) {
         raf = 0;
         return;
       }
@@ -67,7 +72,7 @@ export default function SquaresBackground({
       raf = window.requestAnimationFrame(frame);
     }
     function start() {
-      if (visible && !raf && !preference.matches && !document.hidden)
+      if (visible && !raf && enabled && !document.hidden)
         raf = window.requestAnimationFrame(frame);
     }
     function stop() {
@@ -81,10 +86,6 @@ export default function SquaresBackground({
     }
     function onPointerLeave() { pointer = null; if (!raf) render(); }
     function onVisibility() { document.hidden ? stop() : start(); }
-    function onPreference() {
-      if (preference.matches) { stop(); render(); }
-      else start();
-    }
 
     const io = new IntersectionObserver(([entry]) => {
       visible = entry.isIntersecting;
@@ -96,7 +97,6 @@ export default function SquaresBackground({
     host.addEventListener("pointermove", onPointerMove, { passive: true });
     host.addEventListener("pointerleave", onPointerLeave);
     document.addEventListener("visibilitychange", onVisibility);
-    preference.addEventListener("change", onPreference);
     resize();
 
     return () => {
@@ -106,9 +106,8 @@ export default function SquaresBackground({
       host.removeEventListener("pointermove", onPointerMove);
       host.removeEventListener("pointerleave", onPointerLeave);
       document.removeEventListener("visibilitychange", onVisibility);
-      preference.removeEventListener("change", onPreference);
     };
-  }, [speed, squareSize, borderColor, hoverFillColor]);
+  }, [speed, direction, squareSize, borderColor, hoverFillColor, enabled]);
 
   return <canvas aria-hidden="true" ref={canvasRef} className="pointer-events-none absolute inset-0 block h-full w-full" />;
 }
