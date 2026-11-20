@@ -57,6 +57,7 @@ export default async function AIProjectPage({ params }) {
             <p className="text-lg md:text-xl text-secondary-ink leading-relaxed">
               {project.shortDesc}
             </p>
+            {project.outcome && <div className="mt-5 rounded-2xl border border-hairline bg-white/70 p-5"><p className="text-xs font-bold uppercase tracking-widest text-ink-blue">Solution delivered</p><p className="mt-2 font-sans text-base leading-7 text-ink">{project.outcome}</p></div>}
           </div>
 
           {/* Business Problem */}
