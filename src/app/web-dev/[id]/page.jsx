@@ -4,7 +4,7 @@ import { ArrowLeft, CheckCircle2, TrendingUp, Globe, AlertCircle, ExternalLink }
 import { webDevProjects } from "../../../data/web-dev-projects";
 import ProjectHeroCarousel from "../../../components/ProjectHeroCarousel";
 import { getPublishedProject } from '@/lib/projects';
-export const dynamic = 'force-dynamic';
+export const revalidate = 60;
 
 export function generateStaticParams() {
   return webDevProjects.map((p) => ({
