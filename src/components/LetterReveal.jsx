@@ -26,7 +26,6 @@ export default function LetterReveal({ text, className = "" }) {
           {character}
         </motion.span>;
       })}
-      {wi < words.length - 1 ? " " : null}
     </span>)}
   </span>;
 }
