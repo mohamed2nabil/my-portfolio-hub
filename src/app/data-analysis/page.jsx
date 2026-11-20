@@ -72,7 +72,7 @@ export default async function DataAnalysisPage() {
         <p className="eyebrow text-ink-blue">Selected analysis</p>
         <h2 className="mt-3 font-serif text-3xl sm:text-4xl">Results you can explore.</h2>
         <div className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-          {projects.map((project, index) => <ScrollReveal index={index} key={project.id} className="h-full"><Link href={`/data-analysis/${project.id}`} className="block h-full "group overflow-hidden rounded-[1.4rem] border border-hairline bg-ground transition-all duration-300 hover:-translate-y-1 hover:border-blue-500/50 hover:shadow-xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-ink-blue">
+          {projects.map((project, index) => <ScrollReveal index={index} key={project.id} className="h-full"><Link href={`/data-analysis/${project.id}`} className="group block h-full overflow-hidden rounded-[1.4rem] border border-hairline bg-ground transition-all duration-300 hover:-translate-y-1 hover:border-blue-500/50 hover:shadow-xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-ink-blue">
             <div className="relative aspect-[16/10] overflow-hidden">
               <Image src={project.poster} alt={project.title} fill sizes="(max-width:768px) 100vw,33vw" className="object-cover transition-transform duration-500 group-hover:scale-[1.035]" />
             </div>
