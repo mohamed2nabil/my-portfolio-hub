@@ -50,8 +50,8 @@
       "Vercel Edge Network"
     ],
     "status": "published",
-    "featured": false,
-    "featured_order": null,
+    "featured": true,
+    "featured_order": 0,
     "sort_order": 0
   },
   {
