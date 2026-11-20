@@ -19,7 +19,10 @@ try {
   await page.waitForFunction(() => document.querySelector('[data-testid="motion-toggle"]')?.getAttribute('aria-pressed') === 'false');
   const section = page.getByTestId('ai-showcase');
   await section.waitFor();
-  assert.equal(await section.locator('h3').count(), 3, 'Reduced-motion default must keep all featured cards accessible');
+  const total = Number(await section.getAttribute("data-project-count"));
+  assert(total > 3, "All published AI workflows must participate in the showcase");
+  assert.equal(await section.locator('h3').count(), total,
+    "Reduced-motion default must expose every published AI project");
   console.log('PASS: reduced-motion visitors see a static, accessible AI project list');
 
   await page.getByTestId('motion-toggle').click();
@@ -27,8 +30,7 @@ try {
   assert.equal(await section.locator('h3').count(), 1, 'Explicit motion opt-in must switch to scroll showcase');
   console.log('PASS: explicit opt-in turns on AI scroll animation despite reduced OS setting');
 
-  // Only the in-view sticky card is visible. Directly sample the stage at
-  // three scroll positions; scrolling backward must rewind the sequence.
+  // Every published workflow has its own scroll stage, forward and backward.
   await page.evaluate(() => { document.documentElement.style.scrollBehavior = 'auto'; });
   const geometry = await section.evaluate((el) => {
     const rect = el.getBoundingClientRect();
@@ -43,10 +45,13 @@ try {
     return (await section.locator('.tabular-nums').innerText()).trim();
   };
 
-  assert.match(await scrollStage(.05), /01\s*\/\s*03/, 'First scroll stage');
-  assert.match(await scrollStage(.52), /02\s*\/\s*03/, 'Second scroll stage');
-  assert.match(await scrollStage(.96), /03\s*\/\s*03/, 'Third scroll stage');
-  assert.match(await scrollStage(.05), /01\s*\/\s*03/, 'Reverse scroll restores the first card');
+  for (let index = 0; index < total; index++) {
+    const count = await scrollStage((index + .12) / total);
+    assert.equal(count, String(index + 1).padStart(2, "0") + " / " + String(total).padStart(2, "0"),
+      "Every AI project needs its own scroll stage: " + (index + 1));
+  }
+  assert.equal(await scrollStage(.02), "01 / " + String(total).padStart(2, "0"),
+    "Reverse scrolling rewinds the entire sequence");
   console.log('PASS: AI cards advance and rewind automatically with scrolling');
 
   await page.evaluate(() => window.scrollTo(0, 0));
@@ -78,6 +83,26 @@ try {
   const firstOpacity = await letters.first().evaluate((node) => Number(getComputedStyle(node).opacity));
   assert(firstOpacity > .9, 'Headline letters must finish fully visible');
   console.log('PASS: web headline letters render and reveal');
+
+  await goto('/data-engineer');
+  const flow = page.getByTestId('flow-diagram').first();
+  await flow.scrollIntoViewIfNeeded();
+  assert.equal(await flow.getByTestId('flow-step').count(), 5, 'Data-engineering flow has five stages');
+  await page.waitForTimeout(2400);
+  const opacities = await flow.getByTestId('flow-step').evaluateAll((nodes) =>
+    nodes.map((node) => Number(getComputedStyle(node).opacity)));
+  assert(opacities.every((value) => value > .95), 'Every pipeline step must become fully visible');
+  assert.equal(await flow.getByTestId('flow-connector').count(), 4, 'Pipeline connects adjacent stages');
+  console.log('PASS: synchronized five-stage data engineering pipeline is visible');
+
+  await goto('/data-analysis');
+  const revealed = page.getByTestId('scroll-reveal');
+  assert((await revealed.count()) > 4, 'Project and skill cards must have scroll entrances');
+  await revealed.last().scrollIntoViewIfNeeded();
+  await page.waitForTimeout(950);
+  const cardOpacity = await revealed.last().evaluate((node) => Number(getComputedStyle(node).opacity));
+  assert(cardOpacity > .95, 'A project card must reveal fully when it enters view');
+  console.log('PASS: analytics cards reveal smoothly as the visitor scrolls');
 
   await page.getByTestId('motion-toggle').click();
   await page.waitForFunction(() => document.documentElement.dataset.siteMotion === 'off');
