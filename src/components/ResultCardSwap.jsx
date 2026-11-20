@@ -32,7 +32,7 @@ export default function ResultCardSwap({ projects = [], basePath = "/ai-automati
   // Do not hide featured projects behind a scroll animation for visitors who
   // explicitly prefer reduced motion. Each card stays a normal, readable link.
   if (reduce) {
-    return <div data-testid="ai-showcase" ref={sectionRef} className="mx-auto grid max-w-4xl gap-5 md:grid-cols-2">
+    return <div data-testid="ai-showcase" data-project-count={items.length} ref={sectionRef} className="mx-auto grid max-w-4xl gap-5 md:grid-cols-2">
       {items.map((project) => <ProjectCard key={project.id} project={project} basePath={basePath} />)}
     </div>;
   }
@@ -40,6 +40,7 @@ export default function ResultCardSwap({ projects = [], basePath = "/ai-automati
   const active = items[Math.min(index, items.length - 1)];
   return <div
     data-testid="ai-showcase"
+    data-project-count={items.length}
     ref={sectionRef}
     className="relative"
     style={{ height: `${Math.round((0.66 * Math.max(items.length - 1, 0) + 1.18) * 100)}svh` }}
