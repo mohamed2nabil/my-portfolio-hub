@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight, Code2, Database, ChartNoAxesCombined } from "lucide-react";
 import FlowDiagram from "@/components/FlowDiagram";
+import Typewriter from "@/components/Typewriter";
 import { getPublishedProjects } from "@/lib/projects";
 import { getProfile, getSkills } from "@/lib/content";
 
@@ -76,7 +77,7 @@ export default async function DataAnalysisPage() {
               <Image src={project.poster} alt={project.title} fill sizes="(max-width:768px) 100vw,33vw" className="object-cover transition-transform duration-500 group-hover:scale-[1.035]" />
             </div>
             <div className="p-5">
-              <h3 className="font-serif text-xl leading-snug">{project.title}</h3>
+              <h3 className="font-serif text-xl leading-snug"><Typewriter text={project.title} speed={50} loop={false} /></h3>
               <p className="mt-3 text-xs font-bold uppercase tracking-widest text-blue-800">Delivered insight</p>
               <p className="mt-1 line-clamp-2 text-sm leading-6 text-secondary-ink">{project.outcome || project.shortDesc}</p>
               <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-blue-800">Explore case study <ArrowUpRight size={16}/></span>
