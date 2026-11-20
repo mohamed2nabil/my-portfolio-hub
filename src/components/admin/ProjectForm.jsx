@@ -39,6 +39,7 @@ export default function ProjectForm({ project }) {
       title: String(form.title || '').trim(),
       category: form.category,
       short_description: String(form.short_description || '').trim(),
+      outcome: String(form.outcome || '').trim() || null,
       description: String(form.description || '') || null,
       problem: String(form.problem || '') || null,
       solution: String(form.solution || '') || null,
@@ -83,6 +84,7 @@ export default function ProjectForm({ project }) {
         </label>
       </div>
       <Field label="Short description" name="short_description" defaultValue={value('short_description', value('shortDesc'))} required textarea />
+      <Field label="Project result / deliverable" name="outcome" defaultValue={value('outcome')} hint="One clear sentence: what the solution delivers. Avoid invented ROI statistics." />
       <div className="grid gap-5 md:grid-cols-2">
         <Field label="Business problem" name="problem" defaultValue={value('problem')} textarea />
         <Field label="Solution and contribution" name="solution" defaultValue={value('solution')} textarea />
