@@ -1,0 +1,121 @@
+[
+  {
+    "id": "laravel",
+    "name": "Laravel",
+    "category": "Professional skills",
+    "visible": true,
+    "sort_order": 0
+  },
+  {
+    "id": "php",
+    "name": "PHP",
+    "category": "Professional skills",
+    "visible": true,
+    "sort_order": 1
+  },
+  {
+    "id": "composer",
+    "name": "Composer",
+    "category": "Professional skills",
+    "visible": true,
+    "sort_order": 2
+  },
+  {
+    "id": "mysql",
+    "name": "MySQL",
+    "category": "Professional skills",
+    "visible": true,
+    "sort_order": 3
+  },
+  {
+    "id": "postgresql",
+    "name": "PostgreSQL",
+    "category": "Professional skills",
+    "visible": true,
+    "sort_order": 4
+  },
+  {
+    "id": "docker",
+    "name": "Docker",
+    "category": "Professional skills",
+    "visible": true,
+    "sort_order": 5
+  },
+  {
+    "id": "ai-integration",
+    "name": "AI Integration",
+    "category": "Professional skills",
+    "visible": true,
+    "sort_order": 6
+  },
+  {
+    "id": "embeddings",
+    "name": "Embeddings",
+    "category": "Professional skills",
+    "visible": true,
+    "sort_order": 7
+  },
+  {
+    "id": "vector-databases",
+    "name": "Vector Databases",
+    "category": "Professional skills",
+    "visible": true,
+    "sort_order": 8
+  },
+  {
+    "id": "semantic-search",
+    "name": "Semantic Search",
+    "category": "Professional skills",
+    "visible": true,
+    "sort_order": 9
+  },
+  {
+    "id": "next-js",
+    "name": "Next.js",
+    "category": "Professional skills",
+    "visible": true,
+    "sort_order": 10
+  },
+  {
+    "id": "javascript",
+    "name": "JavaScript",
+    "category": "Professional skills",
+    "visible": true,
+    "sort_order": 11
+  },
+  {
+    "id": "react",
+    "name": "React",
+    "category": "Professional skills",
+    "visible": true,
+    "sort_order": 12
+  },
+  {
+    "id": "python",
+    "name": "Python",
+    "category": "Professional skills",
+    "visible": true,
+    "sort_order": 13
+  },
+  {
+    "id": "apis",
+    "name": "APIs",
+    "category": "Professional skills",
+    "visible": true,
+    "sort_order": 14
+  },
+  {
+    "id": "n8n",
+    "name": "n8n",
+    "category": "Professional skills",
+    "visible": true,
+    "sort_order": 15
+  },
+  {
+    "id": "power-bi",
+    "name": "Power BI",
+    "category": "Professional skills",
+    "visible": true,
+    "sort_order": 16
+  }
+]

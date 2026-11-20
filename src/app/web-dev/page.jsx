@@ -2,10 +2,12 @@ import React from 'react';
 import Link from 'next/link';
 import { webDevProjects } from '../../data/web-dev-projects';
 import { getPublishedProjects } from '@/lib/projects';
+import { getProfile } from '@/lib/content';
 export const dynamic = 'force-dynamic';
 
 export default async function WebDevPage() {
   const projects = await getPublishedProjects('web-dev', webDevProjects);
+  const profile = await getProfile();
   return (
     <div className="min-h-screen bg-ground text-ink font-mono selection:bg-emerald-500 selection:text-ground pt-[58px]">
       
@@ -36,7 +38,7 @@ export default async function WebDevPage() {
                     <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500 to-teal-500 opacity-30 blur-lg group-hover:opacity-60 transition duration-1000 group-hover:duration-200"></div>
                     <div className="relative bg-secondary-ground border-2 border-emerald-500 w-48 h-48 md:w-56 md:h-56 overflow-hidden shadow-xl flex items-center justify-center">
                         <img 
-                            src="/images/mohamed-nabil-main.jpeg" 
+                            src={profile.profile_image_url || "/images/mohamed-nabil-main.jpeg"} 
                             alt="Mohamed Nabil" 
                             className="w-full h-full object-cover object-[center_top] transition-all duration-700 hover:scale-105" 
                         />

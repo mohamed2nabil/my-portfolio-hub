@@ -51,7 +51,7 @@ export const aiProjects = [
       { label: "35% Higher Lead-to-Order Conversion", desc: "Personalized contextual product recommendations guide casual DM inquiries into completed checkout links." },
       { label: "Automated Lead Qualification", desc: "Filters out casual browsers and routes only sales-ready, high-ticket prospects to human account executives." }
     ],
-    techStack: ["n8n", "Instagram Graph API", "OpenAI GPT-4o", "Vector Knowledge Base (RAG)", "Supabase"],
+    techStack: ["n8n", "Instagram Graph API", "OpenAI GPT-4o", "Vector Knowledge Base (RAG)", "PostgreSQL"],
     images: [
       { url: "/images/ai_automation/insta-automation/poster.png", label: "Project Poster" },
       { url: "/images/ai_automation/insta-automation/workflow.png", label: "Architecture Workflow" }

@@ -2,10 +2,12 @@ import React from 'react';
 import Link from 'next/link';
 import { dataAnalysisProjects } from '../../data/data-analysis-projects';
 import { getPublishedProjects } from '@/lib/projects';
+import { getProfile } from '@/lib/content';
 export const dynamic = 'force-dynamic';
 
 export default async function DataAnalysisPage() {
   const projects = await getPublishedProjects('data-analysis', dataAnalysisProjects);
+  const profile = await getProfile();
   return (
     <div className="bg-ground text-ink min-h-screen font-sans pt-[58px]">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
@@ -36,7 +38,7 @@ export default async function DataAnalysisPage() {
               <div className="md:w-1/2 flex justify-center">
                   <div className="relative w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96">
                       <div className="absolute inset-0 rounded-full bg-gradient-to-br from-cyan-400 to-blue-500 blur-2xl opacity-20 animate-pulse"></div>
-                      <img src="/images/mohamed-nabil-main.jpeg"
+                      <img src={profile.profile_image_url || "/images/mohamed-nabil-main.jpeg"}
                            alt="Profile"
                            className="relative w-full h-full object-cover rounded-full border-4 border-hairline shadow-2xl" 
                            style={{ animation: 'float 6s ease-in-out infinite' }} />
@@ -57,7 +59,7 @@ export default async function DataAnalysisPage() {
                   <div className="md:w-1/3 flex justify-center">
                       <div className="relative w-64 h-64">
                           <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-cyan-400 to-blue-500 blur-xl opacity-20"></div>
-                          <img src="/images/mohamed-nabil-main.jpeg"
+                          <img src={profile.profile_image_url || "/images/mohamed-nabil-main.jpeg"}
                                alt="About"
                                className="relative w-full h-full object-cover rounded-2xl border border-hairline shadow-lg" />
                       </div>

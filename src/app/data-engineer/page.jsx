@@ -1,10 +1,12 @@
 import React from 'react';
 import Link from 'next/link';
 import { getPublishedProjects } from '@/lib/projects';
+import { getProfile } from '@/lib/content';
 export const dynamic = 'force-dynamic';
 
 export default async function DataEngineerPage() {
   const projects = await getPublishedProjects('data-engineer', []);
+  const profile = await getProfile();
   return (
     <div className="min-h-screen bg-ground text-ink font-mono pt-[58px]">
       
@@ -31,7 +33,7 @@ export default async function DataEngineerPage() {
             
             <div className="md:w-1/3 w-full space-y-4">
               <div className="relative mx-auto aspect-[4/3] max-w-[240px] overflow-hidden rounded-3xl border border-amber-500/30 bg-secondary-ground shadow-lg">
-                <img src="/images/mohamed-nabil-main.jpeg" alt="Mohamed Nabil" className="h-full w-full object-cover object-top" />
+                <img src={profile.profile_image_url || "/images/mohamed-nabil-main.jpeg"} alt="Mohamed Nabil" className="h-full w-full object-cover object-top" />
               </div>
               <div className="bg-secondary-ground border border-hairline rounded-2xl p-6 font-mono text-xs text-secondary-ink shadow-inner">
                <p className="text-amber-600 font-bold mb-2">{"// CORE.STACK.YML"}</p>

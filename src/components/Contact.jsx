@@ -1,19 +1,26 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
+import emailjs from '@emailjs/browser';
 
 export default function Contact() {
   const [status, setStatus] = useState('');
+  const lastSubmission = useRef(0);
 
   const sendEmail = async (e) => {
     e.preventDefault();
     if (status === 'sending') return;
+    const formElement = e.currentTarget;
+    if (Date.now() - lastSubmission.current < 60_000) { setStatus('rate-limited'); return; }
+    if (new FormData(formElement).get('company_website')) { setStatus('success'); formElement.reset(); return; }
     setStatus('sending');
     try {
-      const form = new FormData(e.currentTarget);
-      const response = await fetch('/api/contact', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(Object.fromEntries(form)) });
-      if (!response.ok) throw new Error('Message could not be sent');
-      setStatus('success'); e.currentTarget.reset();
+      const service = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
+      const template = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
+      const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
+      if (!service || !template || !publicKey) throw new Error('Email delivery is not configured');
+      await emailjs.sendForm(service, template, formElement, { publicKey });
+      lastSubmission.current = Date.now(); setStatus('success'); formElement.reset();
     } catch { setStatus('error'); }
   };
 
@@ -106,6 +113,7 @@ export default function Contact() {
                 {status === 'sending' ? 'Sending...' : 'Send Message'}
               </button>
               {status === 'success' && <p className="text-green-700 text-xs text-center mt-2">Thanks — your message has been received.</p>}
+              {status === 'rate-limited' && <p className="text-red-600 text-xs text-center mt-2">Please wait a minute before sending another message.</p>}
               {status === 'error' && <p className="text-red-600 text-xs text-center mt-2">We could not submit that message. Please email Mohamed directly.</p>}
             </form>
           </div>
