@@ -1,5 +1,6 @@
 import './globals.css';
 import Navbar from '@/components/Navbar';
+import { MotionPreferencesProvider } from '@/components/MotionPreferences';
 
 export const metadata = {
   metadataBase: new URL('https://my-portfolio-hub-theta.vercel.app'),
@@ -20,10 +21,12 @@ export default function RootLayout({ children }) {
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..600&display=swap" rel="stylesheet" />
       </head>
       <body className="antialiased min-h-screen flex flex-col selection:bg-ink-blue selection:text-white">
-        <Navbar />
-        <main className="flex-1 flex flex-col">
-          {children}
-        </main>
+        <MotionPreferencesProvider>
+          <Navbar />
+          <main className="flex-1 flex flex-col">
+            {children}
+          </main>
+        </MotionPreferencesProvider>
       </body>
     </html>
   );
