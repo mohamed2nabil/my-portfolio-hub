@@ -1,7 +1,10 @@
 import React from 'react';
 import Link from 'next/link';
+import { getPublishedProjects } from '@/lib/projects';
+export const dynamic = 'force-dynamic';
 
-export default function DataEngineerPage() {
+export default async function DataEngineerPage() {
+  const projects = await getPublishedProjects('data-engineer', []);
   return (
     <div className="min-h-screen bg-ground text-ink font-mono pt-[58px]">
       
@@ -144,6 +147,8 @@ export default function DataEngineerPage() {
           </div>
         </div>
       </section>
+
+      {projects.length > 0 && <section className="bg-secondary-ground px-6 py-20"><div className="container mx-auto max-w-5xl"><h2 className="font-serif text-3xl font-bold">More data engineering work</h2><div className="mt-8 grid gap-5 md:grid-cols-2">{projects.map((project) => <Link key={project.id} href={`/data-engineer/${project.id}`} className="rounded-2xl border border-hairline bg-ground p-6 transition hover:-translate-y-1"><p className="text-xs font-bold uppercase tracking-widest text-amber-600">{project.category}</p><h3 className="mt-2 font-serif text-2xl">{project.title}</h3><p className="mt-3 text-sm leading-6 text-secondary-ink">{project.shortDesc}</p></Link>)}</div></div></section>}
 
     </div>
   );
