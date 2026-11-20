@@ -14,7 +14,7 @@ export function generateStaticParams() {
 
 export default async function DataAnalysisProjectPage({ params }) {
   const { id } = await params;
-  const project = await getPublishedProject(id, dataAnalysisProjects);
+  const project = await getPublishedProject(id, dataAnalysisProjects, 'data-analysis');
 
   if (!project) {
     notFound();
