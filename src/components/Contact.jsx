@@ -1,31 +1,20 @@
 "use client";
 
-import React, { useRef, useState } from 'react';
-import emailjs from '@emailjs/browser';
+import React, { useState } from 'react';
 
 export default function Contact() {
-  const formRef = useRef();
   const [status, setStatus] = useState('');
 
-  const sendEmail = (e) => {
+  const sendEmail = async (e) => {
     e.preventDefault();
     if (status === 'sending') return;
     setStatus('sending');
-
-    // ponytail: NEXT_PUBLIC_* vars work transparently across local/Vercel
-    emailjs.sendForm(
-      process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID,
-      process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID,
-      formRef.current,
-      process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY
-    )
-      .then(() => {
-        setStatus('success');
-        formRef.current.reset();
-      }, (error) => {
-        setStatus('error');
-        console.error(error);
-      });
+    try {
+      const form = new FormData(e.currentTarget);
+      const response = await fetch('/api/contact', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(Object.fromEntries(form)) });
+      if (!response.ok) throw new Error('Message could not be sent');
+      setStatus('success'); e.currentTarget.reset();
+    } catch { setStatus('error'); }
   };
 
   return (
@@ -93,7 +82,8 @@ export default function Contact() {
           {/* Contact Form */}
           <div>
             <h3 className="text-2xl font-serif mb-6">Send Me a Message</h3>
-            <form ref={formRef} onSubmit={sendEmail} className="space-y-4 font-mono text-sm">
+            <form onSubmit={sendEmail} className="space-y-4 font-mono text-sm">
+              <input type="text" name="company_website" tabIndex="-1" autoComplete="off" className="hidden" aria-hidden="true" />
               <div className="grid grid-cols-1 gap-4">
                 <div>
                   <label htmlFor="name" className="block mb-2 text-muted text-xs uppercase tracking-widest">Your Name</label>
@@ -115,8 +105,8 @@ export default function Contact() {
               <button type="submit" disabled={status === 'sending'} className="w-full px-8 py-4 bg-ink text-ground font-mono text-xs uppercase tracking-widest hover:bg-ink-blue transition-colors disabled:opacity-50">
                 {status === 'sending' ? 'Sending...' : 'Send Message'}
               </button>
-              {status === 'success' && <p className="text-green-500 text-xs text-center mt-2">Message sent successfully!</p>}
-              {status === 'error' && <p className="text-red-500 text-xs text-center mt-2">Failed to send. Please try again.</p>}
+              {status === 'success' && <p className="text-green-700 text-xs text-center mt-2">Thanks — your message has been received.</p>}
+              {status === 'error' && <p className="text-red-600 text-xs text-center mt-2">We could not submit that message. Please email Mohamed directly.</p>}
             </form>
           </div>
         </div>

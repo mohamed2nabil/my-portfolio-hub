@@ -26,7 +26,11 @@ export default function DataEngineerPage() {
               </div>
             </div>
             
-            <div className="md:w-1/3 w-full bg-secondary-ground border border-hairline p-6 font-mono text-xs text-secondary-ink shadow-inner">
+            <div className="md:w-1/3 w-full space-y-4">
+              <div className="relative mx-auto aspect-[4/3] max-w-[240px] overflow-hidden rounded-3xl border border-amber-500/30 bg-secondary-ground shadow-lg">
+                <img src="/images/mohamed-nabil-main.jpeg" alt="Mohamed Nabil" className="h-full w-full object-cover object-top" />
+              </div>
+              <div className="bg-secondary-ground border border-hairline rounded-2xl p-6 font-mono text-xs text-secondary-ink shadow-inner">
                <p className="text-amber-600 font-bold mb-2">{"// CORE.STACK.YML"}</p>
                <p>services:</p>
                <p className="pl-4">ingestion: Azure Event Hubs</p>
@@ -35,6 +39,7 @@ export default function DataEngineerPage() {
                <p className="pl-4">serving: Power BI / Streamlit</p>
                <p className="pl-4">orchestration: Databricks Jobs</p>
                <p className="mt-2 text-amber-600 font-bold">{"// STATUS: READY"}</p>
+              </div>
             </div>
           </div>
         </div>

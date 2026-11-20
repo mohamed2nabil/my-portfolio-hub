@@ -1,56 +1,12 @@
 @import "tailwindcss";
-
 @theme {
-  --color-ground: #EFE9DD;
-  --color-secondary-ground: #E5DED0;
-  --color-ink: #141C2B;
-  --color-secondary-ink: #4A5364;
-  --color-muted: #767E8C;
-  --color-ink-blue: #2C4A8F;
-  --color-hairline: rgba(20, 28, 43, 0.16);
-
-  --font-serif: "Newsreader", serif;
-  --font-mono: "Courier Prime", monospace;
-  --font-sans: "Inter", sans-serif;
+  --color-ground: #f6f3ee; --color-secondary-ground: #ede8de; --color-ink: #172033; --color-secondary-ink: #536072; --color-muted: #718095; --color-ink-blue: #3158a8; --color-hairline: rgba(23, 32, 51, .14);
+  --font-serif: "Newsreader", Georgia, serif; --font-mono: "IBM Plex Mono", ui-monospace, monospace; --font-sans: "Inter", Arial, sans-serif;
 }
-
-:root {
-  --background: var(--color-ground);
-  --foreground: var(--color-ink);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #09090b; /* Custom space dark */
-    --foreground: #fafafa;
-    --color-ground: #0a0e17; 
-    --color-secondary-ground: #141c2b;
-    --color-ink: #EFE9DD;
-    --color-secondary-ink: #A0AABF;
-    --color-muted: #4A5364;
-    --color-ink-blue: #4B7BFF;
-    --color-hairline: rgba(239, 233, 221, 0.16);
-  }
-}
-
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: var(--font-mono);
-}
-
-.font-serif { font-family: var(--font-serif); }
-.font-mono { font-family: var(--font-mono); }
-
-/* SVG Animation drawing effect */
-.draw-path {
-  stroke-dasharray: 1000;
-  stroke-dashoffset: 1000;
-  animation: draw 2s ease forwards;
-}
-
-@keyframes draw {
-  to {
-    stroke-dashoffset: 0;
-  }
-}
+:root { --background: var(--color-ground); --foreground: var(--color-ink); }
+* { box-sizing: border-box; } html { scroll-behavior: smooth; } body { margin: 0; color: var(--foreground); background: var(--background); font-family: var(--font-sans); } button, input, textarea { font: inherit; }
+.font-serif { font-family: var(--font-serif); } .font-mono { font-family: var(--font-mono); }
+.button-primary { display: inline-flex; align-items: center; justify-content: center; gap: .5rem; border-radius: .9rem; background: var(--color-ink); color: var(--color-ground); font-family: var(--font-mono); font-weight: 700; letter-spacing: .06em; text-transform: uppercase; transition: transform .2s ease, background .2s ease; }
+.button-primary:hover { background: var(--color-ink-blue); transform: translateY(-1px); }
+.surface { border: 1px solid var(--color-hairline); border-radius: 1.25rem; background: rgba(255,255,255,.56); box-shadow: 0 10px 30px rgba(23,32,51,.06); }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: .01ms !important; } }

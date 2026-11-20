@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { Bot, Workflow, Zap, Database, GitBranch, ArrowRight } from 'lucide-react';
 import { aiProjects } from '../../data/ai-projects';
 
@@ -71,17 +72,17 @@ export default function AIAutomationPage() {
             <p className="text-sm text-secondary-ink max-w-2xl mx-auto">Replacing manual effort with reliable, 24/7 intelligent systems.</p>
           </div>
           
-          <div className="flex flex-col gap-8 relative max-w-4xl mx-auto pb-32">
+          <div className="flex flex-col gap-8 relative max-w-4xl mx-auto pb-12">
             {aiProjects.map((project, index) => (
               <Link 
                 href={`/ai-automation/${project.id}`} 
                 key={project.id} 
-                className="sticky border border-hairline/20 rounded-2xl shadow-2xl flex flex-col md:flex-row overflow-hidden h-auto md:h-[380px]"
+                className="group relative border border-hairline/20 rounded-3xl shadow-xl flex flex-col md:flex-row overflow-hidden bg-ink md:sticky md:h-[380px]"
                 style={{ top: `calc(100px + ${index * 24}px)` }}
               >
                 {/* Image Side */}
-                <div className="w-full md:w-1/2 relative bg-black">
-                  <img src={project.poster} alt={project.title} className="absolute inset-0 w-full h-full object-cover opacity-90 transition-transform duration-700 group-hover:scale-105" />
+                <div className="relative aspect-[16/10] w-full shrink-0 bg-black md:aspect-auto md:w-1/2">
+                  <Image src={project.poster} alt={project.title} fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover opacity-90 transition-transform duration-700 group-hover:scale-105" />
                 </div>
                 
                 {/* Content Side */}

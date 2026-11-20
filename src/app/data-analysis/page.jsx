@@ -34,7 +34,7 @@ export default function DataAnalysisPage() {
               <div className="md:w-1/2 flex justify-center">
                   <div className="relative w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96">
                       <div className="absolute inset-0 rounded-full bg-gradient-to-br from-cyan-400 to-blue-500 blur-2xl opacity-20 animate-pulse"></div>
-                      <img src="/templates/data-analysis/my%20photo.jpeg"
+                      <img src="/images/mohamed-nabil-main.jpeg"
                            alt="Profile"
                            className="relative w-full h-full object-cover rounded-full border-4 border-hairline shadow-2xl" 
                            style={{ animation: 'float 6s ease-in-out infinite' }} />
@@ -55,7 +55,7 @@ export default function DataAnalysisPage() {
                   <div className="md:w-1/3 flex justify-center">
                       <div className="relative w-64 h-64">
                           <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-cyan-400 to-blue-500 blur-xl opacity-20"></div>
-                          <img src="/templates/data-analysis/my%20photo.jpeg"
+                          <img src="/images/mohamed-nabil-main.jpeg"
                                alt="About"
                                className="relative w-full h-full object-cover rounded-2xl border border-hairline shadow-lg" />
                       </div>
@@ -107,7 +107,7 @@ export default function DataAnalysisPage() {
                               <h4 className="text-lg font-bold mb-2 font-serif">Data Analyst</h4>
                               <p className="text-xs font-mono text-ink-blue uppercase tracking-widest mb-3">Freelance • 2023 - Present</p>
                               <p className="text-secondary-ink text-sm leading-relaxed">
-                                  Helping Master's students and businesses turn research requirements into analyzable data, clean datasets, select KPIs, and translate results into clear findings.
+                                  Helping Master&apos;s students and businesses turn research requirements into analyzable data, clean datasets, select KPIs, and translate results into clear findings.
                               </p>
                           </div>
                       </div>
