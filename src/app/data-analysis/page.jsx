@@ -1,9 +1,82 @@
 import Image from "next/image";
 import Link from "next/link";
+import { ArrowUpRight, Code2, Database, ChartNoAxesCombined } from "lucide-react";
 import FlowDiagram from "@/components/FlowDiagram";
-import { dataAnalysisProjects } from "@/data/data-analysis-projects";
 import { getPublishedProjects } from "@/lib/projects";
 import { getProfile } from "@/lib/content";
-export const dynamic = "force-dynamic";
-const tools = ["Python", "SQL", "pandas", "NumPy", "Power BI", "Power Query", "DAX", "PostgreSQL"];
-export default async function DataAnalysisPage() { const [projects, profile] = await Promise.all([getPublishedProjects("data-analysis", dataAnalysisProjects), getProfile()]); return <div className="page-shell"><section className="border-b border-blue-700/20"><div className="content-frame grid items-center gap-10 py-16 sm:py-20 lg:grid-cols-[1.15fr_.85fr]"><div><p className="eyebrow text-ink-blue">Data analysis / business intelligence</p><h1 className="mt-4 font-serif text-5xl font-semibold leading-[.94] tracking-tight sm:text-6xl">Make the data <em className="text-ink-blue">useful.</em></h1><p className="mt-6 max-w-xl leading-7 text-secondary-ink">From an uncertain dataset to a decision-ready view: clean the data, test the question, make the story clear.</p><div className="mt-7 flex gap-3"><a href="#projects" className="button-primary px-5 py-3 text-xs">View analysis</a><Link href="/#contact" className="rounded-xl border border-hairline px-5 py-3 font-mono text-xs font-bold uppercase tracking-wide">Discuss a project</Link></div></div><div className="relative mx-auto aspect-[5/4] w-full max-w-sm overflow-hidden rounded-[1.7rem] border border-blue-700/20"><Image src={profile.profile_image_url || "/images/mohamed-nabil-main.jpeg"} alt="Mohamed Nabil" fill priority sizes="(max-width:1024px) 80vw,30vw" className="object-cover object-top" /></div></div></section><section className="bg-secondary-ground"><div className="content-frame section-space"><p className="eyebrow text-ink-blue">Analytical method</p><h2 className="mt-3 font-serif text-4xl">A controlled path to insight.</h2><div className="mt-8"><FlowDiagram accent="#3158a8" label="Analysis workflow" steps={[{title:"Question",detail:"What decision needs support?"},{title:"Prepare",detail:"Clean and validate the data."},{title:"Analyze",detail:"Find relevant patterns."},{title:"Explain",detail:"Dashboard or story for action."}]} /></div></div></section><section className="content-frame section-space grid gap-8 lg:grid-cols-[.7fr_1.3fr]"><div><p className="eyebrow text-ink-blue">Toolkit</p><h2 className="mt-3 font-serif text-4xl">Precise, not noisy.</h2></div><div className="flex flex-wrap content-start gap-2">{tools.map((tool) => <span key={tool} className="rounded-full border border-blue-700/20 px-3 py-2 font-mono text-xs text-secondary-ink">{tool}</span>)}</div></section><section id="projects" className="border-y border-hairline bg-secondary-ground"><div className="content-frame section-space"><p className="eyebrow text-ink-blue">Case studies</p><h2 className="mt-3 font-serif text-4xl">Dashboards that carry the story.</h2><div className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-3">{projects.map((project) => <Link key={project.id} href={`/data-analysis/${project.id}`} className="group overflow-hidden rounded-2xl border border-hairline bg-ground"><div className="relative aspect-[16/10]"><Image src={project.poster} alt={project.title} fill sizes="(max-width:768px) 100vw,33vw" className="object-cover transition duration-500 group-hover:scale-[1.03]" /></div><div className="p-5"><p className="eyebrow text-ink-blue">{project.category}</p><h3 className="mt-2 font-serif text-xl">{project.title}</h3><p className="mt-2 line-clamp-2 text-sm leading-6 text-secondary-ink">{project.shortDesc}</p></div></Link>)}</div></div></section></div>; }
+
+export const revalidate = 60;
+
+const toolkit = [
+  { title: "Python", role: "Analysis & modeling", Icon: Code2, items: ["pandas", "NumPy", "SciPy", "scikit-learn", "Matplotlib", "Seaborn"] },
+  { title: "BI & Excel", role: "Dashboards & decisions", Icon: ChartNoAxesCombined, items: ["Power BI", "DAX", "Power Query", "Microsoft Excel"] },
+  { title: "Data & SQL", role: "Querying & preparation", Icon: Database, items: ["SQL", "PostgreSQL", "MySQL"] },
+];
+
+export default async function DataAnalysisPage() {
+  const [projects, profile] = await Promise.all([getPublishedProjects("data-analysis"), getProfile()]);
+  return <div className="page-shell">
+    <section className="border-b border-blue-700/20">
+      <div className="content-frame grid items-center gap-10 py-14 sm:py-20 lg:grid-cols-[1.15fr_.85fr]">
+        <div>
+          <p className="eyebrow text-ink-blue">Data analysis / business intelligence</p>
+          <h1 className="mt-4 font-serif text-5xl font-semibold leading-[.98] tracking-tight sm:text-6xl">Less raw data. <em className="text-ink-blue">Clearer decisions.</em></h1>
+          <p className="mt-5 max-w-xl leading-7 text-secondary-ink">I turn scattered data into answers you can act on — from Excel and Python to Power BI dashboards.</p>
+          <div className="mt-7 flex flex-wrap gap-3">
+            <a href="#projects" className="button-primary px-5 py-3 text-xs">See the results</a>
+            <Link href="/#contact" className="rounded-xl border border-hairline px-5 py-3 font-mono text-xs font-bold uppercase tracking-wide transition hover:border-blue-600">Discuss your data</Link>
+          </div>
+        </div>
+        <div className="relative mx-auto aspect-[5/4] w-full max-w-sm overflow-hidden rounded-[1.7rem] border border-blue-700/20 shadow-sm">
+          <Image src={profile.profile_image_url || "/images/mohamed-nabil-main.jpeg"} alt="Mohamed Nabil" fill priority sizes="(max-width:1024px) 80vw,30vw" className="object-cover object-top" />
+        </div>
+      </div>
+    </section>
+    <section className="bg-secondary-ground">
+      <div className="content-frame section-space">
+        <p className="eyebrow text-ink-blue">From question to answer</p>
+        <h2 className="mt-3 font-serif text-3xl sm:text-4xl">Make every chart earn its place.</h2>
+        <div className="mt-8"><FlowDiagram accent="#3158a8" label="Analysis workflow" steps={[
+          {title:"Question",detail:"What decision matters?"},
+          {title:"Prepare",detail:"Clean & validate"},
+          {title:"Analyze",detail:"Find the signal"},
+          {title:"Explain",detail:"Show an actionable result"}
+        ]} /></div>
+      </div>
+    </section>
+    <section className="content-frame section-space" id="skills">
+      <div className="flex flex-wrap items-end justify-between gap-4">
+        <div><p className="eyebrow text-ink-blue">How I work</p><h2 className="mt-3 font-serif text-3xl sm:text-4xl">Tools with a purpose.</h2></div>
+        <p className="max-w-xs text-sm leading-6 text-secondary-ink">Libraries belong to Python. Tools belong to the outcome they enable.</p>
+      </div>
+      <div className="mt-8 grid gap-4 md:grid-cols-3">
+        {toolkit.map(({ title, role, Icon, items }) => <article key={title} className="group rounded-[1.4rem] border border-hairline bg-ground p-5 transition duration-300 hover:-translate-y-1 hover:border-blue-500/45 hover:bg-white hover:shadow-lg focus-within:border-blue-500">
+          <div className="flex items-center gap-3">
+            <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-blue-700/10 text-blue-800"><Icon size={20} strokeWidth={1.8} /></span>
+            <div><h3 className="font-serif text-xl font-semibold">{title}</h3><p className="text-xs text-secondary-ink">{role}</p></div>
+          </div>
+          <p className="mt-5 text-sm leading-7 text-secondary-ink">{items.join(" · ")}</p>
+        </article>)}
+      </div>
+    </section>
+    <section id="projects" className="border-y border-hairline bg-secondary-ground">
+      <div className="content-frame section-space">
+        <p className="eyebrow text-ink-blue">Selected analysis</p>
+        <h2 className="mt-3 font-serif text-3xl sm:text-4xl">Results you can explore.</h2>
+        <div className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+          {projects.map((project) => <Link key={project.id} href={`/data-analysis/${project.id}`} className="group overflow-hidden rounded-[1.4rem] border border-hairline bg-ground transition-all duration-300 hover:-translate-y-1 hover:border-blue-500/50 hover:shadow-xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-ink-blue">
+            <div className="relative aspect-[16/10] overflow-hidden">
+              <Image src={project.poster} alt={project.title} fill sizes="(max-width:768px) 100vw,33vw" className="object-cover transition-transform duration-500 group-hover:scale-[1.035]" />
+            </div>
+            <div className="p-5">
+              <h3 className="font-serif text-xl leading-snug">{project.title}</h3>
+              <p className="mt-3 text-xs font-bold uppercase tracking-widest text-blue-800">Delivered insight</p>
+              <p className="mt-1 line-clamp-2 text-sm leading-6 text-secondary-ink">{project.outcome || project.shortDesc}</p>
+              <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-blue-800">Explore case study <ArrowUpRight size={16}/></span>
+            </div>
+          </Link>)}
+        </div>
+      </div>
+    </section>
+  </div>;
+}
