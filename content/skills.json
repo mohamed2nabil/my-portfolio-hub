@@ -208,5 +208,75 @@
     "category": "Data Engineering · DEPI Training",
     "visible": true,
     "sort_order": 29
+  },
+  {
+    "id": "pandas",
+    "name": "pandas",
+    "category": "Python Libraries",
+    "visible": true,
+    "sort_order": 30
+  },
+  {
+    "id": "numpy",
+    "name": "NumPy",
+    "category": "Python Libraries",
+    "visible": true,
+    "sort_order": 31
+  },
+  {
+    "id": "scipy",
+    "name": "SciPy",
+    "category": "Python Libraries",
+    "visible": true,
+    "sort_order": 32
+  },
+  {
+    "id": "scikit-learn",
+    "name": "scikit-learn",
+    "category": "Python Libraries",
+    "visible": true,
+    "sort_order": 33
+  },
+  {
+    "id": "matplotlib",
+    "name": "Matplotlib",
+    "category": "Python Libraries",
+    "visible": true,
+    "sort_order": 34
+  },
+  {
+    "id": "seaborn",
+    "name": "Seaborn",
+    "category": "Python Libraries",
+    "visible": true,
+    "sort_order": 35
+  },
+  {
+    "id": "power-query",
+    "name": "Power Query",
+    "category": "Business Intelligence",
+    "visible": true,
+    "sort_order": 36
+  },
+  {
+    "id": "dax",
+    "name": "DAX",
+    "category": "Business Intelligence",
+    "visible": true,
+    "sort_order": 37
+  },
+  {
+    "id": "excel",
+    "name": "Microsoft Excel",
+    "category": "Business Intelligence",
+    "visible": true,
+    "sort_order": 38
+  },
+  {
+    "id": "sql-analysis",
+    "name": "SQL",
+    "category": "Analytics Databases",
+    "visible": true,
+    "sort_order": 39
   }
 ]
