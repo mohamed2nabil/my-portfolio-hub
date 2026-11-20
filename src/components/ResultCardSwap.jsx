@@ -3,7 +3,8 @@
 import { useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { AnimatePresence, motion, useMotionValueEvent, useReducedMotion, useScroll } from "framer-motion";
+import { AnimatePresence, motion, useMotionValueEvent, useScroll } from "framer-motion";
+import { useSiteMotion } from "@/components/MotionPreferences";
 import { ArrowRight } from "lucide-react";
 
 // Projects change with the visitor's page scroll, not with a timer or dots.
@@ -12,7 +13,8 @@ import { ArrowRight } from "lucide-react";
 export default function ResultCardSwap({ projects = [], basePath = "/ai-automation" }) {
   const sectionRef = useRef(null);
   const [index, setIndex] = useState(0);
-  const reduce = useReducedMotion();
+  const { enabled } = useSiteMotion();
+  const reduce = !enabled;
   const items = projects.slice(0, 3);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
