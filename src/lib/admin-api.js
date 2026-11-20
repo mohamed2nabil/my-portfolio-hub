@@ -1,2 +1,3 @@
 import { NextResponse } from 'next/server'; import { getAdminUser } from '@/lib/auth';
 export async function getAdminRequestContext() { const admin = await getAdminUser(); return admin ? { admin } : { error: NextResponse.json({ error: 'Unauthorized' }, { status: 401 }) }; }
+export function adminMutationError(error) { const status = error?.status === 409 || error?.status === 422 ? 409 : error?.status === 401 || error?.status === 403 ? error.status : 502; const detail = error?.message || 'The GitHub operation could not be completed.'; return NextResponse.json({ error: status === 409 ? 'GitHub rejected this update because content changed remotely. Refresh and try again.' : detail }, { status }); }

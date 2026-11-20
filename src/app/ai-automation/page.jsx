@@ -3,10 +3,12 @@ import Image from 'next/image';
 import { Bot, Workflow, Zap, Database, GitBranch, ArrowRight } from 'lucide-react';
 import { aiProjects } from '../../data/ai-projects';
 import { getPublishedProjects } from '@/lib/projects';
+import { getProfile } from '@/lib/content';
 export const dynamic = 'force-dynamic';
 
 export default async function AIAutomationPage() {
   const projects = await getPublishedProjects('ai-automation', aiProjects);
+  const profile = await getProfile();
   return (
     <div className="min-h-screen bg-ground text-ink font-mono pt-[58px]">
       
@@ -20,6 +22,7 @@ export default async function AIAutomationPage() {
           <h1 className="font-serif text-5xl md:text-7xl font-bold mb-6 text-ink tracking-tight">
             AI <span className="italic text-ink-blue">Automation</span>
           </h1>
+          <div className="mx-auto mb-7 h-24 w-24 overflow-hidden rounded-full border-2 border-ink-blue/30 bg-secondary-ground shadow-lg"><Image src={profile.profile_image_url || '/images/mohamed-nabil-main.jpeg'} alt="Mohamed Nabil" width={96} height={96} className="h-full w-full object-cover object-top" /></div>
           <p className="text-secondary-ink text-sm md:text-base mb-12 max-w-2xl mx-auto leading-relaxed">
             I don&apos;t just build chatbots. I design AI-powered systems that integrate with your business workflows, connect to your data, and automate repetitive tasks reliably.
           </p>
