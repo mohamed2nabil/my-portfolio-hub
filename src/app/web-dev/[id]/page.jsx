@@ -14,7 +14,7 @@ export function generateStaticParams() {
 
 export default async function WebDevProjectPage({ params }) {
   const { id } = await params;
-  const project = await getPublishedProject(id, webDevProjects);
+  const project = await getPublishedProject(id, webDevProjects, 'web-dev');
 
   if (!project) {
     notFound();
