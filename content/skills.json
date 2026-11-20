@@ -117,5 +117,96 @@
     "category": "Data & Analytics",
     "visible": true,
     "sort_order": 16
+  },
+  {
+    "id": "sql-server",
+    "name": "SQL Server",
+    "category": "Data Engineering · DEPI Training",
+    "visible": true,
+    "sort_order": 17
+  },
+  {
+    "id": "data-warehousing",
+    "name": "Data Warehousing",
+    "category": "Data Engineering · DEPI Training",
+    "visible": true,
+    "sort_order": 18
+  },
+  {
+    "id": "dimensional-modeling",
+    "name": "Dimensional Modeling",
+    "category": "Data Engineering · DEPI Training",
+    "visible": true,
+    "sort_order": 19
+  },
+  {
+    "id": "etl-pipelines",
+    "name": "ETL / ELT Pipelines",
+    "category": "Data Engineering · DEPI Training",
+    "visible": true,
+    "sort_order": 20
+  },
+  {
+    "id": "ssis",
+    "name": "SQL Server Integration Services (SSIS)",
+    "category": "Data Engineering · DEPI Training",
+    "visible": true,
+    "sort_order": 21
+  },
+  {
+    "id": "apache-hadoop",
+    "name": "Apache Hadoop",
+    "category": "Data Engineering · DEPI Training",
+    "visible": true,
+    "sort_order": 22
+  },
+  {
+    "id": "apache-spark",
+    "name": "Apache Spark",
+    "category": "Data Engineering · DEPI Training",
+    "visible": true,
+    "sort_order": 23
+  },
+  {
+    "id": "apache-kafka",
+    "name": "Apache Kafka",
+    "category": "Data Engineering · DEPI Training",
+    "visible": true,
+    "sort_order": 24
+  },
+  {
+    "id": "apache-airflow",
+    "name": "Apache Airflow",
+    "category": "Data Engineering · DEPI Training",
+    "visible": true,
+    "sort_order": 25
+  },
+  {
+    "id": "mongodb",
+    "name": "MongoDB",
+    "category": "Data Engineering · DEPI Training",
+    "visible": true,
+    "sort_order": 26
+  },
+  {
+    "id": "web-scraping",
+    "name": "Web Scraping",
+    "category": "Data Engineering · DEPI Training",
+    "visible": true,
+    "sort_order": 27
+  },
+  {
+    "id": "selenium",
+    "name": "Selenium",
+    "category": "Data Engineering · DEPI Training",
+    "visible": true,
+    "sort_order": 28
+  },
+  {
+    "id": "azure-data",
+    "name": "Azure Data Engineering Fundamentals",
+    "category": "Data Engineering · DEPI Training",
+    "visible": true,
+    "sort_order": 29
   }
 ]
