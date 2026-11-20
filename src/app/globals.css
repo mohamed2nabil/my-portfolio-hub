@@ -78,3 +78,79 @@
   :root:not([data-site-motion="on"]) .speed-fazers i,
   :root:not([data-site-motion="on"]) .type-cursor { animation: none !important; }
 }
+
+
+/* One visual rhythm for source -> processing -> outcome.
+   Compact nodes remain readable while one connector leads into the next. */
+.flow-diagram {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  overflow: visible;
+  padding: .3rem 0 .6rem;
+}
+.flow-step-wrap {
+  display: flex;
+  flex: 1 1 0;
+  align-items: center;
+  gap: 0;
+  min-width: 0;
+}
+.flow-step-wrap:last-child { flex: 1 1 0; }
+.flow-step {
+  flex: 1 1 0;
+  min-width: 0;
+  min-height: 8.8rem;
+  padding: 1rem;
+  border: 1px solid var(--color-hairline);
+  border-radius: 1.1rem;
+  background: var(--color-ground);
+  box-shadow: 0 3px 10px rgba(23,32,51,.025);
+  transition: border-color .25s ease, box-shadow .25s ease, background .25s ease;
+}
+.flow-step:hover,
+.flow-step:focus-within {
+  border-color: var(--accent);
+  box-shadow: 0 8px 22px rgba(23,32,51,.065);
+}
+.flow-step-top { display: flex; justify-content: space-between; align-items: center; }
+.flow-step .flow-step-top span { color: var(--accent); font-size: .68rem; }
+.flow-step-status {
+  display: block;
+  width: .4rem;
+  height: .4rem;
+  background: var(--accent);
+  border-radius: 50%;
+  opacity: .45;
+  box-shadow: 0 0 0 3px color-mix(in srgb,var(--accent) 10%,transparent);
+}
+.flow-step strong { margin-top: 1rem; }
+.flow-step small { margin-top: .4rem; }
+.flow-link-track {
+  position: relative;
+  width: clamp(.65rem, 2.25vw, 1.55rem);
+  height: 2px;
+  flex: 0 0 clamp(.65rem, 2.25vw, 1.55rem);
+  align-self: center;
+  margin-inline: .25rem;
+  background: color-mix(in srgb, var(--accent) 15%, transparent);
+}
+.flow-link-progress {
+  display: block;
+  width: 100%; height: 100%;
+  transform-origin: left center;
+  background: var(--accent);
+  opacity: .8;
+}
+.flow-link-packet {
+  position: absolute; left: 0; top: -2px;
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--accent);
+}
+@media (max-width: 760px) {
+  .flow-diagram { display: grid; gap: 0; overflow: visible; margin-inline: 0; padding-inline: 0; }
+  .flow-step-wrap { display: grid; grid-template-columns: 1fr; gap: 0; }
+  .flow-step { min-height: 6.5rem; }
+  .flow-step strong { margin-top: .5rem; }
+  .flow-link-track { width: 2px; height: 1.25rem; margin: .125rem 0 .125rem 1.4rem; }
+}
