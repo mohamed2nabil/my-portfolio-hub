@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight, Code2, Database, ChartNoAxesCombined } from "lucide-react";
 import FlowDiagram from "@/components/FlowDiagram";
-import Typewriter from "@/components/Typewriter";
+import ScrollReveal from "@/components/ScrollReveal";
 import { getPublishedProjects } from "@/lib/projects";
 import { getProfile, getSkills } from "@/lib/content";
 
@@ -58,13 +58,13 @@ export default async function DataAnalysisPage() {
         <p className="max-w-xs text-sm leading-6 text-secondary-ink">Libraries belong to Python. Tools belong to the outcome they enable.</p>
       </div>
       <div className="mt-8 grid gap-4 md:grid-cols-3">
-        {toolkit.map(({ title, role, Icon, items }) => <article key={title} className="group rounded-[1.4rem] border border-hairline bg-ground p-5 transition duration-300 hover:-translate-y-1 hover:border-blue-500/45 hover:bg-white hover:shadow-lg focus-within:border-blue-500">
+        {toolkit.map(({ title, role, Icon, items }, index) => <ScrollReveal as="article" index={index} key={title} className="group rounded-[1.4rem] border border-hairline bg-ground p-5 transition duration-300 hover:-translate-y-1 hover:border-blue-500/45 hover:bg-white hover:shadow-lg focus-within:border-blue-500">
           <div className="flex items-center gap-3">
             <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-blue-700/10 text-blue-800"><Icon size={20} strokeWidth={1.8} /></span>
             <div><h3 className="font-serif text-xl font-semibold">{title}</h3><p className="text-xs text-secondary-ink">{role}</p></div>
           </div>
           <p className="mt-5 text-sm leading-7 text-secondary-ink">{items.join(" · ")}</p>
-        </article>)}
+        </ScrollReveal>)}
       </div>
     </section>
     <section id="projects" className="border-y border-hairline bg-secondary-ground">
@@ -72,17 +72,17 @@ export default async function DataAnalysisPage() {
         <p className="eyebrow text-ink-blue">Selected analysis</p>
         <h2 className="mt-3 font-serif text-3xl sm:text-4xl">Results you can explore.</h2>
         <div className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-          {projects.map((project) => <Link key={project.id} href={`/data-analysis/${project.id}`} className="group overflow-hidden rounded-[1.4rem] border border-hairline bg-ground transition-all duration-300 hover:-translate-y-1 hover:border-blue-500/50 hover:shadow-xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-ink-blue">
+          {projects.map((project, index) => <ScrollReveal index={index} key={project.id} className="h-full"><Link href={`/data-analysis/${project.id}`} className="block h-full "group overflow-hidden rounded-[1.4rem] border border-hairline bg-ground transition-all duration-300 hover:-translate-y-1 hover:border-blue-500/50 hover:shadow-xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-ink-blue">
             <div className="relative aspect-[16/10] overflow-hidden">
               <Image src={project.poster} alt={project.title} fill sizes="(max-width:768px) 100vw,33vw" className="object-cover transition-transform duration-500 group-hover:scale-[1.035]" />
             </div>
             <div className="p-5">
-              <h3 className="font-serif text-xl leading-snug"><Typewriter text={project.title} speed={50} loop={false} /></h3>
+              <h3 className="font-serif text-xl leading-snug">{project.title}</h3>
               <p className="mt-3 text-xs font-bold uppercase tracking-widest text-blue-800">Delivered insight</p>
               <p className="mt-1 line-clamp-2 text-sm leading-6 text-secondary-ink">{project.outcome || project.shortDesc}</p>
               <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-blue-800">Explore case study <ArrowUpRight size={16}/></span>
             </div>
-          </Link>)}
+          </Link></ScrollReveal>)}
         </div>
       </div>
     </section>
