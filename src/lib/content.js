@@ -9,7 +9,7 @@ const pretty = (value) => `${JSON.stringify(value, null, 2)}\n`;
 
 async function readLocal(relative) { return json(await readFile(path.join(root, relative), 'utf8')); }
 export async function readContent(relative) {
-  if (githubContentEnabled()) return json((await getGitHubFile(`content/${relative}`)).text);
+  if (githubContentEnabled()) return json((await getGitHubFile(`content/${relative}`, { publicRead: true })).text);
   return readLocal(relative);
 }
 export async function readContentWithVersion(relative) {
