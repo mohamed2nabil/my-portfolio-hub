@@ -1,146 +1,95 @@
-import Link from 'next/link';
 import Image from 'next/image';
-import { Bot, Workflow, Zap, Database, GitBranch, ArrowRight } from 'lucide-react';
-import { aiProjects } from '../../data/ai-projects';
+import Link from 'next/link';
+import { ArrowRight, ArrowUpRight, Bot, Code2, Workflow, ShieldCheck, Coins, GitBranch } from 'lucide-react';
 import { getPublishedProjects } from '@/lib/projects';
 import { getProfile } from '@/lib/content';
-export const dynamic = 'force-dynamic';
+
+export const revalidate = 60;
+
+const strengths = [
+  {title:'Python + workflow automation', icon:Code2, description:'Python for data handling, API logic and custom steps; n8n and webhooks when visual orchestration makes maintenance simpler.'},
+  {title:'Connected systems', icon:GitBranch, description:'Connect APIs, CRM systems, databases and external services with attention to authentication, data shape and error handling.'},
+  {title:'Reliable infrastructure', icon:ShieldCheck, description:'Consider hosting, queues, retries, timeouts, logs, rate limits, access control and human-review steps before launch.'},
+  {title:'Tool selection & cost', icon:Coins, description:'Choose between scripts, no-code flows, hosted LLM APIs and self-hosted options based on workload, budget and operational risk.'},
+];
+const flow = [
+  ['01', 'Understand the task', 'Define the workflow, input quality, human exceptions and the real outcome the client needs.'],
+  ['02', 'Choose the smallest useful stack', 'Compare Python, n8n, APIs and AI models against expected volume, maintenance and usage costs.'],
+  ['03', 'Integrate & validate', 'Connect systems with secure credentials, validation, retries and sensible fallbacks.'],
+  ['04', 'Measure & improve', 'Monitor failures and operating cost; refine only when usage data shows a real need.'],
+];
 
 export default async function AIAutomationPage() {
-  const projects = await getPublishedProjects('ai-automation', aiProjects);
-  const profile = await getProfile();
+  const [projects, profile] = await Promise.all([getPublishedProjects('ai-automation'), getProfile()]);
   return (
-    <div className="min-h-screen bg-ground text-ink font-mono pt-[58px]">
-      
-      {/* HERO SECTION */}
-      <section className="pt-24 pb-16 px-6 relative overflow-hidden">
-        <div className="absolute inset-0 z-0 bg-cover bg-center opacity-10" style={{ backgroundImage: "url('/images/ai_automation/background_hero.jpeg')" }}></div>
-        <div className="container mx-auto relative z-10 max-w-5xl text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-ground border border-hairline rounded-full text-xs font-bold tracking-widest uppercase mb-8 shadow-sm text-ink-blue">
-            <Zap size={14} className="text-ink-blue animate-pulse" /> Intelligent Automation
-          </div>
-          <h1 className="font-serif text-5xl md:text-7xl font-bold mb-6 text-ink tracking-tight">
-            AI <span className="italic text-ink-blue">Automation</span>
-          </h1>
-          <div className="mx-auto mb-7 h-24 w-24 overflow-hidden rounded-full border-2 border-ink-blue/30 bg-secondary-ground shadow-lg"><Image src={profile.profile_image_url || '/images/mohamed-nabil-main.jpeg'} alt="Mohamed Nabil" width={96} height={96} className="h-full w-full object-cover object-top" /></div>
-          <p className="text-secondary-ink text-sm md:text-base mb-12 max-w-2xl mx-auto leading-relaxed">
-            I don&apos;t just build chatbots. I design AI-powered systems that integrate with your business workflows, connect to your data, and automate repetitive tasks reliably.
-          </p>
-          <div className="flex justify-center gap-4">
-            <a href="#workflows" className="px-8 py-4 bg-ink text-ground font-bold uppercase tracking-widest text-xs hover:bg-ink-blue transition-colors shadow-sm rounded-full flex items-center gap-2">
-              Explore Workflows <ArrowRight size={14} />
-            </a>
-          </div>
-        </div>
-      </section>
-
-      {/* WORKFLOW ARCHITECTURE */}
-      <section className="py-20 bg-secondary-ground/50 border-y border-hairline">
-        <div className="container mx-auto px-6 max-w-4xl">
-          <h2 className="font-serif text-3xl font-bold text-center mb-16 text-ink">Automation Architecture</h2>
-          
-          <div className="flex flex-col md:flex-row items-center justify-center gap-4">
-            {/* Node 1 */}
-            <div className="w-48 p-6 bg-ground border border-hairline rounded-xl text-center shadow-sm relative group hover:border-ink-blue transition-colors">
-              <Database size={32} className="mx-auto mb-4 text-ink-blue group-hover:scale-110 transition-transform" />
-              <h3 className="font-bold text-sm mb-1">Trigger / Input</h3>
-              <p className="text-[10px] text-secondary-ink uppercase tracking-widest">Webhooks, APIs</p>
+    <main className="min-h-screen bg-ground pt-16 text-ink">
+      <section className="relative isolate overflow-hidden border-b border-hairline px-5 py-20 sm:px-8 lg:py-24">
+        <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_85%_20%,rgba(93,89,201,.12),transparent_28rem),radial-gradient(circle_at_10%_80%,rgba(78,112,228,.07),transparent_30rem)]"/>
+        <div className="mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-[1.1fr_.85fr] lg:gap-20">
+          <div>
+            <span className="inline-flex items-center gap-2 rounded-full border border-indigo-700/20 bg-indigo-700/5 px-4 py-2 text-xs font-semibold text-indigo-800"><Bot size={16}/> AI, Python & connected workflows</span>
+            <h1 className="mt-7 font-serif text-5xl font-semibold leading-[1.05] tracking-tight sm:text-6xl lg:text-7xl">Automation should solve the work, <em className="text-indigo-700">not add complexity.</em></h1>
+            <p className="mt-7 max-w-2xl text-lg leading-8 text-secondary-ink">
+              I design AI-assisted workflows using Python, n8n, APIs and integration patterns that connect the tools your business already uses.
+            </p>
+            <p className="mt-4 max-w-2xl leading-7 text-secondary-ink">
+              The best solution is not automatically the most advanced AI model. I consider infrastructure, model/API pricing, reliability and ongoing maintenance when selecting the right approach.
+            </p>
+            <div className="mt-9 flex flex-wrap gap-3">
+              <a href="#workflows" className="inline-flex items-center gap-2 rounded-2xl bg-indigo-700 px-6 py-3.5 text-sm font-semibold text-white transition hover:bg-indigo-800">Explore automation work <ArrowRight size={17}/></a>
+              <Link href="/#contact" className="rounded-2xl border border-hairline bg-white/80 px-6 py-3.5 text-sm font-semibold transition hover:border-indigo-500">Discuss a workflow</Link>
             </div>
-            
-            <div className="text-ink-blue hidden md:block animate-pulse"><ArrowRight /></div>
-            <div className="text-ink-blue md:hidden rotate-90 animate-pulse"><ArrowRight /></div>
-            
-            {/* Node 2 */}
-            <div className="w-48 p-6 bg-ground border-2 border-ink-blue rounded-xl text-center shadow-md relative group">
-              <Bot size={32} className="mx-auto mb-4 text-ink-blue group-hover:scale-110 transition-transform" />
-              <h3 className="font-bold text-sm mb-1">AI Agent</h3>
-              <p className="text-[10px] text-secondary-ink uppercase tracking-widest">LLM Processing</p>
-            </div>
-            
-            <div className="text-ink-blue hidden md:block animate-pulse"><ArrowRight /></div>
-            <div className="text-ink-blue md:hidden rotate-90 animate-pulse"><ArrowRight /></div>
-            
-            {/* Node 3 */}
-            <div className="w-48 p-6 bg-ground border border-hairline rounded-xl text-center shadow-sm relative group hover:border-ink-blue transition-colors">
-              <GitBranch size={32} className="mx-auto mb-4 text-ink-blue group-hover:scale-110 transition-transform" />
-              <h3 className="font-bold text-sm mb-1">Action / Output</h3>
-              <p className="text-[10px] text-secondary-ink uppercase tracking-widest">CRM, Email, DB</p>
+          </div>
+          <div className="relative mx-auto w-full max-w-sm lg:max-w-md">
+            <div className="absolute -inset-6 rounded-[3rem] bg-indigo-600/15 blur-2xl"/>
+            <div className="relative aspect-[4/5] overflow-hidden rounded-[2.25rem] border border-indigo-700/25 bg-secondary-ground shadow-2xl shadow-indigo-900/10">
+              <Image src={profile.profile_image_url || '/images/mohamed-nabil-main.jpeg'} alt="Mohamed Nabil" fill priority sizes="(max-width:1024px) 85vw, 38vw" className="object-cover object-top"/>
+              <div className="absolute inset-x-4 bottom-4 rounded-2xl border border-white/20 bg-indigo-950/90 px-5 py-4 text-white backdrop-blur"><p className="text-xs font-semibold text-indigo-200">Engineering, not AI hype</p><p className="mt-1 font-serif text-xl">Useful workflows. Sensible choices.</p></div>
             </div>
           </div>
         </div>
       </section>
-
-      {/* CORE CAPABILITIES */}
-      <section id="workflows" className="py-24 bg-ground">
-        <div className="container mx-auto px-6 max-w-6xl">
-          <div className="mb-16 text-center">
-            <h2 className="font-serif text-3xl font-bold text-ink mb-4">Deployed Solutions</h2>
-            <p className="text-sm text-secondary-ink max-w-2xl mx-auto">Replacing manual effort with reliable, 24/7 intelligent systems.</p>
+      <section className="bg-secondary-ground/65 px-5 py-20 sm:px-8">
+        <div className="mx-auto max-w-7xl">
+          <p className="text-xs font-bold uppercase tracking-[.16em] text-indigo-800">How I engineer automations</p>
+          <h2 className="mt-3 font-serif text-4xl sm:text-5xl">The integration is the product.</h2>
+          <p className="mt-4 max-w-3xl leading-7 text-secondary-ink">From a webhook to a Python service or an LLM-assisted decision, every choice should improve an actual business process.</p>
+          <div className="mt-10 grid gap-5 md:grid-cols-2">
+            {strengths.map(({title,description,icon:Icon})=>(
+              <article key={title} className="rounded-[1.75rem] border border-indigo-700/10 bg-white/75 p-7 shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg">
+                <span className="grid h-12 w-12 place-items-center rounded-2xl bg-indigo-700/10 text-indigo-700"><Icon size={23}/></span>
+                <h3 className="mt-5 font-serif text-2xl font-semibold">{title}</h3>
+                <p className="mt-3 text-sm leading-7 text-secondary-ink">{description}</p>
+              </article>
+            ))}
           </div>
-          
-          <div className="flex flex-col gap-8 relative max-w-4xl mx-auto pb-12">
-            {projects.map((project, index) => (
-              <Link 
-                href={`/ai-automation/${project.id}`} 
-                key={project.id} 
-                className="group relative border border-hairline/20 rounded-3xl shadow-xl flex flex-col md:flex-row overflow-hidden bg-ink md:sticky md:h-[380px]"
-                style={{ top: `calc(100px + ${index * 24}px)` }}
-              >
-                {/* Image Side */}
-                <div className="relative aspect-[16/10] w-full shrink-0 bg-black md:aspect-auto md:w-1/2">
-                  <Image src={project.poster} alt={project.title} fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover opacity-90 transition-transform duration-700 group-hover:scale-105" />
-                </div>
-                
-                {/* Content Side */}
-                <div className="w-full md:w-1/2 p-8 flex flex-col bg-gradient-to-br from-slate-900 to-black text-white relative overflow-hidden">
-                  {/* Decorative subtle glow based on index to mimic the image gradients */}
-                  <div className={`absolute -top-24 -right-24 w-64 h-64 rounded-full blur-3xl opacity-20 ${index % 2 === 0 ? 'bg-blue-500' : 'bg-emerald-500'}`}></div>
-
-                  <div className="flex items-center gap-3 mb-4 relative z-10">
-                    <span className="text-[9px] px-3 py-1 border border-white/20 rounded-full uppercase tracking-widest font-bold bg-white/5">
-                      {project.category}
-                    </span>
-                    <span className="text-[10px] text-white/50 font-mono tracking-widest">
-                      0{index + 1} / 0{projects.length}
-                    </span>
-                  </div>
-                  
-                  <h3 className="font-serif text-2xl font-bold group-hover:text-blue-400 transition-colors mb-4 leading-tight relative z-10">
-                    {project.title}
-                  </h3>
-                  
-                  <div className="text-xs text-gray-300 mb-6 leading-relaxed flex-grow space-y-3 relative z-10">
-                    <p><strong className="text-white">Business Case:</strong> {project.problem}</p>
-                    <p><strong className="text-white">Workflow Result:</strong> {project.solution}</p>
-                  </div>
-                  
-                  <div className="flex flex-wrap gap-3 mb-6 relative z-10">
-                    {project.techStack?.slice(0,3).map(tech => (
-                      <span key={tech} className="text-[9px] text-gray-400 uppercase tracking-widest">{tech}</span>
-                    ))}
-                  </div>
-
-                  <div className="mt-auto pt-5 border-t border-white/10 flex items-center justify-between relative z-10">
-                    <span className="text-xs font-bold uppercase tracking-widest flex items-center gap-2 group-hover:text-blue-400 transition-colors">
-                      View Project <ArrowRight size={14} className="transform group-hover:translate-x-1 transition-transform" />
-                    </span>
-                  </div>
+        </div>
+      </section>
+      <section className="px-5 py-20 sm:px-8">
+        <div className="mx-auto max-w-7xl">
+          <div className="grid gap-9 lg:grid-cols-[.75fr_1.25fr]">
+            <div><p className="text-xs font-bold uppercase tracking-[.16em] text-indigo-800">Practical delivery</p><h2 className="mt-3 font-serif text-4xl">From repetitive task to maintainable system.</h2><p className="mt-5 max-w-md leading-7 text-secondary-ink">Some tasks need a simple script; others benefit from scheduled flows, APIs or an LLM. The goal is the right solution for the constraints — not a complicated demo.</p></div>
+            <div className="grid gap-4 sm:grid-cols-2">{flow.map(([number,title,description])=><div key={number} className="rounded-[1.5rem] border border-hairline bg-white/75 p-6"><p className="text-xs font-bold uppercase tracking-widest text-indigo-700">{number} / Delivery</p><h3 className="mt-4 font-serif text-xl font-semibold">{title}</h3><p className="mt-3 text-sm leading-7 text-secondary-ink">{description}</p></div>)}</div>
+          </div>
+        </div>
+      </section>
+      <section id="workflows" className="bg-ink px-5 py-20 text-white sm:px-8">
+        <div className="mx-auto max-w-7xl">
+          <div className="flex flex-wrap items-end justify-between gap-5"><div><p className="text-xs font-bold uppercase tracking-[.16em] text-indigo-300">Automation case studies</p><h2 className="mt-3 font-serif text-4xl sm:text-5xl">Workflows designed around real tasks.</h2><p className="mt-4 max-w-2xl leading-7 text-white/70">Explore how the problem maps to the workflow, integrations and underlying technology.</p></div><Link href="/#contact" className="inline-flex items-center gap-2 text-sm font-semibold text-indigo-200 hover:text-white">Request a similar workflow <ArrowUpRight size={17}/></Link></div>
+          <div className="mt-10 grid gap-6 lg:grid-cols-2">
+            {projects.map((project)=>(
+              <Link key={project.id} href={`/ai-automation/${project.id}`} className="group flex flex-col overflow-hidden rounded-[1.75rem] border border-white/15 bg-white/5 transition duration-200 hover:-translate-y-1 hover:border-indigo-300/50 hover:bg-white/10">
+                <div className="relative aspect-[16/9] overflow-hidden bg-slate-900"><Image src={project.poster} alt={project.title} fill sizes="(max-width:1024px) 100vw, 50vw" className="object-cover transition-transform duration-500 group-hover:scale-[1.035]"/></div>
+                <div className="flex flex-1 flex-col p-7"><p className="text-xs font-bold uppercase tracking-widest text-indigo-300">Integration / workflow</p><h3 className="mt-3 font-serif text-2xl font-semibold leading-snug">{project.title}</h3><p className="mt-3 line-clamp-3 flex-1 text-sm leading-7 text-white/70">{project.shortDesc}</p>
+                  <div className="mt-5 flex flex-wrap gap-2">{(project.techStack||[]).slice(0,4).map(tech=><span key={tech} className="rounded-full border border-white/20 px-3 py-1 text-xs text-white/70">{tech}</span>)}</div>
+                  <span className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-indigo-200">Explore case study <ArrowRight size={17}/></span>
                 </div>
               </Link>
             ))}
           </div>
-          
-          {/* CTA specific to AI Automation */}
-          <div className="mt-20 p-8 text-center bg-secondary-ground border border-hairline rounded-2xl">
-            <h3 className="text-2xl font-bold font-serif text-ink mb-4">Have a process worth automating?</h3>
-            <p className="text-sm text-secondary-ink mb-8 max-w-lg mx-auto">Stop doing manual data entry. Let&apos;s build an intelligent agent that works while you sleep.</p>
-            <Link href="/#contact" className="inline-block px-8 py-4 bg-ink-blue text-ground font-bold uppercase tracking-widest text-xs hover:bg-ink transition-colors rounded-full shadow-sm">
-                Discuss Your Workflow
-            </Link>
-          </div>
         </div>
       </section>
-
-    </div>
+      <section className="px-5 py-20 sm:px-8"><div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-6 rounded-[2rem] border border-indigo-600/20 bg-indigo-700/5 p-8 md:flex-row md:items-center md:p-12"><div><h2 className="font-serif text-3xl">What task is taking too much of your time?</h2><p className="mt-3 max-w-2xl leading-7 text-secondary-ink">Tell me the current steps, tools and constraints. We can choose a realistic automation design and estimate ongoing operating cost.</p></div><Link href="/#contact" className="inline-flex shrink-0 items-center gap-2 rounded-2xl bg-indigo-700 px-6 py-3.5 text-sm font-semibold text-white transition hover:bg-indigo-800">Let's discuss it <ArrowRight size={16}/></Link></div></section>
+    </main>
   );
 }
