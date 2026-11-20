@@ -2,28 +2,40 @@
 
 import { useEffect, useRef } from "react";
 
-// A small, visibility-aware adaptation of the supplied moving squares component.
-// No extra canvas libraries and no animation when offscreen or reduced motion.
-export default function SquaresBackground({ speed = 0.35, squareSize = 36, borderColor = "rgba(22,135,105,.13)", hoverFillColor = "rgba(22,135,105,.08)" }) {
+// Moving squares for the Web hero only. CSS supplies a static grid before
+// hydration; this canvas adds motion when visible. No global RAF loop.
+export default function SquaresBackground({
+  speed = .8,
+  squareSize = 44,
+  borderColor = "rgba(22, 135, 105, .22)",
+  hoverFillColor = "rgba(22, 135, 105, .13)",
+}) {
   const canvasRef = useRef(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
     const ctx = canvas?.getContext("2d", { alpha: true });
-    if (!canvas || !ctx) return;
-    const host = canvas.parentElement;
-    const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const pointer = { x: -1, y: -1 };
-    let raf = 0, visible = false, last = 0, phase = 0, width = 1, height = 1;
+    const host = canvas?.closest("section");
+    if (!canvas || !ctx || !host) return;
 
-    function draw() {
+    const preference = window.matchMedia("(prefers-reduced-motion: reduce)");
+    let raf = 0;
+    let visible = false;
+    let last = 0;
+    let offset = 0;
+    let width = 0;
+    let height = 0;
+    let pointer = null;
+
+    function render() {
       ctx.clearRect(0, 0, width, height);
       ctx.strokeStyle = borderColor;
-      ctx.lineWidth = 0.75;
-      const shift = motion.matches ? 0 : phase % squareSize;
+      ctx.lineWidth = .8;
+      const shift = preference.matches ? 0 : offset % squareSize;
       for (let x = -squareSize + shift; x < width + squareSize; x += squareSize) {
-        for (let y = -squareSize + shift * 0.45; y < height + squareSize; y += squareSize) {
-          if (pointer.x >= x && pointer.x < x + squareSize && pointer.y >= y && pointer.y < y + squareSize) {
+        for (let y = -squareSize + shift * .5; y < height + squareSize; y += squareSize) {
+          const hovering = pointer && pointer.x >= x && pointer.x < x + squareSize && pointer.y >= y && pointer.y < y + squareSize;
+          if (hovering) {
             ctx.fillStyle = hoverFillColor;
             ctx.fillRect(x, y, squareSize, squareSize);
           }
@@ -31,55 +43,72 @@ export default function SquaresBackground({ speed = 0.35, squareSize = 36, borde
         }
       }
     }
-
     function resize() {
       const rect = canvas.getBoundingClientRect();
       width = Math.max(1, Math.round(rect.width));
       height = Math.max(1, Math.round(rect.height));
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
       canvas.width = Math.round(width * dpr);
       canvas.height = Math.round(height * dpr);
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      draw();
+      render();
     }
-
     function frame(now) {
-      if (!visible || motion.matches || document.hidden) { raf = 0; return; }
-      if (now - last >= 40) { phase += speed; draw(); last = now; }
+      if (!visible || preference.matches || document.hidden) {
+        raf = 0;
+        return;
+      }
+      // 24 fps is enough for slow, clear movement without 60fps canvas work.
+      if (now - last >= 42) {
+        offset += speed;
+        render();
+        last = now;
+      }
       raf = window.requestAnimationFrame(frame);
     }
-    function start() { if (raf || !visible || motion.matches || document.hidden) return; raf = requestAnimationFrame(frame); }
-    function stop() { if (raf) cancelAnimationFrame(raf); raf = 0; draw(); }
-    function position(event) {
-      const rect = canvas.getBoundingClientRect();
-      pointer.x = event.clientX - rect.left;
-      pointer.y = event.clientY - rect.top;
-      if (!raf) draw();
+    function start() {
+      if (visible && !raf && !preference.matches && !document.hidden)
+        raf = window.requestAnimationFrame(frame);
     }
-    function leave() { pointer.x = pointer.y = -1; if (!raf) draw(); }
-    function visibility() { document.hidden ? stop() : start(); }
-    function preference() { motion.matches ? stop() : start(); }
+    function stop() {
+      if (raf) window.cancelAnimationFrame(raf);
+      raf = 0;
+    }
+    function onPointerMove(event) {
+      const rect = canvas.getBoundingClientRect();
+      pointer = { x: event.clientX - rect.left, y: event.clientY - rect.top };
+      if (!raf) render();
+    }
+    function onPointerLeave() { pointer = null; if (!raf) render(); }
+    function onVisibility() { document.hidden ? stop() : start(); }
+    function onPreference() {
+      if (preference.matches) { stop(); render(); }
+      else start();
+    }
 
-    const observer = new IntersectionObserver(([entry]) => {
+    const io = new IntersectionObserver(([entry]) => {
       visible = entry.isIntersecting;
       visible ? start() : stop();
-    }, { threshold: 0.02 });
-    const resizeObserver = new ResizeObserver(resize);
-    resizeObserver.observe(host);
-    observer.observe(canvas);
-    canvas.addEventListener("pointermove", position, { passive: true });
-    canvas.addEventListener("pointerleave", leave);
-    document.addEventListener("visibilitychange", visibility);
-    motion.addEventListener("change", preference);
+    }, { threshold: .01 });
+    const ro = new ResizeObserver(resize);
+    io.observe(canvas);
+    ro.observe(canvas);
+    host.addEventListener("pointermove", onPointerMove, { passive: true });
+    host.addEventListener("pointerleave", onPointerLeave);
+    document.addEventListener("visibilitychange", onVisibility);
+    preference.addEventListener("change", onPreference);
     resize();
+
     return () => {
-      stop(); observer.disconnect(); resizeObserver.disconnect();
-      canvas.removeEventListener("pointermove", position);
-      canvas.removeEventListener("pointerleave", leave);
-      document.removeEventListener("visibilitychange", visibility);
-      motion.removeEventListener("change", preference);
+      stop();
+      io.disconnect();
+      ro.disconnect();
+      host.removeEventListener("pointermove", onPointerMove);
+      host.removeEventListener("pointerleave", onPointerLeave);
+      document.removeEventListener("visibilitychange", onVisibility);
+      preference.removeEventListener("change", onPreference);
     };
   }, [speed, squareSize, borderColor, hoverFillColor]);
 
-  return <canvas ref={canvasRef} aria-hidden="true" className="absolute inset-0 h-full w-full pointer-events-none lg:pointer-events-auto" />;
+  return <canvas aria-hidden="true" ref={canvasRef} className="pointer-events-none absolute inset-0 block h-full w-full" />;
 }
