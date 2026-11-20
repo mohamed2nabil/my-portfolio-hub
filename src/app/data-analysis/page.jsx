@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowUpRight, Code2, Database, ChartNoAxesCombined } from "lucide-react";
 import FlowDiagram from "@/components/FlowDiagram";
 import ScrollReveal from "@/components/ScrollReveal";
+import Typewriter from "@/components/Typewriter";
 import { getPublishedProjects } from "@/lib/projects";
 import { getProfile, getSkills } from "@/lib/content";
 
@@ -29,7 +30,8 @@ export default async function DataAnalysisPage() {
         <div>
           <p className="eyebrow text-ink-blue">Data analysis / business intelligence</p>
           <h1 className="mt-4 font-serif text-5xl font-semibold leading-[.98] tracking-tight sm:text-6xl">Less raw data. <em className="text-ink-blue">Clearer decisions.</em></h1>
-          <p className="mt-5 max-w-xl leading-7 text-secondary-ink">I turn scattered data into answers you can act on — from Excel and Python to Power BI dashboards.</p>
+          <p className="mt-5 font-mono text-xs text-blue-800"><Typewriter text="Prepare → analyze → explain → decide" speed={50} loop={false}/></p>
+          <p className="mt-4 max-w-xl leading-7 text-secondary-ink">I turn scattered data into answers you can act on — from Excel and Python to Power BI dashboards.</p>
           <div className="mt-7 flex flex-wrap gap-3">
             <a href="#projects" className="button-primary px-5 py-3 text-xs">See the results</a>
             <Link href="/#contact" className="rounded-xl border border-hairline px-5 py-3 font-mono text-xs font-bold uppercase tracking-wide transition hover:border-blue-600">Discuss your data</Link>
