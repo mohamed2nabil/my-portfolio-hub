@@ -58,7 +58,8 @@
     "status": "published",
     "featured": true,
     "featured_order": 2,
-    "sort_order": 0
+    "sort_order": 0,
+    "outcome": "Telegram briefs turned into a structured AI-assisted video production workflow."
   },
   {
     "id": "google-map",
@@ -119,7 +120,8 @@
     "status": "published",
     "featured": false,
     "featured_order": null,
-    "sort_order": 1
+    "sort_order": 1,
+    "outcome": "Deduplicated regional business leads organized for CRM follow-up."
   },
   {
     "id": "insta-automation",
@@ -180,7 +182,8 @@
     "status": "published",
     "featured": false,
     "featured_order": null,
-    "sort_order": 2
+    "sort_order": 2,
+    "outcome": "Instagram enquiries routed through a product-aware conversational workflow."
   },
   {
     "id": "whatsapp-sender",
@@ -241,7 +244,8 @@
     "status": "published",
     "featured": false,
     "featured_order": null,
-    "sort_order": 3
+    "sort_order": 3,
+    "outcome": "Campaign dispatch organized with validation, scheduling and delivery feedback."
   },
   {
     "id": "whatsapp",
@@ -302,6 +306,7 @@
     "status": "published",
     "featured": false,
     "featured_order": null,
-    "sort_order": 4
+    "sort_order": 4,
+    "outcome": "Customer questions routed through a retrieval-assisted WhatsApp support flow."
   }
 ]
