@@ -36,7 +36,7 @@ export async function getGitHubFile(path) {
 export async function putGitHubFile(path, text, message, expectedSha) {
   const { branch } = config();
   const current = expectedSha ? { sha: expectedSha } : await getGitHubFile(path).catch((error) => error.status === 404 ? {} : Promise.reject(error));
-  return request(repoPath(path), { method: 'PUT', body: JSON.stringify({ message, content: Buffer.from(text).toString('base64'), branch, ...(current.sha ? { sha: current.sha } : {}) }) });
+  return request(repoPath(path), { method: 'PUT', body: JSON.stringify({ message, content: (Buffer.isBuffer(text) ? text : Buffer.from(text, 'utf8')).toString('base64'), branch, ...(current.sha ? { sha: current.sha } : {}) }) });
 }
 
 export async function putGitHubFiles(files, message) {
