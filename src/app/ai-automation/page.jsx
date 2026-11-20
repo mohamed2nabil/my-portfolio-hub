@@ -89,7 +89,7 @@ export default async function AIAutomationPage() {
           </div>
         </div>
       </section>
-      <section className="px-5 py-20 sm:px-8"><div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-6 rounded-[2rem] border border-indigo-600/20 bg-indigo-700/5 p-8 md:flex-row md:items-center md:p-12"><div><h2 className="font-serif text-3xl">What task is taking too much of your time?</h2><p className="mt-3 max-w-2xl leading-7 text-secondary-ink">Tell me the current steps, tools and constraints. We can choose a realistic automation design and estimate ongoing operating cost.</p></div><Link href="/#contact" className="inline-flex shrink-0 items-center gap-2 rounded-2xl bg-indigo-700 px-6 py-3.5 text-sm font-semibold text-white transition hover:bg-indigo-800">Let's discuss it <ArrowRight size={16}/></Link></div></section>
+      <section className="px-5 py-20 sm:px-8"><div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-6 rounded-[2rem] border border-indigo-600/20 bg-indigo-700/5 p-8 md:flex-row md:items-center md:p-12"><div><h2 className="font-serif text-3xl">What task is taking too much of your time?</h2><p className="mt-3 max-w-2xl leading-7 text-secondary-ink">Tell me the current steps, tools and constraints. We can choose a realistic automation design and estimate ongoing operating cost.</p></div><Link href="/#contact" className="inline-flex shrink-0 items-center gap-2 rounded-2xl bg-indigo-700 px-6 py-3.5 text-sm font-semibold text-white transition hover:bg-indigo-800">Let&apos;s discuss it <ArrowRight size={16}/></Link></div></section>
     </main>
   );
 }
