@@ -52,7 +52,8 @@
     "status": "published",
     "featured": false,
     "featured_order": null,
-    "sort_order": 0
+    "sort_order": 0,
+    "outcome": "Sales KPIs and customer segments ready for inventory and marketing decisions."
   },
   {
     "id": "uk-train",
@@ -107,7 +108,8 @@
     "status": "published",
     "featured": true,
     "featured_order": 1,
-    "sort_order": 1
+    "sort_order": 1,
+    "outcome": "A single view of rail revenue, punctuality, delays and passenger patterns."
   },
   {
     "id": "employee-survey",
@@ -162,7 +164,8 @@
     "status": "published",
     "featured": false,
     "featured_order": null,
-    "sort_order": 2
+    "sort_order": 2,
+    "outcome": "Department-level sentiment and retention indicators for HR decisions."
   },
   {
     "id": "saudi-banking",
@@ -217,7 +220,8 @@
     "status": "published",
     "featured": false,
     "featured_order": null,
-    "sort_order": 3
+    "sort_order": 3,
+    "outcome": "Complaint resolution and service quality bottlenecks made visible by region."
   },
   {
     "id": "fdi-forecasting",
@@ -272,7 +276,8 @@
     "status": "published",
     "featured": false,
     "featured_order": null,
-    "sort_order": 4
+    "sort_order": 4,
+    "outcome": "Investment forecasts with statistical diagnostics and uncertainty bounds."
   },
   {
     "id": "cycling-performance",
@@ -327,7 +332,8 @@
     "status": "published",
     "featured": false,
     "featured_order": null,
-    "sort_order": 5
+    "sort_order": 5,
+    "outcome": "Statistical evidence of how rider type and terrain influence performance."
   },
   {
     "id": "people-insights",
@@ -382,6 +388,7 @@
     "status": "published",
     "featured": false,
     "featured_order": null,
-    "sort_order": 6
+    "sort_order": 6,
+    "outcome": "Clean geocoded workforce data for regional coverage and territory planning."
   }
 ]
