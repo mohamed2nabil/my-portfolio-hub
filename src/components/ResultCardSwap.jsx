@@ -6,7 +6,6 @@ import Link from "next/link";
 import { AnimatePresence, motion, useMotionValueEvent, useScroll } from "framer-motion";
 import { useSiteMotion } from "@/components/MotionPreferences";
 import { ArrowRight } from "lucide-react";
-import Typewriter from "@/components/Typewriter";
 
 // Projects change with the visitor's page scroll, not with a timer or dots.
 // A sticky viewport gives each featured project real reading time. Scrolling
@@ -16,7 +15,7 @@ export default function ResultCardSwap({ projects = [], basePath = "/ai-automati
   const [index, setIndex] = useState(0);
   const { enabled } = useSiteMotion();
   const reduce = !enabled;
-  const items = projects.slice(0, 3);
+  const items = projects; // Show EVERY published workflow, including future Admin additions.
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start start", "end end"],
@@ -43,12 +42,12 @@ export default function ResultCardSwap({ projects = [], basePath = "/ai-automati
     data-testid="ai-showcase"
     ref={sectionRef}
     className="relative"
-    style={{ height: `${Math.round((0.75 * items.length + .85) * 100)}svh` }}
+    style={{ height: `${Math.round((0.66 * Math.max(items.length - 1, 0) + 1.18) * 100)}svh` }}
     aria-label="Scroll through featured automation projects"
   >
     <div className="sticky top-[5.25rem] mx-auto flex h-[calc(100svh-6rem)] max-w-3xl flex-col justify-center gap-3 py-3">
       <div className="flex shrink-0 items-center justify-between px-1 text-xs font-semibold tracking-wide text-indigo-700">
-        <span>Scroll to explore workflows</span>
+        <span>Scroll to explore all {items.length} workflows</span>
         <span className="font-mono tabular-nums">{String(index + 1).padStart(2, "0")} / {String(items.length).padStart(2, "0")}</span>
       </div>
       <div className="relative min-h-0 w-full">
@@ -66,7 +65,7 @@ export default function ResultCardSwap({ projects = [], basePath = "/ai-automati
           </motion.div>
         </AnimatePresence>
       </div>
-      <p className="shrink-0 text-center text-xs text-secondary-ink">Keep scrolling to see the next solution</p>
+      <p className="shrink-0 text-center text-xs text-secondary-ink">Scroll naturally to reveal the next solution · scroll up to revisit</p>
     </div>
   </div>;
 }
@@ -78,7 +77,7 @@ function ProjectCard({ project, basePath }) {
         <Image src={project.poster} alt={project.title} fill sizes="(max-width:900px) 100vw, 760px" className="object-cover transition-transform duration-500 group-hover:scale-[1.035]" />
       </div>
       <div className="grid gap-2 p-4 sm:p-5">
-        <h3 className="font-serif text-xl font-medium sm:text-2xl"><Typewriter text={project.title} speed={50} loop={false} /></h3>
+        <h3 className="font-serif text-xl font-medium sm:text-2xl">{project.title}</h3>
         <p className="line-clamp-2 text-sm leading-6 text-secondary-ink">{project.outcome || project.shortDesc}</p>
         <span className="inline-flex items-center gap-2 text-sm font-semibold text-indigo-800">Explore solution <ArrowRight size={16} /></span>
       </div>
