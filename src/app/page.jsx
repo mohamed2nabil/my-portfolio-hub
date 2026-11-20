@@ -1,33 +1,33 @@
-"use client";
-import Image from "next/image";
-import { useEffect, useState } from "react";
-import Link from "next/link";
-import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
-import { ArrowUpRight, Database, Braces, Bot, Network } from "lucide-react";
-import Contact from "@/components/Contact";
-import { webDevProjects } from "@/data/web-dev-projects";
-import { dataAnalysisProjects } from "@/data/data-analysis-projects";
-import { aiProjects } from "@/data/ai-projects";
+import LandingClient from './LandingClient';
+import { getProfile, getSkills } from '@/lib/content';
+import { getPublishedProjects } from '@/lib/projects';
 
-const domains = [
-  ["/web-dev", "Web development", "Products & platforms", "Full-stack applications built around real business flows.", "#168769", Braces],
-  ["/data-analysis", "Data analysis", "Insight & decisions", "Clear analysis, dashboards, and a rigorous path from raw data to action.", "#147fa5", Database],
-  ["/data-engineer", "Data engineering", "Systems & pipelines", "Reliable ingestion, transformation, and infrastructure for useful data.", "#c66b20", Network],
-  ["/ai-automation", "AI automation", "Agents & workflows", "Practical AI integrations that remove repetitive operational work.", "#6755d8", Bot],
-];
-const featured = [
-  { ...webDevProjects[0], href: "/web-dev/green-pyramids", domain: "Web development" },
-  { ...dataAnalysisProjects[1], href: "/data-analysis/uk-train", domain: "Data analysis" },
-  { ...aiProjects[0], href: `/ai-automation/${aiProjects[0].id}`, domain: "AI automation" },
-];
-export default function LandingPage() {
-  const [portrait, setPortrait] = useState('/images/mohamed-nabil-main.jpeg');
-  useEffect(() => { fetch('/api/profile').then((response) => response.ok ? response.json() : null).then((profile) => profile?.profile_image_url && setPortrait(profile.profile_image_url)).catch(() => {}); }, []);
-  const reduce = useReducedMotion(); const { scrollY } = useScroll(); const y = useTransform(scrollY, [0, 700], [0, reduce ? 0 : 90]);
-  return <div className="overflow-x-clip pt-16">
-    <section className="relative isolate overflow-hidden px-5 py-16 sm:px-8 lg:min-h-[700px] lg:py-24"><div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_85%_20%,rgba(49,88,168,.16),transparent_24rem),radial-gradient(circle_at_10%_90%,rgba(22,135,105,.12),transparent_28rem)]"/><div className="mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-[1.05fr_.95fr]"><div><p className="mb-5 font-mono text-xs font-bold uppercase tracking-[.16em] text-ink-blue">Mohamed Nabil · Software, data & AI</p><h1 className="max-w-3xl font-serif text-5xl font-semibold leading-[.94] tracking-tight sm:text-6xl lg:text-7xl">Systems that turn ambitious ideas into <em className="text-ink-blue">useful work.</em></h1><p className="mt-7 max-w-2xl text-base leading-8 text-secondary-ink sm:text-lg">I build dependable web applications, data products, backend services, and AI automations—with an eye on the systems behind the screen, not just the screen itself.</p><div className="mt-8 flex flex-wrap gap-3"><a href="#portfolios" className="button-primary px-5 py-3 text-xs">Explore my work</a><a href="#contact" className="rounded-xl border border-hairline px-5 py-3 font-mono text-xs font-bold uppercase tracking-wide text-ink transition hover:bg-white">Contact me</a></div></div><motion.div style={{ y }} className="mx-auto w-full max-w-md lg:max-w-none"><div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] border border-hairline bg-secondary-ground shadow-2xl shadow-ink/10"><Image src={portrait} alt="Mohamed Nabil" fill priority sizes="(max-width: 1024px) 80vw, 42vw" className="object-cover object-top"/><div className="absolute inset-x-5 bottom-5 rounded-2xl border border-white/30 bg-ink/85 p-4 text-ground backdrop-blur"><p className="font-mono text-[11px] uppercase tracking-widest text-white/70">Building across disciplines</p><p className="mt-1 font-serif text-xl">Engineering with context.</p></div></div></motion.div></div></section>
-    <section id="portfolios" className="mx-auto max-w-7xl px-5 py-20 sm:px-8"><p className="font-mono text-xs font-bold uppercase tracking-[.16em] text-ink-blue">Four focused practices</p><h2 className="mt-3 max-w-2xl font-serif text-4xl tracking-tight sm:text-5xl">One engineering mindset. Four distinct ways to apply it.</h2><div className="mt-10 grid gap-4 md:grid-cols-2">{domains.map(([href,title,eyebrow,description,accent,Icon]) => <Link key={href} href={href} className="group surface relative min-h-60 overflow-hidden p-7 transition duration-300 hover:-translate-y-1 hover:shadow-xl"><div className="absolute inset-x-0 top-0 h-1" style={{background:accent}}/><Icon size={28} style={{color:accent}}/><p className="mt-8 font-mono text-xs font-bold uppercase tracking-widest text-muted">{eyebrow}</p><h3 className="mt-2 font-serif text-3xl tracking-tight">{title}</h3><p className="mt-3 max-w-sm leading-7 text-secondary-ink">{description}</p><span className="mt-6 inline-flex items-center gap-2 font-mono text-xs font-bold uppercase tracking-widest" style={{color:accent}}>View portfolio <ArrowUpRight size={15}/></span></Link>)}</div></section>
-    <section className="bg-ink px-5 py-20 text-ground sm:px-8"><div className="mx-auto max-w-7xl"><p className="font-mono text-xs font-bold uppercase tracking-[.16em] text-blue-200">Selected work</p><div className="mt-3 flex flex-wrap items-end justify-between gap-5"><h2 className="font-serif text-4xl sm:text-5xl">Evidence over empty claims.</h2><Link href="/web-dev" className="font-mono text-xs font-bold uppercase tracking-widest text-blue-200 hover:text-white">See all projects</Link></div><div className="mt-10 grid gap-5 lg:grid-cols-3">{featured.map((project) => <Link href={project.href} key={project.href} className="group overflow-hidden rounded-3xl border border-white/15 bg-white/5"><div className="relative aspect-[16/10] overflow-hidden"><Image src={project.poster} alt={project.title} fill sizes="(max-width:1024px) 100vw,33vw" className="object-cover transition duration-500 group-hover:scale-105"/></div><div className="p-6"><p className="font-mono text-[11px] font-bold uppercase tracking-widest text-blue-200">{project.domain}</p><h3 className="mt-2 font-serif text-2xl leading-tight">{project.title}</h3><p className="mt-3 line-clamp-3 text-sm leading-6 text-white/70">{project.shortDesc}</p></div></Link>)}</div></div></section>
-    <section className="mx-auto grid max-w-7xl gap-12 px-5 py-20 sm:px-8 lg:grid-cols-[.8fr_1.2fr]"><div><p className="font-mono text-xs font-bold uppercase tracking-[.16em] text-ink-blue">Technical capabilities</p><h2 className="mt-3 font-serif text-4xl tracking-tight">The tools follow the problem.</h2><p className="mt-5 leading-7 text-secondary-ink">I combine backend foundations with data fluency and modern automation tooling to design complete systems.</p></div><div className="grid gap-3 sm:grid-cols-2">{[["Backend engineering","PHP · Laravel · Composer · REST APIs · Architecture"],["Databases","PostgreSQL · MySQL · SQL · Query optimization"],["AI engineering","LLM APIs · Embeddings · Vector databases · Semantic search · RAG"],["Automation & data","n8n · Webhooks · Python · pandas · NumPy · Power BI · ETL"],["Web & infrastructure","JavaScript · React · Next.js · Tailwind CSS · Docker · Git · GitHub"]].map(([title, skills]) => <div key={title} className="surface p-5"><h3 className="font-serif text-xl">{title}</h3><p className="mt-2 text-sm leading-6 text-secondary-ink">{skills}</p></div>)}</div></section><Contact/><footer className="border-t border-hairline px-5 py-8 sm:px-8"><div className="mx-auto flex max-w-7xl flex-col justify-between gap-3 text-sm text-secondary-ink sm:flex-row"><span>© {new Date().getFullYear()} Mohamed Nabil</span><div className="flex gap-5"><a href="https://github.com/mohamed2nabil" target="_blank" rel="noreferrer">GitHub</a><a href="https://www.linkedin.com/in/mohamed-nabil-41047a223/" target="_blank" rel="noreferrer">LinkedIn</a></div></div></footer>
-  </div>;
+export const dynamic = 'force-dynamic';
+
+const domains = {
+  'web-dev': 'Web Development',
+  'data-analysis': 'Data Analysis',
+  'data-engineer': 'Data Engineering',
+  'ai-automation': 'AI Automation',
+};
+
+export default async function LandingPage() {
+  const [projects, profile, skills] = await Promise.all([
+    Promise.all(Object.keys(domains).map(getPublishedProjects)),
+    getProfile(),
+    getSkills(),
+  ]);
+  const featured = projects.flat()
+    .filter((project) => project.featured)
+    .sort((a, b) => (a.featured_order ?? 999) - (b.featured_order ?? 999))
+    .map((project) => ({
+      ...project,
+      href: '/' + project.category + '/' + project.id,
+      domain: domains[project.category],
+    }));
+  const grouped = new Map();
+  skills.filter((skill) => skill.visible).sort((a, b) => a.sort_order - b.sort_order)
+    .forEach((skill) => grouped.set(skill.category, [...(grouped.get(skill.category) || []), skill.name]));
+  const skillGroups = [...grouped.entries()].map(([title, names]) => [title, names.join(' · ')]);
+  return <LandingClient featured={featured} profile={profile} skillGroups={skillGroups} />;
 }
