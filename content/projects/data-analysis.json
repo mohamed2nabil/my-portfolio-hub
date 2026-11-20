@@ -105,8 +105,8 @@
       "Revenue Tracking"
     ],
     "status": "published",
-    "featured": false,
-    "featured_order": null,
+    "featured": true,
+    "featured_order": 1,
     "sort_order": 1
   },
   {
