@@ -1,28 +1,41 @@
-"use client";
+import LandingClient from "./LandingClient";
+import { getProfile, getSkills } from "@/lib/content";
+import { getPublishedProjects } from "@/lib/projects";
 
-import Image from "next/image";
-import Link from "next/link";
-import { useEffect, useState } from "react";
-import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
-import { ArrowUpRight } from "lucide-react";
-import Contact from "@/components/Contact";
-import Typewriter from "@/components/Typewriter";
-import { webDevProjects } from "@/data/web-dev-projects";
-import { dataAnalysisProjects } from "@/data/data-analysis-projects";
-import { aiProjects } from "@/data/ai-projects";
+export const revalidate = 60;
 
-const domains = [["/web-dev", "Web development", "Backend-led products", "Business applications, APIs and durable data flows.", "#168769"], ["/data-analysis", "Data analysis", "Useful decisions", "Trustworthy data and clear dashboard stories.", "#3158a8"], ["/data-engineer", "Data engineering", "Reliable pipelines", "From source systems to analysis-ready data.", "#b96a25"], ["/ai-automation", "AI automation", "Less manual work", "Practical workflow integrations with intelligent routing.", "#5b50b5"]];
-const featured = [{ ...webDevProjects[0], href: "/web-dev/green-pyramids", domain: "Web development" }, { ...dataAnalysisProjects[1], href: "/data-analysis/uk-train", domain: "Data analysis" }, { ...aiProjects[0], href: `/ai-automation/${aiProjects[0].id}`, domain: "AI automation" }];
+const labels = {
+  "web-dev": "Web development",
+  "data-analysis": "Data analysis",
+  "data-engineer": "Data engineering",
+  "ai-automation": "AI automation",
+};
 
-export default function LandingPage() {
-  const [portrait, setPortrait] = useState("/images/mohamed-nabil-main.jpeg");
-  const reduce = useReducedMotion(); const { scrollY } = useScroll(); const y = useTransform(scrollY, [0, 650], [0, reduce ? 0 : 42]);
-  useEffect(() => { fetch("/api/profile").then((r) => r.ok ? r.json() : null).then((p) => p?.profile_image_url && setPortrait(p.profile_image_url)).catch(() => {}); }, []);
-  return <div className="page-shell">
-    <section className="relative overflow-hidden border-b border-hairline"><div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_80%_10%,rgba(49,88,168,.14),transparent_28rem)]" /><div className="content-frame grid items-center gap-10 py-16 sm:py-20 lg:min-h-[620px] lg:grid-cols-[1.12fr_.88fr] lg:py-24"><div><p className="eyebrow text-ink-blue">Mohamed Nabil · software, data & AI</p><h1 className="mt-4 max-w-3xl font-serif text-5xl font-semibold leading-[.94] tracking-tight sm:text-6xl lg:text-7xl">Useful systems for ambitious <em className="text-ink-blue">work.</em></h1><p className="mt-6 min-h-7 max-w-xl font-mono text-sm leading-6 text-secondary-ink"><Typewriter text="Web products · data systems · dependable automation" /></p><p className="mt-4 max-w-xl leading-7 text-secondary-ink">I connect the work behind the screen—backend services, clear data, and automation that earns its place in a business.</p><div className="mt-7 flex flex-wrap gap-3"><a href="#portfolios" className="button-primary px-5 py-3 text-xs">Explore work</a><a href="#contact" className="rounded-xl border border-hairline px-5 py-3 font-mono text-xs font-bold uppercase tracking-wide text-ink hover:bg-white">Start a conversation</a></div></div><motion.div style={{ y }} className="mx-auto w-full max-w-sm lg:max-w-none"><div className="relative aspect-[4/5] overflow-hidden rounded-[1.75rem] border border-hairline bg-secondary-ground shadow-xl shadow-ink/10"><Image src={portrait} alt="Mohamed Nabil" fill priority sizes="(max-width: 1024px) 80vw, 38vw" className="object-cover object-top" /><p className="absolute bottom-4 left-4 rounded-full bg-ink/85 px-3 py-2 font-mono text-[10px] font-bold uppercase tracking-widest text-ground">Engineering with context</p></div></motion.div></div></section>
-    <section id="portfolios" className="content-frame section-space"><div className="flex flex-wrap items-end justify-between gap-4"><div><p className="eyebrow text-ink-blue">Four focused practices</p><h2 className="mt-3 max-w-xl font-serif text-4xl tracking-tight sm:text-5xl">Choose the clearest route to the work.</h2></div><p className="max-w-xs text-sm leading-6 text-secondary-ink">Different disciplines, one bias toward systems that are clear, maintainable, and useful.</p></div><div className="mt-9 grid gap-px overflow-hidden rounded-2xl border border-hairline bg-hairline md:grid-cols-2">{domains.map(([href, title, problem, detail, accent]) => <Link key={href} href={href} className="group bg-ground p-5 transition hover:bg-white sm:p-6"><div className="flex items-start justify-between gap-3"><p className="eyebrow" style={{ color: accent }}>{problem}</p><ArrowUpRight size={18} className="transition-transform group-hover:-translate-y-1 group-hover:translate-x-1" style={{ color: accent }} /></div><h3 className="mt-6 font-serif text-2xl tracking-tight">{title}</h3><p className="mt-2 max-w-sm text-sm leading-6 text-secondary-ink">{detail}</p></Link>)}</div></section>
-    <section className="bg-ink py-16 text-ground sm:py-20"><div className="content-frame"><div className="flex flex-wrap items-end justify-between gap-5"><div><p className="eyebrow text-blue-200">Selected work</p><h2 className="mt-3 font-serif text-4xl sm:text-5xl">Let the work lead.</h2></div><Link href="/web-dev" className="font-mono text-xs font-bold uppercase tracking-widest text-blue-200 hover:text-white">Browse projects</Link></div><div className="mt-8 grid gap-4 lg:grid-cols-3">{featured.map((project) => <Link href={project.href} key={project.href} className="group overflow-hidden rounded-2xl border border-white/15 bg-white/5"><div className="relative aspect-[16/10]"><Image src={project.poster} alt={project.title} fill sizes="(max-width:1024px) 100vw,33vw" className="object-cover transition duration-500 group-hover:scale-[1.03]" /></div><div className="p-4"><p className="eyebrow text-blue-200">{project.domain}</p><h3 className="mt-2 font-serif text-xl">{project.title}</h3><p className="mt-2 line-clamp-2 text-sm leading-6 text-white/70">{project.shortDesc}</p></div></Link>)}</div></div></section>
-    <section className="content-frame section-space grid gap-8 lg:grid-cols-[.7fr_1.3fr]"><div><p className="eyebrow text-ink-blue">Working toolkit</p><h2 className="mt-3 font-serif text-4xl tracking-tight">Depth where it matters.</h2></div><div className="grid gap-x-8 gap-y-4 sm:grid-cols-2">{[["Backend", "Laravel · PHP · REST APIs · MySQL · PostgreSQL"], ["AI", "LLM APIs · embeddings · semantic retrieval"], ["Data", "Python · SQL · pandas · Power BI · ETL"], ["Delivery", "React · Next.js · Docker · n8n"]].map(([title, skills]) => <div key={title} className="border-t border-hairline pt-3"><h3 className="font-serif text-xl">{title}</h3><p className="mt-1 text-sm leading-6 text-secondary-ink">{skills}</p></div>)}</div></section>
-    <Contact /><footer className="border-t border-hairline py-7"><div className="content-frame flex flex-wrap justify-between gap-3 text-sm text-secondary-ink"><span>© {new Date().getFullYear()} Mohamed Nabil</span><span>Egypt · available for focused collaborations</span></div></footer>
-  </div>;
+export default async function LandingPage() {
+  const categories = Object.keys(labels);
+  const [groups, profile, allSkills] = await Promise.all([
+    Promise.all(categories.map(getPublishedProjects)),
+    getProfile(),
+    getSkills(),
+  ]);
+  const featured = groups.flat()
+    .filter((project) => project.featured)
+    .sort((a, b) => (a.featured_order ?? 99) - (b.featured_order ?? 99))
+    .slice(0, 3)
+    .map((project) => ({
+      ...project,
+      href: "/" + project.category + "/" + project.id,
+      domain: labels[project.category],
+    }));
+  const order = ["Backend Engineering", "AI Engineering", "Data & Analytics", "Databases", "Infrastructure", "Web Development", "Automation"];
+  const grouped = new Map();
+  allSkills.filter((skill) => skill.visible !== false)
+    .sort((a, b) => a.sort_order - b.sort_order)
+    .forEach((skill) => {
+      if (!order.includes(skill.category)) return;
+      grouped.set(skill.category, [...(grouped.get(skill.category) || []), skill.name]);
+    });
+  const skillGroups = order.filter((name) => grouped.has(name)).slice(0, 4)
+    .map((name) => [name, grouped.get(name).slice(0, 5).join(" · ")]);
+  return <LandingClient featured={featured} profile={profile} skillGroups={skillGroups} />;
 }
