@@ -1,9 +1,10 @@
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { dataAnalysisProjects } from '../../data/data-analysis-projects';
 import { getPublishedProjects } from '@/lib/projects';
 import { getProfile } from '@/lib/content';
-export const dynamic = 'force-dynamic';
+export const revalidate = 60;
 
 export default async function DataAnalysisPage() {
   const projects = await getPublishedProjects('data-analysis', dataAnalysisProjects);
@@ -13,18 +14,18 @@ export default async function DataAnalysisPage() {
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
       
       {/* Hero Section */}
-      <section id="home" className="min-h-screen flex items-center pt-10 pb-20">
+      <section id="home" className="min-h-[72vh] flex items-center pt-10 pb-20">
           <div className="container mx-auto px-6 flex flex-col md:flex-row items-center justify-between max-w-6xl">
               <div className="md:w-1/2 mb-12 md:mb-0">
                   <span className="font-mono text-xs text-muted uppercase tracking-widest mb-4 block">Domain 01: Data Analysis</span>
                   <h1 className="text-4xl md:text-6xl font-bold mb-4 font-serif text-ink tracking-tight">Turning data into <br/><span className="bg-clip-text text-transparent bg-gradient-to-r from-cyan-600 to-blue-600 italic">Insights</span></h1>
                   <h2 className="text-2xl md:text-3xl font-semibold mb-6 text-secondary-ink">Data Analyst | Business Intelligence</h2>
-                  <p className="text-lg mb-8 text-secondary-ink max-w-lg leading-relaxed font-mono text-sm">
+                  <p className="mb-8 max-w-lg text-base leading-8 text-secondary-ink">
                       Before the dashboard or statistical model, I make the data trustworthy. I build the pipelines, clean the datasets, analyze the patterns, and create decision-ready analytics.
                   </p>
                   <div className="flex space-x-4">
-                      <Link href="/#contact" className="px-6 py-3 bg-ink text-ground font-mono uppercase tracking-widest text-xs hover:bg-ink-blue transition-colors">Hire Me</Link>
-                      <a href="#projects" className="px-6 py-3 border border-hairline bg-secondary-ground text-ink font-mono uppercase tracking-widest text-xs hover:border-ink-blue transition-colors">View Work</a>
+                      <Link href="/#contact" className="rounded-xl px-6 py-3 bg-ink text-ground font-mono uppercase tracking-widest text-xs hover:bg-ink-blue transition-colors">Hire Me</Link>
+                      <a href="#projects" className="rounded-xl px-6 py-3 border border-hairline bg-secondary-ground text-ink font-mono uppercase tracking-widest text-xs hover:border-ink-blue transition-colors">View Work</a>
                   </div>
                   <div className="flex mt-8 space-x-4">
                       <a href="https://github.com/mohamed2nabil" className="w-10 h-10 flex items-center justify-center border border-hairline rounded-full text-ink hover:text-ink-blue hover:border-ink-blue transition-colors">
@@ -38,7 +39,7 @@ export default async function DataAnalysisPage() {
               <div className="md:w-1/2 flex justify-center">
                   <div className="relative w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96">
                       <div className="absolute inset-0 rounded-full bg-gradient-to-br from-cyan-400 to-blue-500 blur-2xl opacity-20 animate-pulse"></div>
-                      <img src={profile.profile_image_url || "/images/mohamed-nabil-main.jpeg"}
+                      <Image width={384} height={384} src={profile.profile_image_url || "/images/mohamed-nabil-main.jpeg"}
                            alt="Profile"
                            className="relative w-full h-full object-cover rounded-full border-4 border-hairline shadow-2xl" 
                            style={{ animation: 'float 6s ease-in-out infinite' }} />
@@ -59,7 +60,7 @@ export default async function DataAnalysisPage() {
                   <div className="md:w-1/3 flex justify-center">
                       <div className="relative w-64 h-64">
                           <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-cyan-400 to-blue-500 blur-xl opacity-20"></div>
-                          <img src={profile.profile_image_url || "/images/mohamed-nabil-main.jpeg"}
+                          <Image width={384} height={384} src={profile.profile_image_url || "/images/mohamed-nabil-main.jpeg"}
                                alt="About"
                                className="relative w-full h-full object-cover rounded-2xl border border-hairline shadow-lg" />
                       </div>
@@ -129,7 +130,7 @@ export default async function DataAnalysisPage() {
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                  <div className="bg-secondary-ground p-8 border border-hairline text-center hover:border-ink-blue transition duration-300 group">
+                  <div className="rounded-[1.65rem] bg-secondary-ground p-8 border border-hairline text-center hover:border-ink-blue transition duration-300 group">
                       <div className="mb-6 transform group-hover:scale-110 transition-transform">
                           <i className="fas fa-filter text-4xl text-cyan-600"></i>
                       </div>
@@ -137,7 +138,7 @@ export default async function DataAnalysisPage() {
                       <p className="text-secondary-ink text-sm leading-relaxed">Handling missing values, duplicate removal, standardizing formats, and ensuring data integrity before analysis.</p>
                   </div>
 
-                  <div className="bg-secondary-ground p-8 border border-hairline text-center hover:border-ink-blue transition duration-300 group">
+                  <div className="rounded-[1.65rem] bg-secondary-ground p-8 border border-hairline text-center hover:border-ink-blue transition duration-300 group">
                       <div className="mb-6 transform group-hover:scale-110 transition-transform">
                           <i className="fas fa-chart-line text-4xl text-blue-600"></i>
                       </div>
@@ -145,7 +146,7 @@ export default async function DataAnalysisPage() {
                       <p className="text-secondary-ink text-sm leading-relaxed">Descriptive statistics, OLS Regression, ANOVA, ARIMA forecasting, and Psychometric reliability testing.</p>
                   </div>
 
-                  <div className="bg-secondary-ground p-8 border border-hairline text-center hover:border-ink-blue transition duration-300 group">
+                  <div className="rounded-[1.65rem] bg-secondary-ground p-8 border border-hairline text-center hover:border-ink-blue transition duration-300 group">
                       <div className="mb-6 transform group-hover:scale-110 transition-transform">
                           <i className="fas fa-chart-pie text-4xl text-cyan-600"></i>
                       </div>
@@ -159,7 +160,7 @@ export default async function DataAnalysisPage() {
                   <h3 className="text-2xl font-bold mb-10 text-center font-serif">Tools & <span className="text-ink-blue italic">Technologies</span></h3>
                   <div className="flex flex-wrap justify-center gap-4 max-w-4xl mx-auto">
                       {["Python", "SQL", "PostgreSQL", "Power BI", "DAX", "Power Query", "Excel", "pandas", "NumPy", "matplotlib", "Scrapy", "n8n"].map(tool => (
-                        <span key={tool} className="px-4 py-2 border border-hairline bg-secondary-ground text-sm font-mono hover:bg-ink hover:text-ground transition-colors cursor-default">
+                        <span key={tool} className="rounded-full px-4 py-2 border border-hairline bg-secondary-ground text-sm font-mono hover:bg-ink hover:text-ground transition-colors cursor-default">
                           {tool}
                         </span>
                       ))}
@@ -179,16 +180,16 @@ export default async function DataAnalysisPage() {
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {projects.map((project) => (
-                    <div key={project.id} className="bg-ground border border-hairline overflow-hidden group hover:shadow-xl transition-all duration-300 flex flex-col">
+                    <div key={project.id} className="rounded-[1.75rem] bg-ground border border-hairline overflow-hidden group hover:shadow-xl transition-all duration-300 flex flex-col">
                         <Link href={`/data-analysis/${project.id}`} className="block flex-1 flex flex-col">
                             <div className="h-60 w-full overflow-hidden relative border-b border-hairline bg-ground">
-                                <img src={project.poster} alt={project.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                                <Image width={960} height={600} src={project.poster} alt={project.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                             </div>
                             <div className="p-6 flex-1 flex flex-col">
                                 <h3 className="text-xl font-bold mb-2 font-serif group-hover:text-ink-blue transition-colors">{project.title}</h3>
                                 <p className="text-secondary-ink text-sm mb-4 leading-relaxed flex-1 line-clamp-3">{project.shortDesc}</p>
                                 <div className="flex flex-wrap gap-2 mb-2">
-                                    <span className="px-2 py-1 border border-hairline bg-secondary-ground text-[10px] font-mono uppercase text-ink-blue">{project.category}</span>
+                                    <span className="rounded-full px-2 py-1 border border-hairline bg-secondary-ground text-[10px] font-mono uppercase text-ink-blue">{project.category}</span>
                                 </div>
                             </div>
                         </Link>
