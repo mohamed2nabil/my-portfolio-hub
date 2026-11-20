@@ -1,23 +1,31 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { useReducedMotion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import { useInView, useReducedMotion } from "framer-motion";
 
-export default function Typewriter({ text, speed = 28, className = "" }) {
-  const reduceMotion = useReducedMotion();
-  const [visible, setVisible] = useState("");
+// Starts as the line enters view. Reserves text width to avoid layout shift;
+// reduced-motion visitors receive the full line immediately.
+export default function Typewriter({ text, speed = 48, className = "" }) {
+  const ref = useRef(null);
+  const inView = useInView(ref, { amount: .1, once: false });
+  const reduce = useReducedMotion();
+  const [shown, setShown] = useState("");
 
   useEffect(() => {
-    if (reduceMotion) return;
-    let index = 0;
-    const reveal = () => {
-      index += 1;
-      setVisible(text.slice(0, index));
-      if (index < text.length) timer = window.setTimeout(reveal, speed);
-    };
-    let timer = window.setTimeout(reveal, speed);
-    return () => window.clearTimeout(timer);
-  }, [reduceMotion, speed, text]);
+    if (reduce) return;
+    if (!inView) return;
+    let position = 0;
+    const id = window.setInterval(() => {
+      position += 1;
+      setShown(text.slice(0, position));
+      if (position >= text.length) window.clearInterval(id);
+    }, speed);
+    return () => window.clearInterval(id);
+  }, [text, speed, inView, reduce]);
 
-  return <span className={className} aria-label={text}>{reduceMotion ? text : visible}<span aria-hidden="true" className="type-cursor">▋</span></span>;
+  const complete = reduce ? text : shown;
+  return <span ref={ref} className={`relative inline-block max-w-full align-top ${className}`} role="text" aria-label={text}>
+    <span aria-hidden="true" className="invisible">{text}</span>
+    <span aria-hidden="true" className="absolute inset-0">{complete}<span className="type-cursor">▋</span></span>
+  </span>;
 }
