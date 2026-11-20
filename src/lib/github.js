@@ -40,11 +40,46 @@ export async function putGitHubFile(path, text, message, expectedSha) {
 }
 
 export async function putGitHubFiles(files, message) {
-  // GitHub Contents API is atomic per file. Validate every source SHA before writing;
-  // callers never write image metadata until the image write succeeds.
-  const results = [];
-  for (const file of files) results.push(await putGitHubFile(file.path, file.text, message, file.sha));
-  return results;
+  // One Git commit updates every JSON file atomically when moving a project
+  // between portfolios; partial Contents API commits could lose projects.
+  const { owner, repo, branch } = config();
+  const base = '/repos/' + owner + '/' + repo;
+  const refPath = 'heads/' + branch.split('/').map(encodeURIComponent).join('/');
+  const ref = await request(base + '/git/ref/' + refPath);
+  const currentHead = ref.object.sha;
+  const currentCommit = await request(base + '/git/commits/' + currentHead);
+
+  for (const file of files) {
+    const current = await getGitHubFile(file.path);
+    if (file.sha && current.sha !== file.sha) {
+      const error = new Error('The content was changed in GitHub. Refresh and try again.');
+      error.status = 409;
+      throw error;
+    }
+  }
+
+  const entries = [];
+  for (const file of files) {
+    const blob = await request(base + '/git/blobs', {
+      method: 'POST',
+      body: JSON.stringify({ content: file.text, encoding: 'utf-8' }),
+    });
+    entries.push({ path: file.path, mode: '100644', type: 'blob', sha: blob.sha });
+  }
+
+  const tree = await request(base + '/git/trees', {
+    method: 'POST',
+    body: JSON.stringify({ base_tree: currentCommit.tree.sha, tree: entries }),
+  });
+  const commit = await request(base + '/git/commits', {
+    method: 'POST',
+    body: JSON.stringify({ message, tree: tree.sha, parents: [currentHead] }),
+  });
+  await request(base + '/git/refs/' + refPath, {
+    method: 'PATCH',
+    body: JSON.stringify({ sha: commit.sha, force: false }),
+  });
+  return { commit: { sha: commit.sha } };
 }
 
 export async function getDeploymentStatus(commitSha) {
