@@ -1,3 +1,3 @@
 export default function robots() {
-  return { rules: { userAgent: '*', allow: '/', disallow: '/admin' }, sitemap: 'https://my-portfolio-hub-theta.vercel.app/sitemap.xml' };
+  return { rules: { userAgent: '*', allow: '/', disallow: '/admin' }, sitemap: 'https://nabilworks.vercel.app/sitemap.xml' };
 }
