@@ -121,6 +121,29 @@ try {
   assert(firstOpacity > 0.9, "Headline letters must finish fully visible");
   console.log("PASS: web headline letters render and reveal");
 
+  // Every public hero uses the same visible, animated grid treatment.
+  // Each portrait remains a full uncropped 1122:1402 image.
+  for (const route of ["/", "/data-analysis", "/data-engineer", "/ai-automation"]) {
+    await goto(route);
+    const heroCanvas = page.getByTestId("squares-canvas").first();
+    await heroCanvas.waitFor();
+    await page.waitForTimeout(230);
+    const before = await heroCanvas.evaluate((element) => element.toDataURL());
+    await page.waitForTimeout(430);
+    const after = await heroCanvas.evaluate((element) => element.toDataURL());
+    assert.notEqual(before, after, route + ": hero grid must actually move");
+
+    const portrait = page.locator(".portrait-image").first();
+    await portrait.waitFor();
+    const crop = await portrait.evaluate((img) => ({
+      aspect: Number(img.getAttribute("width")) / Number(img.getAttribute("height")),
+      fit: getComputedStyle(img).objectFit,
+    }));
+    assert(Math.abs(crop.aspect - (1122 / 1402)) < .001, route + ": preserve portrait ratio");
+    assert.equal(crop.fit, "contain", route + ": no portrait cropping");
+  }
+  console.log("PASS: all five hero grids animate and original portrait aspect stays uncropped");
+
   await goto("/data-engineer");
   const flow = page.getByTestId("flow-diagram").first();
   await flow.scrollIntoViewIfNeeded();
