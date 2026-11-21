@@ -3,10 +3,10 @@ name: Portfolio Quality Gate
 on:
   push:
     branches:
-      - feature/premium-multi-portfolio
+      - main
   pull_request:
     branches:
-      - master
+      - main
 
 permissions:
   contents: read
