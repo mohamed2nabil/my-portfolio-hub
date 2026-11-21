@@ -1,5 +1,6 @@
 import Image from "next/image";
 import ProfilePortrait from "@/components/ProfilePortrait";
+import HeroSquares from "@/components/HeroSquares";
 import Link from "next/link";
 import {
   ArrowUpRight,
@@ -59,8 +60,9 @@ export default async function DataAnalysisPage() {
   }));
   return (
     <div className="page-shell">
-      <section className="border-b border-blue-700/20">
-        <div className="content-frame grid items-center gap-10 py-14 sm:py-20 lg:grid-cols-[1.15fr_.85fr]">
+      <section className="relative isolate overflow-hidden border-b border-blue-700/20">
+        <HeroSquares lineColor="rgba(49, 88, 168, .095)" hoverFillColor="rgba(49, 88, 168, .09)" size={28} speed={0.45}/>
+        <div className="content-frame relative z-10 grid items-center gap-10 py-14 sm:py-20 lg:grid-cols-[1.15fr_.85fr]">
           <div>
             <p className="eyebrow text-ink-blue">
               Data analysis / business intelligence
