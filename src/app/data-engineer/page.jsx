@@ -1,4 +1,5 @@
 import ProfilePortrait from "@/components/ProfilePortrait";
+import HeroSquares from "@/components/HeroSquares";
 import Link from "next/link";
 import FlowDiagram from "@/components/FlowDiagram";
 import ScrollReveal from "@/components/ScrollReveal";
@@ -25,8 +26,9 @@ export default async function DataEngineerPage() {
   ]);
   return (
     <div className="page-shell">
-      <section className="border-b border-amber-700/25">
-        <div className="content-frame grid items-center gap-10 py-16 sm:py-20 lg:grid-cols-[1.15fr_.85fr]">
+      <section className="relative isolate overflow-hidden border-b border-amber-700/25">
+        <HeroSquares lineColor="rgba(185, 106, 37, .10)" hoverFillColor="rgba(185, 106, 37, .08)" size={28} speed={0.4}/>
+        <div className="content-frame relative z-10 grid items-center gap-10 py-16 sm:py-20 lg:grid-cols-[1.15fr_.85fr]">
           <div>
             <p className="eyebrow text-amber-700">
               Data engineering / DEPI training track
