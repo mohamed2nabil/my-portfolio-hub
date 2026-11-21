@@ -6,7 +6,7 @@ export const metadata = {
   metadataBase: new URL('https://my-portfolio-hub-theta.vercel.app'),
   title: { default: 'Mohamed Nabil | Software, Data & AI', template: '%s | Mohamed Nabil' },
   description: 'Mohamed Nabil builds web applications, data products, backend services, and AI automation systems.',
-  openGraph: { title: 'Mohamed Nabil | Software, Data & AI', description: 'Web applications, data products, backend services, and AI automation systems.', images: ['/images/mohamed-nabil-main.jpeg'] },
+  openGraph: { title: 'Mohamed Nabil | Software, Data & AI', description: 'Web applications, data products, backend services, and AI automation systems.', images: ['/professional-portrait.png'] },
   icons: {
     icon: '/fav.png',
   },

@@ -21,7 +21,7 @@ export default async function MediaPage() {
         <h2 className="font-serif text-2xl">Shared portrait</h2>
         <div className="mt-4 flex flex-wrap items-center gap-5">
           <div className="relative h-32 w-32 overflow-hidden rounded-2xl bg-secondary-ground">
-            <Image src={profile.profile_image_url || '/images/mohamed-nabil-main.jpeg'} alt="Shared formal profile" fill sizes="128px" className="object-cover object-top" />
+            <Image src={profile.profile_image_url || '/professional-portrait.png'} alt="Shared formal profile" fill sizes="128px" className="object-cover object-top" />
           </div>
           <Link className="button-primary px-4 py-3 text-xs" href="/admin/profile">Manage portrait</Link>
         </div>

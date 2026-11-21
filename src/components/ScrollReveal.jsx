@@ -17,7 +17,9 @@ export default function ScrollReveal({ children, className = "", index = 0, as =
     viewport={{ once: true, amount: .12, margin: "0px 0px -24px 0px" }}
     transition={{
       duration: .62,
-      delay: enabled ? (index % 3) * .1 : 0,
+      // Each card gets its own beat. This keeps a row from arriving as one
+      // synchronized block and gives visitors time to read the hierarchy.
+      delay: enabled ? Math.min(index * .12, .48) : 0,
       ease: [.22, 1, .36, 1],
     }}
   >{children}</Component>;

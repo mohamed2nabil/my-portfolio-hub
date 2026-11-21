@@ -8,7 +8,7 @@ function normalize(project) {
     ...project,
     shortDesc: project.short_description || project.shortDesc,
     techStack: project.technologies || project.techStack || [],
-    poster: images[0]?.url || project.poster || '/images/mohamed-nabil-main.jpeg',
+    poster: images[0]?.url || project.poster || '/professional-portrait.png',
     images: images.map((image) => ({ url: image.url, label: image.alt_text || image.label || project.title })),
     liveDemo: project.live_demo_url || project.liveDemo,
     github: project.github_url || project.github,

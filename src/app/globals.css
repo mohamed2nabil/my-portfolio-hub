@@ -13,8 +13,6 @@
 .eyebrow { font-family: var(--font-mono); font-size: .72rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; } .type-cursor { display: inline-block; margin-left: .08em; animation: cursor .8s steps(2) infinite; } @keyframes cursor { 50% { opacity: 0; } }
 .flow-diagram { display: flex; align-items: stretch; gap: .6rem; overflow-x: auto; padding: .25rem; } .flow-step-wrap { display: flex; align-items: center; gap: .6rem; min-width: 10.2rem; flex: 1; } .flow-step { min-height: 8.5rem; flex: 1; border: 1px solid var(--color-hairline); border-radius: 1rem; background: var(--color-ground); padding: 1rem; } .flow-step span { display: block; color: var(--accent); font-family: var(--font-mono); font-size: .7rem; font-weight: 700; } .flow-step strong { display: block; margin-top: .9rem; font-family: var(--font-serif); font-size: 1.25rem; } .flow-step small { display: block; margin-top: .35rem; color: var(--color-secondary-ink); font-size: .75rem; line-height: 1.35; } .flow-link { width: 1.4rem; height: 1px; flex: 0 0 1.4rem; background: var(--accent); transform-origin: left; }
 @media (max-width: 640px) { .content-frame { width: min(100% - 2.5rem, 74rem); } .flow-diagram { margin-inline: -1.25rem; padding-inline: 1.25rem; } }
-@media (prefers-reduced-motion: reduce) { :root:not([data-site-motion="on"]) *, :root:not([data-site-motion="on"]) *::before, :root:not([data-site-motion="on"]) *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: .01ms !important; } }
-:root[data-site-motion="off"] *, :root[data-site-motion="off"] *::before, :root[data-site-motion="off"] *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: .01ms !important; }
 
 /* Soft-touch details across the public contact flow */
 #contact input:not([type="hidden"]), #contact textarea, #contact button[type="submit"] { border-radius: .95rem; }
@@ -72,12 +70,6 @@
 }
 @keyframes speed-tail { from { transform: translateX(0); opacity: .7; } to { transform: translateX(-76px); opacity: 0; } }
 @keyframes speed-lines { from { transform: translateX(0); opacity: .22; } to { transform: translateX(-440%); opacity: 0; } }
-@media (prefers-reduced-motion: reduce) {
-  :root:not([data-site-motion="on"]) .speed-figure,
-  :root:not([data-site-motion="on"]) .speed-tail i,
-  :root:not([data-site-motion="on"]) .speed-fazers i,
-  :root:not([data-site-motion="on"]) .type-cursor { animation: none !important; }
-}
 
 
 /* One visual rhythm for source -> processing -> outcome.

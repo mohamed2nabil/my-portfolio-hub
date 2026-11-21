@@ -74,8 +74,8 @@ export default function ResultCardSwap({ projects = [], basePath = "/ai-automati
 function ProjectCard({ project, basePath }) {
   return <article className="group w-full overflow-hidden rounded-[1.65rem] border border-indigo-700/20 bg-ground shadow-lg shadow-indigo-950/5 transition-shadow duration-300 hover:shadow-xl">
     <Link href={basePath + "/" + project.id} className="block focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-700">
-      <div className="relative aspect-[16/9] max-h-[45svh] overflow-hidden bg-secondary-ground">
-        <Image src={project.poster} alt={project.title} fill sizes="(max-width:900px) 100vw, 760px" className="object-cover transition-transform duration-500 group-hover:scale-[1.035]" />
+      <div className="relative h-[clamp(14rem,37svh,20rem)] w-full overflow-hidden bg-secondary-ground">
+        <Image src={project.poster} alt={project.title} fill sizes="(max-width:900px) 100vw, 760px" className="object-cover object-center transition-transform duration-500 group-hover:scale-[1.035]" />
       </div>
       <div className="grid gap-2 p-4 sm:p-5">
         <h3 className="font-serif text-xl font-medium sm:text-2xl">{project.title}</h3>

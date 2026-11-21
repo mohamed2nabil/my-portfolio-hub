@@ -25,6 +25,6 @@ for (const [file, name, output, category] of groups) {
   await writeFile(resolve(root, 'content/projects', output), `${JSON.stringify(projects.map((item, i) => normalize(item, category, i)), null, 2)}\n`);
 }
 await writeFile(resolve(root, 'content/projects/data-engineering.json'), '[]\n');
-await writeFile(resolve(root, 'content/profile.json'), `${JSON.stringify({ name: 'Mohamed Nabil', title: 'Software, Data & AI Engineer', email: '', github_url: 'https://github.com/mohamed2nabil', linkedin_url: 'https://www.linkedin.com/in/mohamed-nabil-41047a223/', biography: '', profile_image_url: '/images/mohamed-nabil-main.jpeg' }, null, 2)}\n`);
+await writeFile(resolve(root, 'content/profile.json'), `${JSON.stringify({ name: 'Mohamed Nabil', title: 'Software, Data & AI Engineer', email: '', github_url: 'https://github.com/mohamed2nabil', linkedin_url: 'https://www.linkedin.com/in/mohamed-nabil-41047a223/', biography: '', profile_image_url: '/professional-portrait.png' }, null, 2)}\n`);
 const skills = ['Laravel','PHP','Composer','MySQL','PostgreSQL','Docker','AI Integration','Embeddings','Vector Databases','Semantic Search','Next.js','JavaScript','React','Python','APIs','n8n','Power BI'];
 await writeFile(resolve(root, 'content/skills.json'), `${JSON.stringify(skills.map((name, sort_order) => ({ id: name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/-$/, ''), name, category: 'Professional skills', visible: true, sort_order })), null, 2)}\n`);

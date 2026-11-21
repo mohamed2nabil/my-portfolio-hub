@@ -1,5 +1,5 @@
 import LandingClient from "./LandingClient";
-import { getProfile, getSkills } from "@/lib/content";
+import { getSkills } from "@/lib/content";
 import { getPublishedProjects } from "@/lib/projects";
 
 export const revalidate = 60;
@@ -13,9 +13,8 @@ const labels = {
 
 export default async function LandingPage() {
   const categories = Object.keys(labels);
-  const [groups, profile, allSkills] = await Promise.all([
+  const [groups, allSkills] = await Promise.all([
     Promise.all(categories.map(getPublishedProjects)),
-    getProfile(),
     getSkills(),
   ]);
   const featured = groups.flat()
@@ -37,5 +36,5 @@ export default async function LandingPage() {
     });
   const skillGroups = order.filter((name) => grouped.has(name)).slice(0, 4)
     .map((name) => [name, grouped.get(name).slice(0, 5).join(" · ")]);
-  return <LandingClient featured={featured} profile={profile} skillGroups={skillGroups} />;
+  return <LandingClient featured={featured} skillGroups={skillGroups} />;
 }
