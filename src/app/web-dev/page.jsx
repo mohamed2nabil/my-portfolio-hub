@@ -2,7 +2,7 @@ import Image from "next/image";
 import ProfilePortrait from "@/components/ProfilePortrait";
 import Link from "next/link";
 import Typewriter from "@/components/Typewriter";
-import SquaresBackground from "@/components/SquaresBackground";
+import HeroSquares from "@/components/HeroSquares";
 import LetterReveal from "@/components/LetterReveal";
 import ScrollReveal from "@/components/ScrollReveal";
 import { webDevProjects } from "@/data/web-dev-projects";
@@ -24,14 +24,7 @@ export default async function WebDevPage() {
   return (
     <div className="page-shell">
       <section className="relative isolate overflow-hidden border-b border-emerald-700/20">
-        <div className="pointer-events-none absolute inset-0 z-0 opacity-90 bg-[linear-gradient(rgba(22,135,105,.07)_1px,transparent_1px),linear-gradient(90deg,rgba(22,135,105,.07)_1px,transparent_1px)] bg-[size:28px_28px]">
-          <SquaresBackground
-            speed={0.52}
-            squareSize={28}
-            borderColor="rgba(22, 135, 105, .13)"
-            hoverFillColor="rgba(22, 135, 105, .09)"
-          />
-        </div>
+        <HeroSquares lineColor="rgba(22, 135, 105, .11)" hoverFillColor="rgba(22, 135, 105, .09)" size={28} speed={0.52}/>
         <div className="content-frame relative z-10 grid items-center gap-10 py-16 sm:py-20 lg:grid-cols-[1.2fr_.8fr] lg:py-24">
           <div>
             <p className="eyebrow text-emerald-700">
