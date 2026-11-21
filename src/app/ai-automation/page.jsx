@@ -1,4 +1,5 @@
 import ProfilePortrait from "@/components/ProfilePortrait";
+import HeroSquares from "@/components/HeroSquares";
 import Link from "next/link";
 import FlowDiagram from "@/components/FlowDiagram";
 import Typewriter from "@/components/Typewriter";
@@ -15,8 +16,9 @@ export default async function AIAutomationPage() {
   ]);
   return (
     <div className="page-shell">
-      <section className="border-b border-indigo-700/20 bg-[radial-gradient(circle_at_80%_20%,rgba(91,80,181,.13),transparent_24rem)]">
-        <div className="content-frame grid items-center gap-10 py-16 sm:py-20 lg:grid-cols-[1.15fr_.85fr]">
+      <section className="relative isolate overflow-hidden border-b border-indigo-700/20 bg-[radial-gradient(circle_at_80%_20%,rgba(91,80,181,.13),transparent_24rem)]">
+        <HeroSquares lineColor="rgba(91, 80, 181, .092)" hoverFillColor="rgba(91, 80, 181, .075)" size={28} speed={0.43}/>
+        <div className="content-frame relative z-10 grid items-center gap-10 py-16 sm:py-20 lg:grid-cols-[1.15fr_.85fr]">
           <div>
             <p className="eyebrow text-indigo-700">
               AI automation / workflow architecture
