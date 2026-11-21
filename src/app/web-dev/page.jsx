@@ -1,4 +1,5 @@
 import Image from "next/image";
+import ProfilePortrait from "@/components/ProfilePortrait";
 import Link from "next/link";
 import Typewriter from "@/components/Typewriter";
 import SquaresBackground from "@/components/SquaresBackground";
@@ -56,18 +57,7 @@ export default async function WebDevPage() {
               See selected work
             </a>
           </div>
-          <div className="relative mx-auto aspect-square w-full max-w-sm overflow-hidden rounded-[1.7rem] border border-emerald-700/20 bg-secondary-ground">
-            <Image
-              src={
-                profile.profile_image_url || "/professional-portrait.png"
-              }
-              alt="Mohamed Nabil"
-              fill
-              priority
-              sizes="(max-width: 1024px) 80vw, 30vw"
-              className="object-cover object-top"
-            />
-          </div>
+          <div className="mx-auto flex w-full justify-center"><ProfilePortrait src={profile.profile_image_url} priority className="w-[min(58vw,13.75rem)] rounded-[1.7rem] border border-emerald-700/20 bg-secondary-ground lg:w-full lg:max-w-sm" /></div>
         </div>
       </section>
       <section className="content-frame section-space">

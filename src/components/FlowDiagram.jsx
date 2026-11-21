@@ -28,7 +28,6 @@ export default function FlowDiagram({ steps, accent = "#3158a8", label = "Workfl
       >
         <div className="flow-step-top">
           <span>{String(index + 1).padStart(2, "0")}</span>
-          <i aria-hidden="true" className="flow-step-status" />
         </div>
         <strong>{step.title}</strong>
         <small>{step.detail}</small>
@@ -38,14 +37,8 @@ export default function FlowDiagram({ steps, accent = "#3158a8", label = "Workfl
           data-testid="flow-connector"
           className="flow-link-progress"
           initial={false}
-          animate={{ scaleX: !enabled || running ? 1 : 0 }}
+          animate={{ scaleX: !enabled || running ? 1 : 0, scaleY: !enabled || running ? 1 : 0 }}
           transition={{ duration: .27, delay: running ? index * .26 + .19 : 0, ease: "easeOut" }}
-        />
-        <motion.span
-          className="flow-link-packet"
-          initial={false}
-          animate={running ? { x: ["0%", "240%"], opacity: [0, 1, 0] } : { x: "0%", opacity: 0 }}
-          transition={{ delay: running ? index * .26 + .16 : 0, duration: .37, ease: "easeInOut" }}
         />
       </div>}
     </div>)}

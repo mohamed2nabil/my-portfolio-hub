@@ -5,6 +5,8 @@
 }
 :root { --background: var(--color-ground); --foreground: var(--color-ink); }
 * { box-sizing: border-box; } html { scroll-behavior: smooth; scroll-padding-top: 5.5rem; } body { margin: 0; color: var(--foreground); background: var(--background); font-family: var(--font-sans); } button, input, textarea { font: inherit; }
+.portrait-shell { overflow: hidden; line-height: 0; }
+.portrait-image { display: block; width: 100%; height: auto; object-fit: contain; }
 .font-serif { font-family: var(--font-serif); } .font-mono { font-family: var(--font-mono); }
 .button-primary { display: inline-flex; align-items: center; justify-content: center; gap: .5rem; border-radius: .9rem; background: var(--color-ink); color: var(--color-ground); font-family: var(--font-mono); font-weight: 700; letter-spacing: .06em; text-transform: uppercase; transition: transform .2s ease, background .2s ease; }
 .button-primary:hover { background: var(--color-ink-blue); transform: translateY(-1px); }
@@ -107,15 +109,6 @@
 }
 .flow-step-top { display: flex; justify-content: space-between; align-items: center; }
 .flow-step .flow-step-top span { color: var(--accent); font-size: .68rem; }
-.flow-step-status {
-  display: block;
-  width: .4rem;
-  height: .4rem;
-  background: var(--accent);
-  border-radius: 50%;
-  opacity: .45;
-  box-shadow: 0 0 0 3px color-mix(in srgb,var(--accent) 10%,transparent);
-}
 .flow-step strong { margin-top: 1rem; }
 .flow-step small { margin-top: .4rem; }
 .flow-link-track {
@@ -134,15 +127,13 @@
   background: var(--accent);
   opacity: .8;
 }
-.flow-link-packet {
-  position: absolute; left: 0; top: -2px;
-  width: 5px; height: 5px; border-radius: 50%;
-  background: var(--accent);
-}
 @media (max-width: 760px) {
   .flow-diagram { display: grid; gap: 0; overflow: visible; margin-inline: 0; padding-inline: 0; }
   .flow-step-wrap { display: grid; grid-template-columns: 1fr; gap: 0; }
-  .flow-step { min-height: 6.5rem; }
-  .flow-step strong { margin-top: .5rem; }
-  .flow-link-track { width: 2px; height: 1.25rem; margin: .125rem 0 .125rem 1.4rem; }
+  .flow-step { display: grid; grid-template-columns: 1.7rem minmax(0, 1fr); min-height: 5rem; padding: .75rem .85rem; column-gap: .25rem; }
+  .flow-step-top { grid-row: 1 / span 2; grid-column: 1; display: block; }
+  .flow-step strong { grid-column: 2; margin-top: 0; font-size: 1.1rem; }
+  .flow-step small { grid-column: 2; margin-top: .15rem; font-size: .75rem; }
+  .flow-link-track { width: 2px; height: 1rem; margin: .1rem 0 .1rem 1.55rem; transform-origin: center top; }
+  .flow-link-progress { transform-origin: center top; }
 }

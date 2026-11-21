@@ -1,4 +1,4 @@
-import Image from "next/image";
+import ProfilePortrait from "@/components/ProfilePortrait";
 import Link from "next/link";
 import FlowDiagram from "@/components/FlowDiagram";
 import ScrollReveal from "@/components/ScrollReveal";
@@ -53,18 +53,7 @@ export default async function DataEngineerPage() {
               Explore the pipeline
             </a>
           </div>
-          <div className="relative mx-auto aspect-[5/4] w-full max-w-sm overflow-hidden rounded-[1.7rem] border border-amber-700/25">
-            <Image
-              src={
-                profile.profile_image_url || "/professional-portrait.png"
-              }
-              alt="Mohamed Nabil"
-              fill
-              priority
-              sizes="(max-width:1024px) 80vw,30vw"
-              className="object-cover object-top"
-            />
-          </div>
+          <div className="mx-auto flex w-full justify-center"><ProfilePortrait src={profile.profile_image_url} priority className="w-[min(58vw,13.75rem)] rounded-[1.7rem] border border-amber-700/25 bg-secondary-ground lg:w-full lg:max-w-sm" /></div>
         </div>
       </section>
       <section id="pipeline" className="bg-secondary-ground">
